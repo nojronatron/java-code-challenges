@@ -19,16 +19,13 @@ Last-in-first-out (LIFO): Another way of saying FIFO, but from the other perspec
 
 ## Properties
 
-### IsEmpty
+### Front
 
-Simply returns whether Front is null or not (boolean).
+Returns reference to the Front Node.
 
-Pseudocode:
+### Rear
 
-```text
-Algorithm isEmpty()
-return front == null
-```
+Returns reference to the Rear Node.
 
 ### Node Next
 
@@ -43,6 +40,17 @@ Rear node is the only Node that points to null unless there is only one node, th
 Hold the value assigned to the Node.
 
 ## Operations
+
+## IsEmpty
+
+Simply returns whether Front is null or not (boolean).
+
+Pseudocode:
+
+```text
+Algorithm isEmpty()
+return front == null
+```
 
 ### Enqueue
 
