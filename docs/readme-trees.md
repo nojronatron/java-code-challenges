@@ -182,7 +182,7 @@ Time Complexity:
 
 Space Complexity:
 
-- Node insertion: O(w) where w is largest *width* of the tree.
+- Node insertion: O(w) where w is *width* of the tree at its widest point.
 
 ## Binary Search Trees
 
