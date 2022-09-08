@@ -224,3 +224,17 @@ Time:
 Space:
 
 - Search operation: O(1) because no additional space is allocated to complete the operation.
+
+## Unit Tests
+
+## Code
+
+Code can be found in java-code-challenges library files:
+
+- [Binary Node](../lib/src/main/java/java/code/challenges/MyBinaryNode.java)
+- [Binary Tree](../lib/src/main/java/java/code/challenges/MyBinaryTree.java)
+- [Binary Search Tree](../lib/src/main/java/java/code/challenges/MyBST.java)
+
+## Resources and Acknowledgements
+
+Code Fellows common curriculum: Overall guidance and pseudocode.
