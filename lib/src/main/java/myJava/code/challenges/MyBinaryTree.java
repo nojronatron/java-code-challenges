@@ -1,7 +1,10 @@
 package myJava.code.challenges;
 
+import java.util.ArrayList;
+
 public class MyBinaryTree {
     private MyBinaryNode root = null;
+    private ArrayList<Integer> storageArray = new ArrayList<>();
 
     public MyBinaryTree() {
         this.root = null;
@@ -20,7 +23,9 @@ public class MyBinaryTree {
     }
 
     public void preOrder(MyBinaryNode root) {
-        // process root.getValue()
+        // process root node here
+        storageArray.add(root.getValue());
+
         if (root.getLeft() != null) {
             preOrder(root.getLeft());
         }
@@ -51,5 +56,39 @@ public class MyBinaryTree {
 
     public void breadthFirst(MyBinaryNode root) {
         // TODO: Implement MyQueue before implementing
+    }
+
+    public void addItemToStorageArray(int item) {
+        this.storageArray.add(item);
+    }
+
+    public boolean resetStorageArray() {
+        this.storageArray.clear();
+        this.storageArray = new ArrayList<>();
+        return true;
+    }
+
+    /***
+     * Returns a stringified representation of the internal storage array to the caller.
+     * If the internal storage array is empty it returns '[]'.
+     * @return String
+     */
+    public String getStorageArray() {
+        if (this.storageArray.size() < 1) {
+            return "[]";
+        }
+
+        StringBuilder result = new StringBuilder();
+        result.append("[ ");
+
+        for(int item: this.storageArray) {
+            result.append(item).append(", ");
+        }
+
+        int resultLen = result.length();
+        result.delete(resultLen - 2, resultLen - 1);
+        result.append("]");
+
+        return result.toString();
     }
 }
