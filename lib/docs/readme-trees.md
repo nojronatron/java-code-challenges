@@ -186,3 +186,41 @@ Space Complexity:
 
 ## Binary Search Trees
 
+Similar to a binary tree, but *does have structure*.
+
+Referred to as 'BST'.
+
+Nodes are organized by value: The farthest left to the furthest down and right.
+
+Specifically:
+
+- Nodes with value LESSER than the root are placed to the LEFT.
+- Nodes with value GREATER than the root are placed to the RIGHT.
+
+### Searching a BST
+
+Faster than searching a binary tree, because only certain nodes are visited to find the target node value.
+
+1. Take the input value you are searching for.
+2. Compare it to the current Node (starting with Root) and move left or right depending on the comparison:
+3. Less than root.value? Look at root.left.
+4. Greater than root.value? Look at root.right.
+
+Searching a tree with 10 nodes might require:
+
+- Up to 10 operations to search a balanced binary tree.
+- Up to h (height) operations to search a BST.
+
+Code Fellows Curriculum recommends using a 'while' loop to search a BST, which will end when it hits a leaf (not found), or hits a node value that matches the search criteria (success).
+
+### BST Big-O Analysis
+
+Time:
+
+- Insertion and Search operations: O(h) aka O(height).
+- Balanced (or perfect) tree search: O(log(n)).
+- Unbalanced tree search: O(n).
+
+Space:
+
+- Search operation: O(1) because no additional space is allocated to complete the operation.
