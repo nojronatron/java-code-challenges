@@ -20,8 +20,21 @@ public class MyQueue {
 
     public void enqueue(int value) {
         MyNode newNode = new MyNode(value);
-        this.rear.setNext(newNode);
-        this.rear = newNode;
+        // queue has 2 or more nodes
+        if (this.rear != null && this.rear != this.front) {
+            this.rear.setNext(newNode);
+            this.rear = newNode;
+        }
+        // queue has 1 node
+        if (this.rear != null && this.rear == this.front) {
+            this.rear = newNode;
+            this.front.setNext(this.rear);
+        }
+        // queue is empty so rear is null
+        if (this.rear == null) {
+            this.front = newNode;
+            this.rear = this.front;
+        }
     }
 
     public int dequeue() throws NullPointerException {
