@@ -124,3 +124,65 @@ while !breadth.is_empty()
     if temp.right is not NULL
         breadth.enqueue(front.right)
 ```
+
+## Types of Trees
+
+Nodes in any type of tree are going to have child nodes, it is just a matter of how many: 0, few, or many.
+
+### Binary Tree
+
+Nodes are limited to 2 children: left and right.
+
+Ordering is unspecified, and when Nodes are added, they are inserted wherever space allows.
+
+### K-ary Tree
+
+Nodes are not limited to 2 children, and have K children instead, representing the maximum number of children that node can have.
+
+#### Traversing K-ary Trees
+
+Use breadth first traversal:
+
+1. Push nodes into a queue.
+2. Check for the presence of nodes, from the first to the last in the list of K children.
+3. Repeat for all nodes until the queue is empty.
+
+Pseudocode:
+
+```text
+Algorithm breadthFirst(root)
+Queue breadth <= new Queue()
+breadth.enqueue(root)
+while !breadth.is_empty()
+    node temp = breadth.dequeue()
+    Process: temp.value
+    for child in temp.children:
+        breadth.enqueue(child)
+```
+
+A binary tree is a special case of a K-ary Tree.
+
+### Adding a Node
+
+According to Code Fellows curriculum there are no placement rules in a Binary Tree.
+
+In this case, just place a new node in any empty child spot, from the top down.
+
+This implies using breadth-first traversal to find the next-best placement spot.
+
+To place a node in a specific location, reference both the new node to create *and* the parent node the new node should be attached to. Fill the empty child 'slots' from left-to-right. Depending on whether or not the targeted parent node is 'full' with children, this could be successful or cause an exception that should be handled gracefully.
+
+### Big-O of Trees
+
+Time Complexity:
+
+- Node insertion: O(n)
+- Search for specific node: O(n)
+- Traversal: O(n) => If the tree has N nodes, traversing the tree requires visiting N nodes.
+
+Space Complexity:
+
+- Node insertion: O(w) where w is largest *width* of the tree.
+
+## Binary Search Trees
+
