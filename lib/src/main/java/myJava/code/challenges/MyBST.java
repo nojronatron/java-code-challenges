@@ -1,4 +1,4 @@
-package java.code.challenges;
+package myJava.code.challenges;
 
 public class MyBST {
     private MyBinaryNode root = null;
