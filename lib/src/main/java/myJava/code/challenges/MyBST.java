@@ -7,6 +7,14 @@ public class MyBST {
         this.root = root;
     }
 
+    public MyBinaryNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(MyBinaryNode root) {
+        this.root = root;
+    }
+
     public boolean contains(int value) {
         if (this.root.getValue() == value) {
             return true;
