@@ -114,8 +114,10 @@ When making a class generic, remember these tips:
 - Look at the constructors and make sure generic properties are initialized properly (if they need to be).
 - Look at each private and public method and ensure input parameters are templated `<T>` when referencing the class itself (i.e. `addNext(MyNode<T> node)`) and properties that are generic.
 - Review calling functions that rely on the generic methods and ensure they define the type in the template `<T>` when initializing or calling.
-- Make the Class itself generic so it can accept generic input parameters and its methods can return generic types.
+- Make the Class itself generic. This will allow the Class members to accept generic input parameters and its methods can return generic types.
 - Avoid setting *any* types within the class itself, unless it is accepting or returning a type of itself.
+
+Look at MyNode.java for an excellent example of a Class refactored to be Generic.
 
 ## Unit Tests
 
@@ -147,3 +149,7 @@ There are other situations, but the best advice I can give is as follows:
 - Enqueue must check for 2 or more nodes first, then single node, then no nodes (a default action and return statement).
 - Dequeue must check for a single node Queue first, then two nodes, then have a default action and return for more than 2 nodes.
 - Situations where there are no nodes could be handled using `throws NullPointerException` at the method definition.
+
+## Resources and Acknowledgements
+
+Code Fellows common curriculum: Overall guidance and pseudocode.
