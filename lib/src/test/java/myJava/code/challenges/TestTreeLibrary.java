@@ -182,10 +182,5 @@ class TestTreeLibrary {
         assertEquals(expectedResult, sut.getStorageArray());
     }
 
-    @Test void testBinaryTree_ReturnsExpectedLeafCount() {
-        // create a method that takes in two directory structures (trees)
-        // method should compare both structures
-        // method returns whether or not they have the same number of individual files (leaves)
-        assertTrue(true);
-    }
+
 }
