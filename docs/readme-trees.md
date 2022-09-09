@@ -227,6 +227,8 @@ Space:
 
 ## Unit Tests
 
+- [TestTreeLibrary](../lib/src/test/java/myJava/code/challenges/TestTreeLibrary.java)
+- 
 ## Code
 
 Code can be found in java-code-challenges library files:
@@ -234,6 +236,16 @@ Code can be found in java-code-challenges library files:
 - [Binary Node](../lib/src/main/java/java/code/challenges/MyBinaryNode.java)
 - [Binary Tree](../lib/src/main/java/java/code/challenges/MyBinaryTree.java)
 - [Binary Search Tree](../lib/src/main/java/java/code/challenges/MyBST.java)
+
+## Additional Comments
+
+When processing data within a recursive function, it is okay to leverage a Class-level property such as a storage ArrayList of some type.
+
+- Remember to initialize the storage array when the class is created!
+- Consider adding a helper method (or public method) that will reset the array before running the recursive or while iterator code block.
+- Utilize a helper method (or public method) to return the contents of the storage array, perhaps as a toString-like function.
+
+Attempting to pass values around within a call-stack of recursive methods can be difficult. Think *outside the method* to solve the problem!
 
 ## Resources and Acknowledgements
 

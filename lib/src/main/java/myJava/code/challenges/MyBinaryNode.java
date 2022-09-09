@@ -10,7 +10,7 @@ public class MyBinaryNode {
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
     public void setValue(int value) {
@@ -18,7 +18,7 @@ public class MyBinaryNode {
     }
 
     public MyBinaryNode getLeft() {
-        return left;
+        return this.left;
     }
 
     public void setLeft(MyBinaryNode left) {
@@ -26,7 +26,7 @@ public class MyBinaryNode {
     }
 
     public MyBinaryNode getRight() {
-        return right;
+        return this.right;
     }
 
     public void setRight(MyBinaryNode right) {

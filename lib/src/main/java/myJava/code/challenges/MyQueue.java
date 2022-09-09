@@ -14,21 +14,38 @@ public class MyQueue<T> {
         if (this.rear != null && this.rear != this.front) {
             this.rear.setNext(newNode);
             this.rear = newNode;
+            return;
         }
         // queue has 1 node
-        if (this.rear != null && this.rear == this.front) {
+        if (this.rear != null) {
             this.rear = newNode;
             this.front.setNext(this.rear);
+            return;
         }
         // queue is empty so rear is null
-        if (this.rear == null) {
             this.front = newNode;
             this.rear = this.front;
-        }
     }
 
     public T dequeue() throws NullPointerException {
         var temp = this.front;
+
+        // there is one node in the queue
+        if (this.rear != null && this.front != null && this.rear == this.front) {
+            var returnVal = temp.getValue();
+            this.rear = null;
+            this.front = null;
+            return returnVal;
+        }
+
+        // there are two nodes in the queue
+        if (this.rear != null && this.front != null && this.rear == this.front.getNext()) {
+            this.front = this.rear;
+            temp.setNext(null);
+            return temp.getValue();
+        }
+
+        // there are more than two nodes in the queue
         this.front = front.getNext();
         temp.setNext(null);
         return temp.getValue();

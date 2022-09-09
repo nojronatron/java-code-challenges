@@ -62,12 +62,15 @@ public class MyBinaryTree {
         breadth.enqueue(root);
         while (!breadth.isEmpty()) {
             MyBinaryNode temp = breadth.dequeue();
+
             // process temp node value here
+            storageArray.add(temp.getValue());
+
             if (temp.getLeft() != null) {
-                breadth.enqueue(root.getLeft());
+                breadth.enqueue(temp.getLeft());
             }
             if (temp.getRight() != null) {
-                breadth.enqueue(root.getRight());
+                breadth.enqueue(temp.getRight());
             }
         }
     }

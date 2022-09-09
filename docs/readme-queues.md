@@ -105,3 +105,45 @@ return front.value
 - Dequeue: O(1) in time => Does not matter how many items are in the queue.
 - Peek: O(1) in time => Does not matter how many items are in the queue.
 - IsEmpty: O(1) in time => Does not matter how many items are in the queue.
+
+## Generics
+
+When making a class generic, remember these tips:
+
+- Start with the Class-level properties. Which ones *need* to be generic? Which ones don't?
+- Look at the constructors and make sure generic properties are initialized properly (if they need to be).
+- Look at each private and public method and ensure input parameters are templated `<T>` when referencing the class itself (i.e. `addNext(MyNode<T> node)`) and properties that are generic.
+- Review calling functions that rely on the generic methods and ensure they define the type in the template `<T>` when initializing or calling.
+- Make the Class itself generic so it can accept generic input parameters and its methods can return generic types.
+- Avoid setting *any* types within the class itself, unless it is accepting or returning a type of itself.
+
+## Unit Tests
+
+- [TestQueueLibrary](../lib/src/test/java/myJava/code/challenges/TestQueueLibrary.java)
+
+## Code
+
+- [MyNode Class for use with MyQueue class](../lib/src/main/java/myJava/code/challenges/MyNode.java)
+- [MyQueue Class definition](../lib/src/main/java/myJava/code/challenges/MyQueue.java)
+
+## Advanced Enqueue and Dequeue
+
+Situations will arise where additional logic is required to get predictable, consistent results from these operations.
+
+The approach is to sort out how many nodes are already in the Queue before taking action:
+
+- Is the Queue empty?
+- Is there only one node in the Queue?
+- Are there only two nodes in the Queue?
+- Are there more than two nodes in the Queue?
+
+The reason these questions matter are:
+
+- Where there are no nodes in the Queue and you simply add a node to Rear, Front will not get updated properly.
+- When removing a node from Front and there are only one node in the Queue, removing a reference to the Front or Rear node can remove the reference to Temp node *before getting the value from it*.
+
+There are other situations, but the best advice I can give is as follows:
+
+- Enqueue must check for 2 or more nodes first, then single node, then no nodes (a default action and return statement).
+- Dequeue must check for a single node Queue first, then two nodes, then have a default action and return for more than 2 nodes.
+- Situations where there are no nodes could be handled using `throws NullPointerException` at the method definition.
