@@ -60,7 +60,7 @@ class TestTreeLibrary {
         var actualRoot = sut.getRoot();
         assertEquals(firstRoot, actualRoot);
 
-        sut.resetStorageArray();
+        assertTrue(sut.resetStorageArray());
         sut.preOrder(firstRoot);
         assertEquals("[ 1 ]", sut.getStorageArray());
 
@@ -73,8 +73,100 @@ class TestTreeLibrary {
         secondRight.setLeft(thirdRightLeft);
         secondRight.setRight(thirdRightRight);
 
-        sut.resetStorageArray();
+        assertTrue(sut.resetStorageArray());
         sut.preOrder(sut.getRoot());
+        assertEquals(expectedPreOrderArray, sut.getStorageArray());
+    }
+    @Test void testBinaryTree_InOrderExpectedResults() {
+        MyBinaryNode firstRoot = new MyBinaryNode(1);
+        MyBinaryNode secondLeft = new MyBinaryNode(2);
+        MyBinaryNode secondRight = new MyBinaryNode(3);
+        MyBinaryNode thirdLeftLeft = new MyBinaryNode(4);
+        MyBinaryNode thirdLeftRight = new MyBinaryNode(5);
+        MyBinaryNode thirdRightLeft = new MyBinaryNode(6);
+        MyBinaryNode thirdRightRight = new MyBinaryNode(7);
+
+        MyBinaryTree sut = new MyBinaryTree(firstRoot);
+        var actualRoot = sut.getRoot();
+        assertEquals(firstRoot, actualRoot);
+
+        assertTrue(sut.resetStorageArray());
+        sut.inOrder(firstRoot);
+        assertEquals("[ 1 ]", sut.getStorageArray());
+
+        String expectedPreOrderArray = "[ 4, 2, 5, 1, 6, 3, 7 ]";
+
+        firstRoot.setLeft(secondLeft);
+        firstRoot.setRight(secondRight);
+        secondLeft.setLeft(thirdLeftLeft);
+        secondLeft.setRight(thirdLeftRight);
+        secondRight.setLeft(thirdRightLeft);
+        secondRight.setRight(thirdRightRight);
+
+        assertTrue(sut.resetStorageArray());
+        sut.inOrder(sut.getRoot());
+        assertEquals(expectedPreOrderArray, sut.getStorageArray());
+    }
+
+    @Test void testBinaryTree_PostOrderExpectedResults() {
+        MyBinaryNode firstRoot = new MyBinaryNode(1);
+        MyBinaryNode secondLeft = new MyBinaryNode(2);
+        MyBinaryNode secondRight = new MyBinaryNode(3);
+        MyBinaryNode thirdLeftLeft = new MyBinaryNode(4);
+        MyBinaryNode thirdLeftRight = new MyBinaryNode(5);
+        MyBinaryNode thirdRightLeft = new MyBinaryNode(6);
+        MyBinaryNode thirdRightRight = new MyBinaryNode(7);
+
+        MyBinaryTree sut = new MyBinaryTree(firstRoot);
+        var actualRoot = sut.getRoot();
+        assertEquals(firstRoot, actualRoot);
+
+        assertTrue(sut.resetStorageArray());
+        sut.postOrder(firstRoot);
+        assertEquals("[ 1 ]", sut.getStorageArray());
+
+        String expectedPreOrderArray = "[ 4, 5, 2, 6, 7, 3, 1 ]";
+
+        firstRoot.setLeft(secondLeft);
+        firstRoot.setRight(secondRight);
+        secondLeft.setLeft(thirdLeftLeft);
+        secondLeft.setRight(thirdLeftRight);
+        secondRight.setLeft(thirdRightLeft);
+        secondRight.setRight(thirdRightRight);
+
+        assertTrue(sut.resetStorageArray());
+        sut.postOrder(sut.getRoot());
+        assertEquals(expectedPreOrderArray, sut.getStorageArray());
+    }
+
+    @Test void testBinaryTree_BreadthFirstTraversalExpectedResults() {
+        MyBinaryNode firstRoot = new MyBinaryNode(1);
+        MyBinaryNode secondLeft = new MyBinaryNode(2);
+        MyBinaryNode secondRight = new MyBinaryNode(3);
+        MyBinaryNode thirdLeftLeft = new MyBinaryNode(4);
+        MyBinaryNode thirdLeftRight = new MyBinaryNode(5);
+        MyBinaryNode thirdRightLeft = new MyBinaryNode(6);
+        MyBinaryNode thirdRightRight = new MyBinaryNode(7);
+
+        MyBinaryTree sut = new MyBinaryTree(firstRoot);
+        var actualRoot = sut.getRoot();
+        assertEquals(firstRoot, actualRoot);
+
+        assertTrue(sut.resetStorageArray());
+        sut.breadthFirst(firstRoot);
+        assertEquals("[ 1 ]", sut.getStorageArray());
+
+        String expectedPreOrderArray = "[ 1, 2, 3, 4, 5, 6, 7 ]";
+
+        firstRoot.setLeft(secondLeft);
+        firstRoot.setRight(secondRight);
+        secondLeft.setLeft(thirdLeftLeft);
+        secondLeft.setRight(thirdLeftRight);
+        secondRight.setLeft(thirdRightLeft);
+        secondRight.setRight(thirdRightRight);
+
+        assertTrue(sut.resetStorageArray());
+        sut.breadthFirst(sut.getRoot());
         assertEquals(expectedPreOrderArray, sut.getStorageArray());
     }
 
@@ -85,7 +177,7 @@ class TestTreeLibrary {
         int expectedValue = 11;
         String expectedResult = String.format("[ %1$s ]", expectedValue);
 
-        sut.resetStorageArray();
+        assertTrue(sut.resetStorageArray());
         sut.addItemToStorageArray(expectedValue);
         assertEquals(expectedResult, sut.getStorageArray());
     }

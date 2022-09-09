@@ -38,7 +38,9 @@ public class MyBinaryTree {
         if (root.getLeft() != null) {
             inOrder(root.getLeft());
         }
-        // process root.getValue();
+        // process root node here
+        storageArray.add(root.getValue());
+
         if (root.getRight() != null) {
             inOrder(root.getRight());
         }
@@ -51,7 +53,8 @@ public class MyBinaryTree {
         if (root.getRight() != null) {
             postOrder(root.getRight());
         }
-        // process root.getValue();
+        // process root node here
+        storageArray.add(root.getValue());
     }
 
     public void breadthFirst(MyBinaryNode root) {
