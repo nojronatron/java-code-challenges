@@ -1,27 +1,27 @@
 package myJava.code.challenges;
 
-public class MyNode {
-    private int value;
-    private MyNode next;
+public class MyNode<T> {
+    private T value;
+    private MyNode<T> next;
 
-    public MyNode(int value) {
+    public MyNode(T value) {
         this.value = value;
         this.next = null;
     }
 
-    public int getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(T value) {
         this.value = value;
     }
 
-    public MyNode getNext() {
-        return next;
+    public MyNode<T> getNext() {
+        return this.next;
     }
 
-    public void setNext(MyNode next) {
+    public void setNext(MyNode<T> next) {
         this.next = next;
     }
 }

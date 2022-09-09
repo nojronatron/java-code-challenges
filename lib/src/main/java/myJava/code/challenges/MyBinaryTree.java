@@ -58,7 +58,18 @@ public class MyBinaryTree {
     }
 
     public void breadthFirst(MyBinaryNode root) {
-        // TODO: Implement MyQueue before implementing
+        MyQueue<MyBinaryNode> breadth = new MyQueue<>();
+        breadth.enqueue(root);
+        while (!breadth.isEmpty()) {
+            MyBinaryNode temp = breadth.dequeue();
+            // process temp node value here
+            if (temp.getLeft() != null) {
+                breadth.enqueue(root.getLeft());
+            }
+            if (temp.getRight() != null) {
+                breadth.enqueue(root.getRight());
+            }
+        }
     }
 
     public void addItemToStorageArray(int item) {

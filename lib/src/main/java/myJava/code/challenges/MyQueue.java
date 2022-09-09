@@ -1,25 +1,15 @@
 package myJava.code.challenges;
 
-public class MyQueue {
-    private MyNode front;
-    private MyNode rear;
-
-    public MyQueue(){
-        this.front = null;
-        this.rear = null;
-    }
-
-    public MyQueue(MyNode node) {
-        this.front = node;
-        this.rear = node;
-    }
+public class MyQueue<T> {
+    private MyNode<T> front = null;
+    private MyNode<T> rear = null;
 
     public boolean isEmpty() {
         return this.front == null;
     }
 
-    public void enqueue(int value) {
-        MyNode newNode = new MyNode(value);
+    public void enqueue(T value) {
+        MyNode<T> newNode = new MyNode<>(value);
         // queue has 2 or more nodes
         if (this.rear != null && this.rear != this.front) {
             this.rear.setNext(newNode);
@@ -37,14 +27,14 @@ public class MyQueue {
         }
     }
 
-    public int dequeue() throws NullPointerException {
-        MyNode temp = this.front;
+    public T dequeue() throws NullPointerException {
+        var temp = this.front;
         this.front = front.getNext();
         temp.setNext(null);
         return temp.getValue();
     }
 
-    public int peek() throws NullPointerException {
+    public T peek() throws NullPointerException {
         return this.front.getValue();
     }
 }

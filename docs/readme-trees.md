@@ -120,9 +120,9 @@ while !breadth.is_empty()
     node temp = breadth.dequeue()
     Process: temp.value
     if temp.left is not NULL
-        breadth.enqueue(front.left)
+        breadth.enqueue(temp.left)
     if temp.right is not NULL
-        breadth.enqueue(front.right)
+        breadth.enqueue(temp.right)
 ```
 
 ## Types of Trees
