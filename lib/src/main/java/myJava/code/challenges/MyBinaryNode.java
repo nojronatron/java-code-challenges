@@ -1,6 +1,6 @@
 package myJava.code.challenges;
 
-public class MyBinaryNode {
+public class MyBinaryNode implements IMyBinaryNode {
     private int value;
     private MyBinaryNode left;
     private MyBinaryNode right;
@@ -17,18 +17,22 @@ public class MyBinaryNode {
         this.value = value;
     }
 
+    @Override
     public MyBinaryNode getLeft() {
         return this.left;
     }
 
+    @Override
     public void setLeft(MyBinaryNode left) {
         this.left = left;
     }
 
+    @Override
     public MyBinaryNode getRight() {
         return this.right;
     }
 
+    @Override
     public void setRight(MyBinaryNode right) {
         this.right = right;
     }

@@ -15,5 +15,16 @@ public class TestKaryTreeLibrary {
         int actualChildren = sut.getChildren().size();
         assertEquals(expectedChildren, actualChildren);
     }
-    
+
+    @Test
+    void test_MyKaryNodesHaveManyValueTypes() {
+
+    }
+
+    @Test
+    void test_MyKaryTreeInstantiationNull() {
+        MyKaryTree<MyKaryNode<Integer>> sut = new MyKaryTree<>();
+        var actualNull = sut.getRoot();
+        assertNull(actualNull);
+    }
 }
