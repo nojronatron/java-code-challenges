@@ -6,7 +6,7 @@ package myJava.code.challenges;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestTreeLibrary {
+class TestBinaryTreeLibrary {
 
     @Test void testBinaryNode_CanInstantiate() {
         int expectedValue = 11;

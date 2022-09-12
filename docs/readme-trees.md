@@ -144,7 +144,7 @@ Nodes are not limited to 2 children, and have K children instead, representing t
 Use breadth first traversal:
 
 1. Push nodes into a queue.
-2. Check for the presence of nodes, from the first to the last in the list of K children.
+2. Check for the presence of child nodes, from the first to the last in the list of K children.
 3. Repeat for all nodes until the queue is empty.
 
 Pseudocode:
@@ -160,11 +160,11 @@ while !breadth.is_empty()
         breadth.enqueue(child)
 ```
 
-A binary tree is a special case of a K-ary Tree.
+A binary tree is a special case of a K-ary Tree, so there is a lot of overlapping logic in this traversal method.
 
 ### Adding a Node
 
-According to Code Fellows curriculum there are no placement rules in a Binary Tree.
+According to Code Fellows curriculum there are no placement rules in a Binary Tree, nor a K-ary Tree.
 
 In this case, just place a new node in any empty child spot, from the top down.
 
@@ -178,11 +178,11 @@ Time Complexity:
 
 - Node insertion: O(n)
 - Search for specific node: O(n)
-- Traversal: O(n) => If the tree has N nodes, traversing the tree requires visiting N nodes.
+- Traversal: O(n) => If the tree has N nodes, traversing the tree would require visiting N nodes in the worst case scenario.
 
 Space Complexity:
 
-- Node insertion: O(w) where w is *width* of the tree at its widest point.
+- Node insertion: O(w) where w is *width* of the tree at its widest level.
 
 ## Binary Search Trees
 
