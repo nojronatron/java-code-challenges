@@ -244,12 +244,13 @@ Code can be found in java-code-challenges library files:
 - [Leaf Counter Challenge Class](../lib/src/main/java/myJava/code/challenges/LeafCounter.java)
 - [My K-ary Tree Node](../lib/src/main/java/myJava/code/challenges/MyKaryNode.java)
 - [Binary Search Tree Node](../lib/src/main/java/myJava/code/challenges/MyBstNode.java)
+
 ### Interfaces
 
 I experimented with using interfaces to constrain generic classes. While I was able to utilize the interfaces, in the end they did not help much with "generisizing" the classes as I needed.
 
--[Interface My Binary Node](../lib/src/main/java/myJava/code/challenges/IMyBinaryNode.java)
--[Interface My K-ary Node](../lib/src/main/java/myJava/code/challenges/IMyKaryNode.java)
+- [Interface My Binary Node](../lib/src/main/java/myJava/code/challenges/IMyBinaryNode.java)
+- [Interface My K-ary Node](../lib/src/main/java/myJava/code/challenges/IMyKaryNode.java)
 
 ## Additional Comments
 
