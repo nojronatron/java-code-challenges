@@ -1,0 +1,267 @@
+# Tree Readme
+
+Review of terminology and types of trees, as well as how to code them.
+
+## Terminology
+
+Memorize this terminology for use during interviewing.
+
+Node: Component contains its own values and references to other nodes.
+
+Root: The node at the top of the Tree.
+
+K: The maximum number of children any given node can have.
+
+Left: Handy name for a binary tree child node.
+
+Right: Handy name for a binary tree child node.
+
+Edge: The link between a parent and child node.
+
+Leaf: A node that does not have any child nodes.
+
+Height: The number of edges from root to the furthest leaf.
+
+## Traversal
+
+Traversal means to move through the data structure.
+
+Two categories:
+
+- Depth First
+- Breadth First
+
+### Depth First Traversal
+
+Three types of traversals:
+
+- Pre-order: Root => Left => Right
+- In-order: Left => Root => Right
+- Post-order: Left => Right => Root
+
+Use recursion to execute Depth First traversals.
+
+When using recursion, the code will rely on the call stack to navigate back up the tree when reaching the end of a path of branches.
+
+#### Pre-order Traversal
+
+Pseudocode:
+
+```text
+Algorithm preOrder(root)
+Process: root.value
+if root.left is not NULL:
+    preOrder(root.left)
+if root.right is not NULL:
+    preOrder(root.right)
+```
+
+Root has to be processed first.
+
+Processing usually entails reading the value of the node, and perhaps performing some operation on it.
+
+Each time 'preOrder()' is called, it adds the Node to the call stack.
+
+In the pseudocode example above, root's left property is checked if it is not null and if true, preOrder() is called with root.left child node as the argument.
+
+When a function call on the call stack is completed, it is "popped off" the stack, and the function call will continue its execution where it left off.
+
+In the pseudocode example above, root's right property is checked if it is not null and if true, preOrder() is called again in the next line of code, and the root.right child node is supplied as the argument.
+
+When both root.left and root.right are null, the code exits and the function pops-off the call stack.
+
+#### In-Order Traversal
+
+Pseudocode:
+
+```text
+Algorithm inOrder(root)
+if root.left is not NULL:
+    inOrder(root.left)
+Process: root.value
+if root.right is not NULL:
+    inOrder(root.right)
+```
+
+#### Post-Order Traversal
+
+Pseudocode:
+
+```text
+Algorithm postOrder(root)
+if root.left is not NULL
+    postOrder(root.left)
+if root.right is not NULL
+    postOrder(root.right)
+Process: root.value
+```
+
+### Breadth First Traversal
+
+This is a non-recursive method to traverse a Tree.
+
+It walks through each *level* of the tree, node-by-node.
+
+Implement a Queue to assist with breadth-first traversal.
+
+1. Put the root node into the queue.
+2. Enter an iterator that continues to iterate until the queue is empty.
+3. In each iteration, dequeue a single node and store it in a temporary variable.
+4. Process the node that was just dequeued.
+5. Enqueue the left child if it is not null.
+6. Enqueue the right child if it is not null.
+
+Pseudocode:
+
+```text
+Queue breadth <= new Queue()
+breadth.enqueue(root)
+while !breadth.is_empty()
+    node temp = breadth.dequeue()
+    Process: temp.value
+    if temp.left is not NULL
+        breadth.enqueue(temp.left)
+    if temp.right is not NULL
+        breadth.enqueue(temp.right)
+```
+
+## Types of Trees
+
+Nodes in any type of tree are going to have child nodes, it is just a matter of how many: 0, few, or many.
+
+### Binary Tree
+
+Nodes are limited to 2 children: left and right.
+
+Ordering is unspecified, and when Nodes are added, they are inserted wherever space allows.
+
+### K-ary Tree
+
+Nodes are not limited to 2 children, and have K children instead, representing the maximum number of children that node can have.
+
+#### Traversing K-ary Trees
+
+Use breadth first traversal:
+
+1. Push nodes into a queue.
+2. Check for the presence of child nodes, from the first to the last in the list of K children.
+3. Repeat for all nodes until the queue is empty.
+
+Pseudocode:
+
+```text
+Algorithm breadthFirst(root)
+Queue breadth <= new Queue()
+breadth.enqueue(root)
+while !breadth.is_empty()
+    node temp = breadth.dequeue()
+    Process: temp.value
+    for child in temp.children:
+        breadth.enqueue(child)
+```
+
+A binary tree is a special case of a K-ary Tree, so there is a lot of overlapping logic in this traversal method.
+
+### Adding a Node
+
+According to Code Fellows curriculum there are no placement rules in a Binary Tree, nor a K-ary Tree.
+
+In this case, just place a new node in any empty child spot, from the top down.
+
+This implies using breadth-first traversal to find the next-best placement spot.
+
+To place a node in a specific location, reference both the new node to create *and* the parent node the new node should be attached to. Fill the empty child 'slots' from left-to-right. Depending on whether or not the targeted parent node is 'full' with children, this could be successful or cause an exception that should be handled gracefully.
+
+### Big-O of Trees
+
+Time Complexity:
+
+- Node insertion: O(n)
+- Search for specific node: O(n)
+- Traversal: O(n) => If the tree has N nodes, traversing the tree would require visiting N nodes in the worst case scenario.
+
+Space Complexity:
+
+- Node insertion: O(w) where w is *width* of the tree at its widest level.
+
+## Binary Search Trees
+
+Similar to a binary tree, but *does have structure*.
+
+Referred to as 'BST'.
+
+Nodes are organized by value: The farthest left to the furthest down and right.
+
+Specifically:
+
+- Nodes with value LESSER than the root are placed to the LEFT.
+- Nodes with value GREATER than the root are placed to the RIGHT.
+
+### Searching a BST
+
+Faster than searching a binary tree, because only certain nodes are visited to find the target node value.
+
+1. Take the input value you are searching for.
+2. Compare it to the current Node (starting with Root) and move left or right depending on the comparison:
+3. Less than root.value? Look at root.left.
+4. Greater than root.value? Look at root.right.
+
+Searching a tree with 10 nodes might require:
+
+- Up to 10 operations to search a balanced binary tree.
+- Up to h (height) operations to search a BST.
+
+Code Fellows Curriculum recommends using a 'while' loop to search a BST, which will end when it hits a leaf (not found), or hits a node value that matches the search criteria (success).
+
+### BST Big-O Analysis
+
+Time:
+
+- Insertion and Search operations: O(h) aka O(height).
+- Balanced (or perfect) tree search: O(log(n)).
+- Unbalanced tree search: O(n).
+
+Space:
+
+- Search operation: O(1) because no additional space is allocated to complete the operation.
+
+## Unit Tests
+
+- [Test Queue](../lib/src/test/java/myJava/code/challenges/TestQueueLibrary.java)
+- [Test Binary Tree Library](../lib/src/test/java/myJava/code/challenges/TestBinaryTreeLibrary.java)
+- [Test Leaf Counter challenge](../lib/src/test/java/myJava/code/challenges/TestLeafCounter.java)
+- [Test K ary Tree](../lib/src/test/java/myJava/code/challenges/TestKaryTreeLibrary.java)
+- [Test Binary Search Tree Node](../lib/src/test/java/myJava/code/challenges/TestMyBstNode.java)
+
+## Code
+
+Code can be found in java-code-challenges library files:
+
+- [My Queue](../lib/src/main/java/myJava/code/challenges/MyQueue.java)
+- [My Node (for My Queue)](../lib/src/main/java/myJava/code/challenges/MyNode.java)
+- [My Binary Node](../lib/src/main/java/myJava/code/challenges/MyBinaryNode.java)
+- [My Binary Tree (deprecated, will be removed)](../lib/src/main/java/myJava/code/challenges/MyBinaryTree.java)
+- [Leaf Counter Challenge Class](../lib/src/main/java/myJava/code/challenges/LeafCounter.java)
+- [My K-ary Tree Node](../lib/src/main/java/myJava/code/challenges/MyKaryNode.java)
+- [Binary Search Tree Node](../lib/src/main/java/myJava/code/challenges/MyBstNode.java)
+
+### Interfaces
+
+I experimented with using interfaces to constrain generic classes. While I was able to utilize the interfaces, in the end they did not help much with "generisizing" the classes as I needed.
+
+- [Interface My Binary Node](../lib/src/main/java/myJava/code/challenges/IMyBinaryNode.java)
+- [Interface My K-ary Node](../lib/src/main/java/myJava/code/challenges/IMyKaryNode.java)
+
+## Additional Comments
+
+When processing data within a recursive function, it is okay to leverage a Class-level property such as a storage ArrayList of some type.
+
+- Remember to initialize the storage array when the class is created!
+- Consider adding a helper method (or public method) that will reset the array before running the recursive or while iterator code block.
+- Utilize a helper method (or public method) to return the contents of the storage array, perhaps as a toString-like function.
+
+Attempting to pass values around within a call-stack of recursive methods can be difficult. Think *outside the method* to solve the problem!
+
+## Resources and Acknowledgements
+
+Code Fellows common curriculum: Overall guidance and pseudocode.

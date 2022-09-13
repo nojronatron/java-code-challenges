@@ -16,7 +16,7 @@ The following index links to readme files specific for each data structure and c
 
 - [ ] [Linked Lists]()
 - [ ] [Stacks and Queues]()
-- [ ] [Trees]()
+- [ ] [Trees](docs/readme-trees.md)
 - [ ] [Hash Tables]()
 - [ ] [Graphs]()
 - [ ] Binary Tree Challenge: [Count Leaf Nodes]()
