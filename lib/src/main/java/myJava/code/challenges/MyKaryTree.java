@@ -4,44 +4,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyKaryTree<T> {
-    private IMyKaryNode<T> root = null;
-    private List<T> valueStore = new ArrayList<>();
+    private T root = null;
+    private List<T> storage = new ArrayList<>();
 
-    public IMyKaryNode<T> getRoot() {
+    public T getRoot() {
         return this.root;
     }
 
-    public void setRoot(T data) {
-        this.root = new MyKaryNode<T>(data);
+    public void setRoot(T node) {
+        this.root = node;
     }
 
-    public ArrayList<T> getValueStore() {
-        return new ArrayList<>(this.valueStore);
+    public ArrayList<T> getStorage() {
+        return new ArrayList<>(this.storage);
     }
 
-    public void setValueStore(ArrayList<T> valueStore) {
-        this.valueStore = valueStore;
+    public void setStorage(ArrayList<T> storage) {
+        this.storage = storage;
     }
 
     private void resetStorageArray() {
-        this.valueStore.clear();
+        this.storage = new ArrayList<>();
     }
 
-    public void breadthFirst(IMyKaryNode<T> root) {
-        this.resetStorageArray();
-        MyQueue<IMyKaryNode<T>> breadth = new MyQueue<>();
-        breadth.enqueue(root);
-
-        while (!breadth.isEmpty()) {
-            IMyKaryNode<T> temp = breadth.dequeue();
-
-            // process the node...in this case we will just push the node value into a local arraylist
-            T tempValue = temp.getValue();
-            this.valueStore.add(tempValue);
-
-            for (var node : temp.getChildren()) {
-                breadth.enqueue(node);
-            }
-        }
-    }
+//    public void breadthFirst(T root) {
+//        this.resetStorageArray();
+//        MyQueue<T> breadth = new MyQueue<>();
+//        breadth.enqueue(root);
+//
+//        while (!breadth.isEmpty()) {
+//            T tempNode = breadth.dequeue();
+//
+//            // process the node...in this case we will just push the node into a local arraylist
+//            this.storage.add(tempNode);
+//
+//            // iterate through children and enqueue non-nulls
+//            int idx = 0;
+//            while (true) {
+//                T tempChildNode = (MyKaryNode<T>)
+//                idx++;
+//            }
+//        }
+//    }
 }

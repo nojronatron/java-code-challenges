@@ -14,7 +14,7 @@ Last-in-first-out (LIFO): Another way of saying FIFO, but from the other perspec
 - Dequeue: Remove a node from a Queue. Throws an exception if Queue is empty.
 - Front: The first node/next node to dequeue is here.
 - Rear: The last node enqueued. Will also be the last node dequeued if no other nodes are enqueued.
-- Peek: Retrieve the *value* of the Front node without dequeuing it. Throws an exception if Queue is empty.
+- Peek: Retrieve the *value* of the Front node without de-queuing it. Throws an exception if Queue is empty.
 - IsEmpty: Property returns true when no Nodes are in the Queue, otherwise returns false.
 
 ## Properties
@@ -121,12 +121,12 @@ Look at MyNode.java for an excellent example of a Class refactored to be Generic
 
 ## Unit Tests
 
-- [TestQueueLibrary](../lib/src/test/java/myJava/code/challenges/TestQueueLibrary.java)
+- [Test Queue Library](../lib/src/test/java/myJava/code/challenges/TestQueueLibrary.java)
 
 ## Code
 
-- [MyNode Class for use with MyQueue class](../lib/src/main/java/myJava/code/challenges/MyNode.java)
-- [MyQueue Class definition](../lib/src/main/java/myJava/code/challenges/MyQueue.java)
+- [My Node Class for use with My Queue class](../lib/src/main/java/myJava/code/challenges/MyNode.java)
+- [My Queue Class definition](../lib/src/main/java/myJava/code/challenges/MyQueue.java)
 
 ## Advanced Enqueue and Dequeue
 

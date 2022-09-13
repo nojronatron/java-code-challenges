@@ -1,11 +1,13 @@
 package myJava.code.challenges;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IMyKaryNode<T> {
     ArrayList<MyKaryNode<T>> getChildren();
 
-    void setChildren(ArrayList<MyKaryNode<T>> children);
+    void setChildren(List<MyKaryNode<T>> children);
 
-    T getValue();
+    boolean hasChildren();
 }
