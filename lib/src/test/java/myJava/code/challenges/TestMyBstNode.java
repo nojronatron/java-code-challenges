@@ -203,4 +203,29 @@ public class TestMyBstNode {
         System.out.println("sut.getRight().toString(): " + sut.getRight().toString());
         assertEquals("12", sut.getRight().toString());
     }
+
+    @Test
+    public void test_bstNodeListTreeStringOutput() {
+        int expectedEightValue = 8;
+        int expectedNineValue = 9;
+        int expectedTenValue = 10;
+        int expectedRootValue = 11;
+        int expectedTwelveValue = 12;
+        int expectedThirteenValue = 13;
+        int expectedFourteenValue = 14;
+        int expectedFifteenValue = 15;
+
+        MyBstNode sut = new MyBstNode(expectedRootValue);
+        sut.add(expectedTenValue);
+        sut.add(expectedTwelveValue);
+        sut.add(expectedEightValue);
+        sut.add(expectedNineValue);
+        sut.add(expectedFourteenValue);
+        sut.add(expectedThirteenValue);
+        sut.add(expectedFifteenValue);
+
+        String actualResult = sut.listTree();
+        System.out.println("List Tree String Output: " + actualResult);
+        assertInstanceOf(String.class, actualResult);
+    }
 }

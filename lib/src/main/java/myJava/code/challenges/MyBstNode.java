@@ -1,10 +1,14 @@
 package myJava.code.challenges;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyBstNode {
     // Todo: consider adding a rebalancing method
     private int value;
     private MyBstNode left;
     private MyBstNode right;
+    private List<Integer> values;
 
     public MyBstNode(int data) {
         this.value = data;
@@ -93,19 +97,19 @@ public class MyBstNode {
         return tempNode;
     }
 
-    private String inOrderTraversal(MyBstNode root) {
+    private boolean inOrderTraversal(MyBstNode root) {
         if (root.getLeft() != null) {
             inOrderTraversal(root.getLeft());
         }
 
         // process root node here
-        String nodeValue = String.valueOf(root.getValue());
+        this.values.add(root.getValue());
 
         if (root.getRight() != null) {
             inOrderTraversal(root.getRight());
         }
 
-        return root.getValue() + ", " + nodeValue;
+        return true;
     }
 
     public boolean isLeaf() {
@@ -113,11 +117,23 @@ public class MyBstNode {
     }
 
     public String listTree() {
+        this.values = new ArrayList<>();
         MyBstNode tempNode = this;
-        String nodeList = this.inOrderTraversal(tempNode);
-        StringBuilder sb = new StringBuilder();
-        sb.append("[ ").append(nodeList).append(" ]");
-        return sb.toString();
+        if (this.inOrderTraversal(tempNode)) {
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("[ ");
+
+            for (int item : this.values) {
+                sb.append(String.valueOf(item)).append(", ");
+            }
+
+            sb.delete(sb.length() - 2, sb.length());
+            sb.append(" ]");
+            return sb.toString();
+        }
+
+        return "";
     }
 
     public String toString() {
