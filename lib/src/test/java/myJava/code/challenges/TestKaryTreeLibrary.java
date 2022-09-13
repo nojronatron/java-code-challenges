@@ -1,5 +1,6 @@
 package myJava.code.challenges;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -55,8 +56,7 @@ public class TestKaryTreeLibrary {
         assertEquals(expectedString, sutString.toString());
 
         assertEquals(expectedBoolean, sutBoolean.getValue());
-        assertEquals(String.format("Boolean result: %1$s", expectedBoolean),
-                String.format("Boolean result: %1$s"), sutBoolean.toString());
+        assertEquals("true", sutBoolean.toString());
     }
 
     @Test
@@ -71,16 +71,20 @@ public class TestKaryTreeLibrary {
     }
 
     @Test
-    void test_MykaryNodeSetAndGetSingleChild() {
+    void test_MyKaryNodeSetAndGetSingleChild() {
         int expectedRootValue = 11;
         MyKaryNode<Integer> sut = new MyKaryNode<>(expectedRootValue);
         int expectedChildValue = 12;
         MyKaryNode<Integer> child = new MyKaryNode<>(expectedChildValue);
         int expectedSecondChildValue = 13;
         MyKaryNode<Integer> secondChild = new MyKaryNode<>(expectedSecondChildValue);
-        
-        MyKaryNode<Integer> expectedChildNode = sut.getChild(0);
 
+        sut.setChild(child);
+        MyKaryNode<Integer> actualChildNode = sut.getChild(0);
+        assertEquals(expectedChildValue, actualChildNode.getValue());
+        sut.setChild(secondChild);
+        MyKaryNode<Integer> actualSecondChildNode = sut.getChild(1);
+        assertEquals(expectedSecondChildValue, actualSecondChildNode.getValue());
     }
 
     @Test
@@ -92,7 +96,7 @@ public class TestKaryTreeLibrary {
         int expectedSecondChildValue = 13;
         MyKaryNode<Integer> secondChild = new MyKaryNode<>(expectedSecondChildValue);
 
-        assertNull(sut.getChildren());
+        assertEquals(new ArrayList<MyKaryNode<Integer>>(), sut.getChildren());
         assertFalse(sut.hasChildren());
         assertTrue(sut.isLeaf());
 
@@ -108,37 +112,91 @@ public class TestKaryTreeLibrary {
     }
 
     @Test
-    void test_MyKaryNodeGetChildren() {
-
-    }
-
-    @Test
-    void test_MyKaryNodeSetChildren() {
-
-    }
-
-    @Test
     void test_MyKaryNodeHasChildren() {
+        int expectedRootValue = 11;
+        MyKaryNode<Integer> sut = new MyKaryNode<>(expectedRootValue);
+        int expectedChildValue = 12;
+        MyKaryNode<Integer> child = new MyKaryNode<>(expectedChildValue);
+        int expectedSecondChildValue = 13;
+        MyKaryNode<Integer> secondChild = new MyKaryNode<>(expectedSecondChildValue);
 
+        assertEquals(new ArrayList<MyKaryNode<Integer>>(), sut.getChildren());
+        assertFalse(sut.hasChildren());
+
+        var childList = new ArrayList<MyKaryNode<Integer>>();
+        childList.add(child);
+        childList.add(secondChild);
+
+        sut.setChildren(childList);
+
+        assertTrue(sut.hasChildren());
+        assertNotNull(sut.getChildren());
     }
 
     @Test
     void test_MyKaryNodeIsLeaf() {
+        int expectedRootValue = 11;
+        MyKaryNode<Integer> sut = new MyKaryNode<>(expectedRootValue);
+        int expectedChildValue = 12;
+        MyKaryNode<Integer> child = new MyKaryNode<>(expectedChildValue);
+        int expectedSecondChildValue = 13;
+        MyKaryNode<Integer> secondChild = new MyKaryNode<>(expectedSecondChildValue);
 
+        assertEquals(new ArrayList<MyKaryNode<Integer>>(), sut.getChildren());
+        assertTrue(sut.isLeaf());
+
+        var childList = new ArrayList<MyKaryNode<Integer>>();
+        childList.add(child);
+        childList.add(secondChild);
+
+        sut.setChildren(childList);
+
+        assertFalse(sut.isLeaf());
+        assertNotNull(sut.getChildren());
     }
 
-//    @Test
-//    void test_MyKaryTreeInstantiationNull() {
-//        MyKaryTree<MyKaryNode<Integer>> sut = new MyKaryTree<>();
-//        var actualNull = sut.getRoot();
-//        assertNull(actualNull);
-//    }
-//
-//    @Test
-//    void test_MyKaryTreeAddRootNode() {
-//        Integer expectedValue = 11;
-//        var rootNode = new MyKaryNode<>(expectedValue);
-//        var sut = new MyKaryTree<MyKaryNode<Integer>>();
-//        sut.setRoot(rootNode);
-//    }
+    @Test
+    void test_KaryNodeBreadthFirstFunctions() {
+        int expectedRootValue = 11;
+        MyKaryNode<Integer> sut = new MyKaryNode<>(expectedRootValue);
+        int expectedAlphaChildValue = 12;
+        MyKaryNode<Integer> alphaChild = new MyKaryNode<>(expectedAlphaChildValue);
+        int expectedBravoChildValue = 13;
+        MyKaryNode<Integer> bravoChild = new MyKaryNode<>(expectedBravoChildValue);
+        int expectedCharlieChildValue = 14;
+        MyKaryNode<Integer> charlieChild = new MyKaryNode<>(expectedCharlieChildValue);
+        int expectedDeltaChildValue = 15;
+        MyKaryNode<Integer> deltaChild = new MyKaryNode<>(expectedDeltaChildValue);
+
+        sut.setChild(alphaChild);
+        MyKaryNode<Integer> actualSutAlphaChildNode = sut.getChild(0);
+        assertEquals(expectedAlphaChildValue, actualSutAlphaChildNode.getValue());
+
+        sut.setChild(bravoChild);
+        MyKaryNode<Integer> actualSutBravoChildNode = sut.getChild(1);
+        assertEquals(expectedBravoChildValue, actualSutBravoChildNode.getValue());
+
+        alphaChild.setChild(charlieChild);
+        MyKaryNode<Integer> actualAlphaCharlieChildNode = alphaChild.getChild(0);
+        assertEquals(expectedCharlieChildValue, actualAlphaCharlieChildNode.getValue());
+
+        alphaChild.setChild(deltaChild);
+        MyKaryNode<Integer> actualAlphaDeltaChildNode = alphaChild.getChild(1);
+        assertEquals(expectedDeltaChildValue, actualAlphaDeltaChildNode.getValue());
+
+        ArrayList<Integer> expectedResultValues = new ArrayList<>();
+        for(int item=11; item < 16; item++) {
+            expectedResultValues.add(item);
+            System.out.println("Expected Node Value: " + item);
+        }
+
+        var breadthFirstResult = sut.breadthFirst(sut);
+        ArrayList<Integer> actualResultValues = new ArrayList<>();
+        for(MyKaryNode<Integer> node: breadthFirstResult) {
+            actualResultValues.add(node.getValue());
+            System.out.println("Actual Node Value: " + node.getValue());
+        }
+
+        assertEquals(expectedResultValues, actualResultValues);
+    }
 }

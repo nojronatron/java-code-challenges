@@ -25,17 +25,12 @@ public class MyKaryNode<T> implements IMyKaryNode<T> {
             return null;
         }
 
-        if (index < 1) {
+        if (index < 0) {
             return null;
         }
 
         MyKaryNode<T> temp = this.children.get(index);
-
-        if (temp == null || temp.value == null) {
-            return temp;
-        }
-
-        return null;
+        return temp;
     }
 
     public void setChild(MyKaryNode<T> childNode) {
