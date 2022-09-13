@@ -38,6 +38,10 @@ public class MyKaryNode<T> implements IMyKaryNode<T> {
         return null;
     }
 
+    public void setChild(MyKaryNode<T> childNode) {
+        this.children.add(childNode);
+    }
+
     public boolean hasChildren() {
         if (this.children.size() < 1) {
             return false;

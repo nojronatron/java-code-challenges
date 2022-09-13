@@ -1,6 +1,9 @@
 package myJava.code.challenges;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestKaryTreeLibrary {
@@ -58,12 +61,50 @@ public class TestKaryTreeLibrary {
 
     @Test
     void test_MyKaryNodeSetValue() {
+        int expectedValue = 11;
+        MyKaryNode<Integer> sut = new MyKaryNode<>(expectedValue);
+        assertEquals(expectedValue, sut.getValue());
+
+        int expectedNewValue = 22;
+        sut.setValue(expectedNewValue);
+        assertEquals(expectedNewValue, sut.getValue());
+    }
+
+    @Test
+    void test_MykaryNodeSetAndGetSingleChild() {
+        int expectedRootValue = 11;
+        MyKaryNode<Integer> sut = new MyKaryNode<>(expectedRootValue);
+        int expectedChildValue = 12;
+        MyKaryNode<Integer> child = new MyKaryNode<>(expectedChildValue);
+        int expectedSecondChildValue = 13;
+        MyKaryNode<Integer> secondChild = new MyKaryNode<>(expectedSecondChildValue);
+        
+        MyKaryNode<Integer> expectedChildNode = sut.getChild(0);
 
     }
 
     @Test
-    void test_MyKaryNodeGetChild() {
+    void test_MyKaryNodeGetAndSetListOfChildren() {
+        int expectedRootValue = 11;
+        MyKaryNode<Integer> sut = new MyKaryNode<>(expectedRootValue);
+        int expectedChildValue = 12;
+        MyKaryNode<Integer> child = new MyKaryNode<>(expectedChildValue);
+        int expectedSecondChildValue = 13;
+        MyKaryNode<Integer> secondChild = new MyKaryNode<>(expectedSecondChildValue);
 
+        assertNull(sut.getChildren());
+        assertFalse(sut.hasChildren());
+        assertTrue(sut.isLeaf());
+
+        var childList = new ArrayList<MyKaryNode<Integer>>();
+        childList.add(child);
+        childList.add(secondChild);
+
+        sut.setChildren(childList);
+
+        assertTrue(sut.hasChildren());
+        assertFalse(sut.isLeaf());
+        assertNotNull(sut.getChildren());
     }
 
     @Test
@@ -83,7 +124,7 @@ public class TestKaryTreeLibrary {
 
     @Test
     void test_MyKaryNodeIsLeaf() {
-        
+
     }
 
 //    @Test
