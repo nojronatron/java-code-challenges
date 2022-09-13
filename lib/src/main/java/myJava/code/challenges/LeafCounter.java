@@ -9,12 +9,7 @@ public class LeafCounter extends MyBinaryTree {
 
         int fileSumLeft = processFunction(treeLeft);
         int fileSumRight = processFunction(treeRight);
-
-        if (fileSumLeft == fileSumRight) {
-            return true;
-        }
-
-        return false;
+        return fileSumLeft == fileSumRight;
     }
 
     private int processFunction(MyBinaryTree tree) {

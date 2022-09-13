@@ -227,20 +227,29 @@ Space:
 
 ## Unit Tests
 
-- [Test Queue Library](../lib/src/test/java/myJava/code/challenges/TestQueueLibrary.java)
+- [Test Queue](../lib/src/test/java/myJava/code/challenges/TestQueueLibrary.java)
 - [Test Binary Tree Library](../lib/src/test/java/myJava/code/challenges/TestBinaryTreeLibrary.java)
 - [Test Leaf Counter challenge](../lib/src/test/java/myJava/code/challenges/TestLeafCounter.java)
-- [Test K ary TreeLibrary](../lib/src/test/java/myJava/code/challenges/TestKaryTreeLibrary.java)
+- [Test K ary Tree](../lib/src/test/java/myJava/code/challenges/TestKaryTreeLibrary.java)
+- [Test Binary Search Tree Node](../lib/src/test/java/myJava/code/challenges/TestMyBstNode.java)
 
 ## Code
 
 Code can be found in java-code-challenges library files:
 
-- [My Queue](../lib/src/main/java/java/code/challenges/MyQueue.java)
-- [My Binary Node](../lib/src/main/java/java/code/challenges/MyBinaryNode.java)
-- [My Binary Tree](../lib/src/main/java/java/code/challenges/MyBinaryTree.java)
-- [My K-ary Tree Node](../lib/src/main/java/java/code/challenges/MyKaryNode.java)
-- [Binary Search Tree](../lib/src/main/java/java/code/challenges/MyBST.java)
+- [My Queue](../lib/src/main/java/myJava/code/challenges/MyQueue.java)
+- [My Node (for My Queue)](../lib/src/main/java/myJava/code/challenges/MyNode.java)
+- [My Binary Node](../lib/src/main/java/myJava/code/challenges/MyBinaryNode.java)
+- [My Binary Tree (deprecated, will be removed)](../lib/src/main/java/myJava/code/challenges/MyBinaryTree.java)
+- [Leaf Counter Challenge Class](../lib/src/main/java/myJava/code/challenges/LeafCounter.java)
+- [My K-ary Tree Node](../lib/src/main/java/myJava/code/challenges/MyKaryNode.java)
+- [Binary Search Tree Node](../lib/src/main/java/myJava/code/challenges/MyBstNode.java)
+### Interfaces
+
+I experimented with using interfaces to constrain generic classes. While I was able to utilize the interfaces, in the end they did not help much with "generisizing" the classes as I needed.
+
+-[Interface My Binary Node](../lib/src/main/java/myJava/code/challenges/IMyBinaryNode.java)
+-[Interface My K-ary Node](../lib/src/main/java/myJava/code/challenges/IMyKaryNode.java)
 
 ## Additional Comments
 
@@ -251,10 +260,6 @@ When processing data within a recursive function, it is okay to leverage a Class
 - Utilize a helper method (or public method) to return the contents of the storage array, perhaps as a toString-like function.
 
 Attempting to pass values around within a call-stack of recursive methods can be difficult. Think *outside the method* to solve the problem!
-
-### Interfaces
-
-I experimented with using interfaces to constrain generic classes. While I was able to utilize the interfaces, in the end they did not help with "generisizing" the classes as I needed.
 
 ## Resources and Acknowledgements
 
