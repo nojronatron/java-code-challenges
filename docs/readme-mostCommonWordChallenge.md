@@ -24,7 +24,19 @@ A Hashtable can:
 - Encode Keys using a hash of the value to create an index.
 - Efficient at lookups for values.
 
+A Hashtable has:
+
+Hashing Function: Takes a key and returns an integer.
+
 ## Big-O Analysis
 
 Lookup a Value: O(1) in time, because the hash reproduces the index that locates the value in the array in one step.
+
+Arrays are fast, but searching for data without knowing the index of the data ahead of time is slow - an O(n) operation.
+
+Knowing the exact location of the data in an array is an O(1) operation!
+
+Hashing Function: O(1) in Time.
+
+Set a Value: O(1) in Time because the Hashing function locates the index of where to store the data -- an O(1) operation.
 
