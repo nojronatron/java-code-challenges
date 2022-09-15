@@ -42,9 +42,9 @@ Accepts a Key Value Pair and adds then hashtable.
 ALGORITHM: set()
 INPUT: String: key, Integer: value
 OUTPUT: void
-INITIALIZE: hashedIndex <= hash(key)
-INSTANTIATE: entry <= new Pair types String, Integer
-ADD: BackingArray at hashedIndex <= entry
+INITIALIZE: hashedIndex <- hash(key)
+INSTANTIATE: entry <- new Pair types String, Integer
+ADD: BackingArray at hashedIndex <- entry
 ```
 
 ### GET
@@ -65,12 +65,12 @@ Method code (planned):
 ALGORITHM: get
 INPUT: String: key
 OUTPUT: Integer
-INITIALIZE: Integer hashedIndex <= output of function Hash(String: key)
-INITIALIZE: LinkedList <= output of Get(Integer: hashedIndex) on BackingArray
-INITIALIZE: llHead <= LinkedList.Head
+INITIALIZE: Integer hashedIndex <- output of function Hash(String: key)
+INITIALIZE: LinkedList <- output of Get(Integer: hashedIndex) on BackingArray
+INITIALIZE: llHead <- LinkedList.Head
 ITERATE: While llHead is not NULL:
 IF: llHead value equals key => return llHead value and exit
-ELSE: ASSIGN llHead <= llHead.Next()
+ELSE: ASSIGN llHead <- llHead.Next()
 END ITERATE
 RETURN: NULL
 ```
@@ -102,10 +102,10 @@ INPUT: none
 OUTPUT: collection of Integers
 ITERATE: For each bucket in backing array
 INITIALIZE: NewArray type: Integer
-INITIALIZE: CurrentNode <= bucket.head
+INITIALIZE: CurrentNode <- bucket.head
 ITERATE: While CurrentNode is not NULL
-ADD: NewArray <= CurrentNode.data
-REASSIGN: CurrentNode <= CurrentNode.Next()
+ADD: NewArray <- CurrentNode.data
+REASSIGN: CurrentNode <- CurrentNode.Next()
 END ITERATE
 END ITERATE
 RETURN: NewArray
@@ -121,9 +121,9 @@ Accepts a key as a String, hashes it, and returns an index of the array where th
 ALGORITHM: hash()
 INPUT: String: key
 OUTPUT: Integer
-INITIALIZE: Integer hashedIndex <= key.hashCode()
-ASSIGN: hashedIndex <= hashedIndex multiplied by 599;
-ASSIGN: hashedIndex <= modulus the size of the backing array
+INITIALIZE: Integer hashedIndex <- key.hashCode()
+ASSIGN: hashedIndex <- hashedIndex multiplied by 599;
+ASSIGN: hashedIndex <- modulus the size of the backing array
 RETURN: hashedIndex
 ```
 
