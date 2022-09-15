@@ -38,6 +38,8 @@ In a production environment there may be other methods, depending on the hashtab
 
 Accepts a Key Value Pair and adds then hashtable.
 
+Pseudocode:
+
 ```text
 ALGORITHM: set()
 INPUT: String: key, Integer: value
@@ -59,7 +61,7 @@ Datatype will be the built-in Java type, Pair:
 Pair<String, Integer> newPair = new Pair<>(key, value);
 ```
 
-Method code (planned):
+Pseudocode:
 
 ```text
 ALGORITHM: get
@@ -69,8 +71,8 @@ INITIALIZE: Integer hashedIndex <- output of function Hash(String: key)
 INITIALIZE: LinkedList <- output of Get(Integer: hashedIndex) on BackingArray
 INITIALIZE: llHead <- LinkedList.Head
 ITERATE: While llHead is not NULL:
-IF: llHead value equals key => return llHead value and exit
-ELSE: ASSIGN llHead <- llHead.Next()
+    IF: llHead value equals key => return llHead value and exit
+    ELSE: ASSIGN llHead <- llHead.Next()
 END ITERATE
 RETURN: NULL
 ```
@@ -80,6 +82,8 @@ RETURN: NULL
 `boolean has(String key)`
 
 Accepts a Key and returns boolean if the key exists in the hashtable.
+
+Pseudocode:
 
 ```text
 ALGORITHM: has
@@ -96,17 +100,19 @@ ELSE: Return true
 
 Returns a collection of unique hash keys.
 
+Pseudocode:
+
 ```text
 FUNCTION: keys()
 INPUT: none
 OUTPUT: collection of Integers
 ITERATE: For each bucket in backing array
-INITIALIZE: NewArray type: Integer
-INITIALIZE: CurrentNode <- bucket.head
-ITERATE: While CurrentNode is not NULL
-ADD: NewArray <- CurrentNode.data
-REASSIGN: CurrentNode <- CurrentNode.Next()
-END ITERATE
+    INITIALIZE: NewArray type: Integer
+    INITIALIZE: CurrentNode <- bucket.head
+    ITERATE: While CurrentNode is not NULL
+        ADD: NewArray <- CurrentNode.data
+        REASSIGN: CurrentNode <- CurrentNode.Next()
+    END ITERATE
 END ITERATE
 RETURN: NewArray
 ```
@@ -116,6 +122,8 @@ RETURN: NewArray
 `number hash(String key)`
 
 Accepts a key as a String, hashes it, and returns an index of the array where the key-value-pair should be placed.
+
+Pseudocode:
 
 ```text
 ALGORITHM: hash()
@@ -175,8 +183,15 @@ Hashing Function: O(1) in Time.
 
 Set a Value: O(1) in Time because the Hashing function locates the index of where to store the data -- an O(1) operation.
 
+## Code
+
+[My Hash Table class](../lib/src/main/java/myJava/code/challenges/MyHashtable.java)
+
+## Tests
+
+[My Hash Table Unit Tests](../lib/src/test/java/myJava/code/challenges/TestMyHashtable.java)
+
 ## Resources and Acknowledgements
 
-Baeldung.com article: [Using Pair in Java](https://www.baeldung.com/java-pairs)
-
-Code Fellows Common Curriculum.
+- Baeldung.com article: [Using Pair in Java](https://www.baeldung.com/java-pairs)
+- Code Fellows Common Curriculum.
