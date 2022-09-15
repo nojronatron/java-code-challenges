@@ -39,11 +39,12 @@ In a production environment there may be other methods, depending on the hashtab
 Accepts a Key Value Pair and adds then hashtable.
 
 ```text
-void set(String key, Integer value) {
-    int hashedIndex = this.hash(key);
-    Pair<String, Integer> entry = new Pair<>(key, value);
-    this.backingArray.set(hashedIndex, object);
-}
+ALGORITHM: set()
+INPUT: String: key, Integer: value
+OUTPUT: void
+INITIALIZE: hashedIndex <= hash(key)
+INSTANTIATE: entry <= new Pair types String, Integer
+ADD: BackingArray at hashedIndex <= entry
 ```
 
 ### GET
@@ -61,19 +62,17 @@ Pair<String, Integer> newPair = new Pair<>(key, value);
 Method code (planned):
 
 ```text
-int get(String key) {
-    int hashedIndex = this.hash(key);
-    var item = this.backingArray.get(hashedIndex);
-    if (item.size() > 0) {
-        var llNode = item.head;
-        while (llNode != null) {
-            if (llNode.getKey() == key) {
-                return llNode.getValue();
-            }
-        }
-    }
-    return null;
-}
+ALGORITHM: get
+INPUT: String: key
+OUTPUT: Integer
+INITIALIZE: Integer hashedIndex <= output of function Hash(String: key)
+INITIALIZE: LinkedList <= output of Get(Integer: hashedIndex) on BackingArray
+INITIALIZE: llHead <= LinkedList.Head
+ITERATE: While llHead is not NULL:
+IF: llHead value equals key => return llHead value and exit
+ELSE: ASSIGN llHead <= llHead.Next()
+END ITERATE
+RETURN: NULL
 ```
 
 ### HAS
@@ -83,7 +82,12 @@ int get(String key) {
 Accepts a Key and returns boolean if the key exists in the hashtable.
 
 ```text
-
+ALGORITHM: has
+INPUT: String: key
+OUTPUT: Boolean
+IF: Result of get(String key) is not NULL
+RETURN: TRUE
+ELSE: Return true
 ```
 
 ### KEYS
@@ -92,6 +96,21 @@ Accepts a Key and returns boolean if the key exists in the hashtable.
 
 Returns a collection of unique hash keys.
 
+```text
+FUNCTION: keys()
+INPUT: none
+OUTPUT: collection of Integers
+ITERATE: For each bucket in backing array
+INITIALIZE: NewArray type: Integer
+INITIALIZE: CurrentNode <= bucket.head
+ITERATE: While CurrentNode is not NULL
+ADD: NewArray <= CurrentNode.data
+REASSIGN: CurrentNode <= CurrentNode.Next()
+END ITERATE
+END ITERATE
+RETURN: NewArray
+```
+
 ## HASH
 
 `number hash(String key)`
@@ -99,15 +118,13 @@ Returns a collection of unique hash keys.
 Accepts a key as a String, hashes it, and returns an index of the array where the key-value-pair should be placed.
 
 ```text
-integer hash(String key) {
-    int accumulator = 0;
-    for(char schar: key) {
-        accumulator += String.hash(schar);
-    }
-    integer product = accumulator * 599;
-    integer hashedIndex = product % this.backingArr.size();
-    return hashedIndex;
-}
+ALGORITHM: hash()
+INPUT: String: key
+OUTPUT: Integer
+INITIALIZE: Integer hashedIndex <= key.hashCode()
+ASSIGN: hashedIndex <= hashedIndex multiplied by 599;
+ASSIGN: hashedIndex <= modulus the size of the backing array
+RETURN: hashedIndex
 ```
 
 ## Properties
