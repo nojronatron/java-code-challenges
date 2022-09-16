@@ -45,6 +45,12 @@ A reference pointing to the *first* Node in the Linked List.
 
 Reference the Linked List's Head reference to acquire the first Node and either get the data from it or begin a traversal using the Node's Next property.
 
+## Functions
+
+### Includes
+
+Includes will take a value and search the Linked List Nodes, returning True if a Node with a matching value is found, otherwise returns False.
+
 Algorithm:
 
 ```text
@@ -58,8 +64,6 @@ ITERATE: While Current is not NULL
 END ITERATE
 RETURN: FALSE
 ```
-
-## Functions
 
 ### Add
 
