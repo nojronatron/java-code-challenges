@@ -93,13 +93,17 @@ Algorithm:
 ALGORITHM AddBefore(newValue, valueToAddBefore)
 INPUT: newValue, valueToAddBefore
 OUTPUT: Boolean
-INITIALIZE: Node Current <- Head
-IF: Current is equal to NULL RETURN FALSE
+IF: Head is equal to Null RETURN FALSE
+INITIALIZE: Node newNode
+ASSIGN: newNode.Value <- newValue
+IF: Head.Value is equal to valueToAddBefore
+    ASSIGN: newNode.Next <= Head
+    ASSIGN: Head <= newNode
+    RETURN TRUE
 END IF
-WHILE: Current.Next is not equal to NULL
+INITIALIZE: Node Current <- Head
+WHILE: Current is not equal to NULL
     IF: Current.Next.Value is equal to valueToAddBefore
-        INSTANTIATE: newNode
-        ASSIGN: newNode.Value <- newValue
         ASSIGN: newNode.Next <- Current.Next
         ASSIGN: Current.Next <- newNode
         RETURN: TRUE
@@ -107,6 +111,12 @@ WHILE: Current.Next is not equal to NULL
     ASSIGN: Current <- Current.Next
 RETURN: FALSE
 ```
+
+*Note*: The original Pseudocode had to be altered in the following ways:
+
+1. To eliminate a bug that happened if the node to add before was Head node an Exception would be thrown.
+2. To avoid a NullValueException the While iterator must test if the Current node is not equal to null.
+3. Short-circuit code execution if the list is empty (Head equals null).
 
 ### Print
 
