@@ -49,13 +49,15 @@ INSTANTIATE: entry <- new Pair types String, Integer
 ADD: BackingArray at hashedIndex <- entry
 ```
 
+*Remember*: Each backing array index "bucket" is actually a linked list, so just get a reference to the linked list and use its add() function to store the item.
+
 ### GET
 
 `int get(String key)`
 
 Accepts a Key and finds the hashed index for that key, iterates through the Bucket to find the key and returns the value, or null if not found.
 
-Datatype will be the built-in Java type, Pair:
+Datatype will be a tuple-like type, similar to Pair:
 
 ```text
 Pair<String, Integer> newPair = new Pair<>(key, value);
