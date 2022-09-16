@@ -59,7 +59,7 @@ INPUT: Integer value
 OUTPUT: Boolean
 ASSIGN: Current <- Head
 ITERATE: While Current is not NULL
-    IF: Current.Nalue is equal to value return TRUE
+    IF: Current.Value is equal to value return TRUE
     ELSE: Current <- Current.Next
 END ITERATE
 RETURN: FALSE

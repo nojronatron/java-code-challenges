@@ -135,12 +135,13 @@ ASSIGN: hashedIndex <- modulus the size of the backing array
 RETURN: hashedIndex
 ```
 
-### Optional Additional Methods
+### Additional Methods
 
-- Boolean isEmpty(): Returns true if there are no items in any buckets.
-- Float getLoadFactor(): Returns a decimal number between 0 and 1 representing the ratio of Buckets with at least 1 item, to the total size of the backing array.
-- Integer getBucketCount(): Returns the total number of indexes in the backing array. Does *not* include the number of items within buckets.
-- Integer getItemCount(): Returns teh total number of items stored in all buckets.
+- Private Void initializeBuckets: Sets empty LinkedLists into every index of the array so they can be queried and have values added to them.
+- Public Boolean isEmpty(): Optional. Returns true if there are no items in any buckets.
+- Public Float getLoadFactor(): Optional. Returns a decimal number between 0 and 1 representing the ratio of Buckets with at least 1 item, to the total size of the backing array.
+- Public getBucketCount(): Optional. Returns the total number of indexes in the backing array. Does *not* include the number of items within buckets.
+- Public getItemCount(): Optional. Returns the total number of items stored in all buckets.
 
 ## Properties
 
