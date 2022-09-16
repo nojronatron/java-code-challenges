@@ -1,5 +1,9 @@
 package myJava.code.challenges;
 
+import myJava.code.models.MyBinaryNode;
+import myJava.code.models.MyBinaryTree;
+import myJava.code.models.MyQueue;
+
 public class LeafCounter extends MyBinaryTree {
     public boolean fileCountSame(MyBinaryTree treeLeft, MyBinaryTree treeRight) {
         int fileSum = 0;

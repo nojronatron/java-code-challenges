@@ -1,4 +1,6 @@
-package myJava.code.challenges;
+package myJava.code.models;
+
+import myJava.code.models.MyLinkedListNode;
 
 public class MyLinkedList {
     private MyLinkedListNode head;

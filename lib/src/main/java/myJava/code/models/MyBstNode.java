@@ -1,4 +1,4 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
 import java.util.ArrayList;
 import java.util.List;

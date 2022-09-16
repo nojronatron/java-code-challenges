@@ -1,5 +1,7 @@
 package myJava.code.challenges;
 
+import myJava.code.models.MyLinkedList;
+import myJava.code.models.MyLinkedListNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -83,6 +85,29 @@ public class TestMyLinkedList {
 
         sut.add(expectedThirteenValue);
         assertEquals(sut.print(), expectedFourthResult);
+    }
+
+    @Test
+    void test_MyLinkedListGetCount() {
+        int expectedElevenValue = 11;
+        int expectedTwelveValue = 12;
+        int expectedThirteenValue = 13;
+
+        int expectedCount = 0;
+        MyLinkedList sut = new MyLinkedList();
+        assertEquals(expectedCount, sut.getCount());
+
+        expectedCount = 1;
+        sut.add(expectedElevenValue);
+        assertEquals(expectedCount, sut.getCount());
+
+        expectedCount = 2;
+        sut.add(expectedTwelveValue);
+        assertEquals(expectedCount, sut.getCount());
+
+        expectedCount = 3;
+        sut.addBefore(expectedThirteenValue, expectedTwelveValue);
+        assertEquals(expectedCount, sut.getCount());
     }
 
     @Test

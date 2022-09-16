@@ -1,5 +1,6 @@
 package myJava.code.challenges;
 
+import myJava.code.models.MyBstNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

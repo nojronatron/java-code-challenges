@@ -1,6 +1,6 @@
 package myJava.code.challenges;
 
-import org.checkerframework.checker.units.qual.A;
+import myJava.code.models.MyKaryNode;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

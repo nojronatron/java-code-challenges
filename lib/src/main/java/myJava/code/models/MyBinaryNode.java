@@ -1,4 +1,4 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
 public class MyBinaryNode implements IMyBinaryNode {
     private int value;
