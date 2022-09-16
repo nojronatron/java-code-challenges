@@ -54,7 +54,7 @@ public class MyLinkedList {
         MyLinkedListNode current = this.head;
         StringBuilder result = new StringBuilder();
         while (current != null) {
-            result.append("[").append(current.getValue()).append(" ->");
+            result.append("[").append(current.getValue()).append("]->");
             current = current.getNext();
         }
         result.append("NULL");

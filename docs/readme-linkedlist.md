@@ -117,7 +117,7 @@ Algorithm:
 ```text
 ALGORITHM: Print()
 INPUT: None
-OUPUT: String
+OUTPUT: String
 INITIALIZE: Current <- Head
 WHILE: Current is not equal to NULL
     OUTPUT: "[Current.Value]->"
@@ -155,7 +155,7 @@ Due to the iterating structure, the operation will walk all Nodes in the list in
 ## Code
 
 [My Linked List Class](../lib/src/main/java/myJava/code/challenges/MyLinkedList.java)
-[My Linked List Node Class](../lib/src/main/java/myJava/code/challenges/MyLLNode.java)
+[My Linked List Node Class](../lib/src/main/java/myJava/code/challenges/MyLinkedListNode.java)
 
 ## Tests
 

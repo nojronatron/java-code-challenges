@@ -12,6 +12,100 @@ public class TestMyLinkedList {
     }
 
     @Test
+    void test_MyLinkedListGetAndSetHead() {
+        int expectedHeadValue = 11;
+        MyLinkedListNode headNode = new MyLinkedListNode(expectedHeadValue);
+        MyLinkedList sut = new MyLinkedList();
+        assertNull(sut.getHead());
+        sut.setHead(headNode);
+        assertNotNull(sut.getHead());
+        assertEquals(expectedHeadValue, sut.getHead().getValue());
+    }
+
+    @Test
+    void test_MyLinkedListPrintNodes() {
+        String expectedResult = "[14]->[13]->[12]->[11]->NULL";
+        String expectedEmptyResult = "NULL";
+
+        MyLinkedList sut = new MyLinkedList();
+        assertEquals(sut.print(), expectedEmptyResult);
+
+        int expectedElevenValue = 11;
+        int expectedTwelveValue = 12;
+        int expectedThirteenValue = 13;
+        int expectedFourteenValue = 14;
+
+        sut.add(expectedElevenValue);
+        sut.add(expectedTwelveValue);
+        sut.add(expectedThirteenValue);
+        sut.add(expectedFourteenValue);
+
+        assertEquals(expectedResult, sut.print());
+    }
+
+    @Test
+    void test_MyLinkedListIncludesFalseAndTrue() {
+        int expectedElevenValue = 11;
+        int expectedTwelveValue = 12;
+        int expectedThirteenValue = 13;
+        int expectedFourteenValue = 14;
+        int missingFifteenValue = 15;
+
+        MyLinkedList sut = new MyLinkedList();
+        sut.add(expectedElevenValue);
+        sut.add(expectedTwelveValue);
+        sut.add(expectedThirteenValue);
+        sut.add(expectedFourteenValue);
+
+        assertFalse(sut.includes(missingFifteenValue));
+        assertTrue(sut.includes(expectedElevenValue));
+    }
+
+    @Test
+    void test_MyLinkedListAdd() {
+        String expectedEmptyResult = "NULL";
+        String expectedSecondResult = "[11]->NULL";
+        String expectedThirdResult = "[12]->[11]->NULL";
+        String expectedFourthResult = "[13]->[12]->[11]->NULL";
+
+        MyLinkedList sut = new MyLinkedList();
+        assertEquals(sut.print(), expectedEmptyResult);
+
+        int expectedElevenValue = 11;
+        int expectedTwelveValue = 12;
+        int expectedThirteenValue = 13;
+
+        sut.add(expectedElevenValue);
+        assertEquals(sut.print(), expectedSecondResult);
+
+        sut.add(expectedTwelveValue);
+        assertEquals(sut.print(), expectedThirdResult);
+
+        sut.add(expectedThirteenValue);
+        assertEquals(sut.print(), expectedFourthResult);
+    }
+
+    @Test
+    void test_MyLinkedListAddBefore() {
+        String expectedFirstResult = "[13]->[12]->[11]->NULL";
+        String expectedAddBeforeResult = "[13]->[12]->[14]->[11]->NULL";
+
+        int expectedElevenValue = 11;
+        int expectedTwelveValue = 12;
+        int expectedThirteenValue = 13;
+        int expectedAddBeforeValue = 14;
+
+        MyLinkedList sut = new MyLinkedList();
+        sut.add(expectedElevenValue);
+        sut.add(expectedTwelveValue);
+        sut.add(expectedThirteenValue);
+        assertEquals(sut.print(), expectedFirstResult);
+
+        assertTrue(sut.addBefore(expectedAddBeforeValue, expectedElevenValue));
+        assertEquals(sut.print(), expectedAddBeforeResult);
+    }
+
+    @Test
     void test_InstantiateNewNodeWithValue() {
         int expectedValue = 11;
         MyLinkedListNode sut = new MyLinkedListNode(11);

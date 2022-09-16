@@ -117,7 +117,7 @@ END ITERATE
 RETURN: NewArray
 ```
 
-## HASH
+### HASH
 
 `number hash(String key)`
 
@@ -135,9 +135,23 @@ ASSIGN: hashedIndex <- modulus the size of the backing array
 RETURN: hashedIndex
 ```
 
+### Optional Additional Methods
+
+- Boolean isEmpty(): Returns true if there are no items in any buckets.
+- Float getLoadFactor(): Returns a decimal number between 0 and 1 representing the ratio of Buckets with at least 1 item, to the total size of the backing array.
+- Integer getBucketCount(): Returns the total number of indexes in the backing array. Does *not* include the number of items within buckets.
+- Integer getItemCount(): Returns teh total number of items stored in all buckets.
+
 ## Properties
 
-A hashtable needs a few built-in properties to be a functional: A backing array of a particular size, Buckets made up of a Linked Lists (other types are possible).
+A hashtable needs a few built-in properties to be a functional:
+
+- A backing array of a particular size.
+- Buckets made up of a Linked Lists (other types are possible).
+
+Additional optional helper properties could include:
+
+- Boolean: isEmpty -> Quickly determine if there are items in the hashtable. Recommend a publicly facing `isEmpty()` method for getting this value.
 
 ### Backing Array
 
