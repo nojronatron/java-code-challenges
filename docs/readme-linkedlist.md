@@ -133,6 +133,10 @@ Because adding a new Node simply replaces Head and reassigns the Head reference 
 
 No traversing is necessary, and the operation is not affected by input or how many Nodes are in the Linked List.
 
+### Includes(someValue)
+
+This function must traverse the Linked List, potentially every Node, and possibly to the end NULL before it returns, making it an O(n) operation.
+
 ### AddBefore(newValue, existingValue)
 
 A traversal must be done to find existingValue before the newValue Node can be inserted.
