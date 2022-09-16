@@ -45,6 +45,8 @@ A reference pointing to the *first* Node in the Linked List.
 
 Reference the Linked List's Head reference to acquire the first Node and either get the data from it or begin a traversal using the Node's Next property.
 
+Algorithm:
+
 ```text
 ALGORITHM Includes (value)
 INPUT: Integer value
@@ -63,6 +65,8 @@ RETURN: FALSE
 
 Accepts a new value, create a new Node, update new Node's reference to be that of the Head reference, and reassign Head to the new Node.
 
+Algorithm:
+
 ```text
 ALGORITHM Add(newValue)
 INPUT: Value
@@ -78,6 +82,8 @@ ASSIGN: Head <- newNode
 Insert a new Node before a Node with a specific value.
 
 The algorithm must traverse the Linked List to find the Node with the specified value, then update reference links to insert the input Node before it.
+
+Algorithm:
 
 ```text
 ALGORITHM AddBefore(newValue, valueToAddBefore)
@@ -98,6 +104,23 @@ WHILE: Current.Next is not equal to NULL
 RETURN: FALSE
 ```
 
+### Print
+
+Print out all nodes in the Linked List.
+
+Algorithm:
+
+```text
+ALGORITHM: Print()
+INPUT: None
+OUPUT: String
+INITIALIZE: Current <- Head
+WHILE: Current is not equal to NULL
+    OUTPUT: "[Current.Value]->"
+    ASSIGN: Current <- Current.Next
+OUTPUT: "NULL"
+```
+
 ## Big-O Analysis
 
 ### Add(value)
@@ -114,6 +137,12 @@ A traversal must be done to find existingValue before the newValue Node can be i
 - Add is an O(1) operation.
 
 - The worst of these two major operations is O(n).
+
+### Print()
+
+Uses a while iterator to check if the end of the Linked List has been reached and if not, the current Node value is processed and then a traversal to the next Node is done.
+
+Due to the iterating structure, the operation will walk all Nodes in the list in a worst-case scenario, making it a O(n) operation.
 
 ## Code
 
