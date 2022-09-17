@@ -70,13 +70,9 @@ ALGORITHM: get
 INPUT: String: key
 OUTPUT: Integer
 INITIALIZE: Integer hashedIndex <- output of function Hash(String: key)
-INITIALIZE: LinkedList <- output of Get(Integer: hashedIndex) on BackingArray
-INITIALIZE: llHead <- LinkedList.Head
-ITERATE: While llHead is not NULL:
-    IF: llHead value equals key => return llHead value and exit
-    ELSE: ASSIGN llHead <- llHead.Next()
-END ITERATE
-RETURN: NULL
+INITIALIZE: Bucket <- output of Get(Integer: hashedIndex) on BackingArray
+INITIALIZE: BucketContents <- output of Get(String: key) on Bucket
+RETURN: BucketContents.Value
 ```
 
 ### HAS
@@ -91,9 +87,10 @@ Pseudocode:
 ALGORITHM: has
 INPUT: String: key
 OUTPUT: Boolean
-IF: Result of get(String key) is not NULL
+ASSIGN: hashedIndex <- Hash(String: key)
+IF: Result of get(String key) on BackingArray is not NULL
 RETURN: TRUE
-ELSE: Return true
+ELSE: Return FALSE
 ```
 
 ### KEYS
@@ -102,7 +99,15 @@ ELSE: Return true
 
 Returns a collection of unique hash keys.
 
-Pseudocode:
+The CodeFellows curriculum states 'Keys() returns a collection (array) of unique hash keys'.
+
+One approach is to just iterate through the backing array and return all the indexes (hashed Keys) and return those number.
+
+A better outcome is to get the actual keys that are stored *in the buckets*.
+
+[Wikipedia - Collision Resolution](https://en.wikipedia.org/wiki/Hash_table#Collision_resolution) indicates that the keys themselves *should* be returned, since they contain useful data and would never be null-valued.
+
+So, the following Pseudocode attempts to get all bucket Keys and return them to the caller.
 
 ```text
 FUNCTION: keys()
@@ -117,6 +122,36 @@ ITERATE: For each bucket in backing array
     END ITERATE
 END ITERATE
 RETURN: NewArray
+```
+
+A more efficient approach would be:
+
+1. Create a property in the Hashtable that is a collection type, called keysCollection.
+2. Every time an item is added, copy the key to the keysCollection.
+3. Any time an item is *removed*, remove that item's key from the keysCollection.
+4. When keys() is called, just return the keysCollection property contents to the caller.
+
+```text
+FUNCTION: keys()
+INPUT: none
+OUTPUT: collection of Integers
+RETURN: KeysCollection
+```
+
+And within the Add() function:
+
+```text
+CALL: KeysCollection <- Add Key
+```
+
+And within a Remove() function:
+
+```text
+ITERATE: For each item in KeysCollection
+    IF: Item.value equals Key
+    CALL: KeysCollection.Remove
+    RETURN: TRUE
+RETURN: FALSE
 ```
 
 ### HASH
@@ -139,11 +174,12 @@ RETURN: hashedIndex
 
 ### Additional Methods
 
+- Public Boolean: isEmpty -> Quickly determine if there are items in the hashtable.
 - Private Void initializeBuckets: Sets empty LinkedLists into every index of the array so they can be queried and have values added to them.
-- Public Boolean isEmpty(): Optional. Returns true if there are no items in any buckets.
 - Public Float getLoadFactor(): Optional. Returns a decimal number between 0 and 1 representing the ratio of Buckets with at least 1 item, to the total size of the backing array.
 - Public getBucketCount(): Optional. Returns the total number of indexes in the backing array. Does *not* include the number of items within buckets.
 - Public getItemCount(): Optional. Returns the total number of items stored in all buckets.
+- Public removeItem(): Optional. Finds an item with a specific Key and Value and removes it from the HashTable.
 
 ## Properties
 
@@ -151,10 +187,6 @@ A hashtable needs a few built-in properties to be a functional:
 
 - A backing array of a particular size.
 - Buckets made up of a Linked Lists (other types are possible).
-
-Additional optional helper properties could include:
-
-- Boolean: isEmpty -> Quickly determine if there are items in the hashtable. Recommend a publicly facing `isEmpty()` method for getting this value.
 
 ### Backing Array
 

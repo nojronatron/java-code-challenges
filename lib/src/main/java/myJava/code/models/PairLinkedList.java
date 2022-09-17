@@ -52,7 +52,7 @@ public class PairLinkedList {
         }
         PairNode current = this.head;
         while (current != null) {
-            if (current.getKey() == key) {
+            if (current.getKey().equals(key)) {
                 return new Pair<String,Integer>(current.getKey(), current.getValue());
             }
             current = current.getNext();
