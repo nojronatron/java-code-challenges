@@ -87,7 +87,7 @@ public class PairLinkedList {
             return this.value;
         }
         public void setValue(int newValue) {
-            this.value = value;
+            this.value = newValue;
         }
         public PairNode getNext() {
             return this.next;
