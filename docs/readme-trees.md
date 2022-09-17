@@ -227,30 +227,30 @@ Space:
 
 ## Unit Tests
 
-- [Test Queue](../lib/src/test/java/myJava/code/challenges/TestQueueLibrary.java)
-- [Test Binary Tree Library](../lib/src/test/java/myJava/code/challenges/TestBinaryTreeLibrary.java)
+- [Test Queue](../lib/src/test/java/myJava/code/models/TestQueueLibrary.java)
+- [Test Binary Tree Library](../lib/src/test/java/myJava/code/models/TestBinaryTreeLibrary.java)
 - [Test Leaf Counter challenge](../lib/src/test/java/myJava/code/challenges/TestLeafCounter.java)
-- [Test K ary Tree](../lib/src/test/java/myJava/code/challenges/TestKaryTreeLibrary.java)
-- [Test Binary Search Tree Node](../lib/src/test/java/myJava/code/challenges/TestMyBstNode.java)
+- [Test K ary Tree](../lib/src/test/java/myJava/code/models/TestKaryTreeLibrary.java)
+- [Test Binary Search Tree Node](../lib/src/test/java/myJava/code/models/TestMyBstNode.java)
 
 ## Code
 
 Code can be found in java-code-challenges library files:
 
-- [My Queue](../lib/src/main/java/myJava/code/challenges/MyQueue.java)
-- [My Node (for My Queue)](../lib/src/main/java/myJava/code/challenges/MyNode.java)
-- [My Binary Node](../lib/src/main/java/myJava/code/challenges/MyBinaryNode.java)
-- [My Binary Tree (deprecated, will be removed)](../lib/src/main/java/myJava/code/challenges/MyBinaryTree.java)
+- [My Queue](../lib/src/main/java/myJava/code/models/MyQueue.java)
+- [My Node (for My Queue)](../lib/src/main/java/myJava/code/models/MyNode.java)
+- [My Binary Node](../lib/src/main/java/myJava/code/models/MyBinaryNode.java)
+- [My Binary Tree (deprecated, will be removed)](../lib/src/main/java/myJava/code/models/MyBinaryTree.java)
 - [Leaf Counter Challenge Class](../lib/src/main/java/myJava/code/challenges/LeafCounter.java)
-- [My K-ary Tree Node](../lib/src/main/java/myJava/code/challenges/MyKaryNode.java)
-- [Binary Search Tree Node](../lib/src/main/java/myJava/code/challenges/MyBstNode.java)
+- [My K-ary Tree Node](../lib/src/main/java/myJava/code/models/MyKaryNode.java)
+- [Binary Search Tree Node](../lib/src/main/java/myJava/code/models/MyBstNode.java)
 
 ### Interfaces
 
 I experimented with using interfaces to constrain generic classes. While I was able to utilize the interfaces, in the end they did not help much with "generisizing" the classes as I needed.
 
-- [Interface My Binary Node](../lib/src/main/java/myJava/code/challenges/IMyBinaryNode.java)
-- [Interface My K-ary Node](../lib/src/main/java/myJava/code/challenges/IMyKaryNode.java)
+- [Interface My Binary Node](../lib/src/main/java/myJava/code/models/IMyBinaryNode.java)
+- [Interface My K-ary Node](../lib/src/main/java/myJava/code/models/IMyKaryNode.java)
 
 ## Additional Comments
 

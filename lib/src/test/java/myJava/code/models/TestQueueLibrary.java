@@ -1,6 +1,5 @@
 package myJava.code.models;
 
-import myJava.code.models.MyQueue;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

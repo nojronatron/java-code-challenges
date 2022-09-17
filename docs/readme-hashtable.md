@@ -234,11 +234,11 @@ Set a Value: O(1) in Time because the Hashing function locates the index of wher
 
 ## Code
 
-[My Hash Table class](../lib/src/main/java/myJava/code/challenges/MyHashtable.java)
+[My Hash Table class](../lib/src/main/java/myJava/code/models/MyHashtable.java)
 
 ## Tests
 
-[My Hash Table Unit Tests](../lib/src/test/java/myJava/code/challenges/TestMyHashtable.java)
+[My Hash Table Unit Tests](../lib/src/test/java/myJava/code/models/TestMyHashtable.java)
 
 ## Resources and Acknowledgements
 

@@ -1,7 +1,6 @@
 package myJava.code.models;
 
 import org.apache.commons.math3.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,8 @@ public class MyHashtable {
 
     private void initializeBuckets() {
         for(int idx=0; idx<backingArrayCapacity; idx++) {
-            this.backingArray.set(idx, new PairLinkedList());
+            //this.backingArray.set(idx, new PairLinkedList());
+            this.backingArray.add(new PairLinkedList());
         }
         this.bucketCount = 0;
     }

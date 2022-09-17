@@ -1,6 +1,5 @@
 package myJava.code.models;
 
-import myJava.code.models.MyBstNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -129,8 +128,6 @@ public class TestMyBstNode {
         int expectedRootValue = 11;
         int expectedLeftChildValue = 10;
         int expectedRightChildValue = 12;
-        // MyBstNode expected20Result = null;
-        // MyBstNode expected2Result = null;
 
         MyBstNode rootNode = new MyBstNode(expectedRootValue);
         rootNode.add(expectedLeftChildValue);
@@ -157,8 +154,6 @@ public class TestMyBstNode {
         int expectedRootValue = 11;
         int expectedLeftChildValue = 10;
         int expectedRightChildValue = 12;
-        // MyBstNode expected20Result = null;
-        // MyBstNode expected2Result = null;
 
         MyBstNode rootNode = new MyBstNode(expectedRootValue);
         rootNode.add(expectedLeftChildValue);

@@ -1,7 +1,5 @@
 package myJava.code.models;
 
-import myJava.code.models.MyLinkedList;
-import myJava.code.models.MyLinkedListNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

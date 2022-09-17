@@ -1,8 +1,6 @@
 package myJava.code.models;
 
-import myJava.code.models.MyKaryNode;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -164,12 +164,12 @@ Due to the iterating structure, the operation will walk all Nodes in the list in
 
 ## Code
 
-[My Linked List Class](../lib/src/main/java/myJava/code/challenges/MyLinkedList.java)
-[My Linked List Node Class](../lib/src/main/java/myJava/code/challenges/MyLinkedListNode.java)
+[My Linked List Class](../lib/src/main/java/myJava/code/models/MyLinkedList.java)
+[My Linked List Node Class](../lib/src/main/java/myJava/code/models/MyLinkedListNode.java)
 
 ## Tests
 
-My Linked List and My Linked List Node [Unit Tests](../lib/src/test/java/myJava/code/challenges/TestMyLinkedList.java)
+My Linked List and My Linked List Node [Unit Tests](../lib/src/test/java/myJava/code/models/TestMyLinkedList.java)
 
 ## Resources and Acknowledgements
 
