@@ -5,83 +5,117 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyHashtable {
-    private List<PairLinkedList> backingArray;
+    private final List<PairLinkedList> BACKING_ARRAY;
+    private final List<String> KEYS_COLLECTION;
+    private final int BACKING_ARRAY_SIZE = 1024;
+    private int keyIndexCount;
     private int objectCount;
-    private int bucketsWithDataCount;
-    private final int backingArrayCapacity = 1024;
-    private List<String> keyCollection;
 
     public MyHashtable() {
-        this.backingArray = new ArrayList<>(this.backingArrayCapacity);
+        this.BACKING_ARRAY = new ArrayList<>(this.BACKING_ARRAY_SIZE);
         this.initializeBuckets();
-        this.keyCollection = new ArrayList<>();
+        this.KEYS_COLLECTION = new ArrayList<>();
     }
 
     private void initializeBuckets() {
-        for(int idx=0; idx<backingArrayCapacity; idx++) {
-            this.backingArray.add(new PairLinkedList());
+        for(int idx = 0; idx< BACKING_ARRAY_SIZE; idx++) {
+            this.BACKING_ARRAY.add(new PairLinkedList());
         }
+
         this.objectCount = 0;
-        this.bucketsWithDataCount = 0;
+        this.keyIndexCount = 0;
     }
 
-    private void calculateBucketsWithDataCount(int hashedIndex, int value) {
-        var bucket = this.backingArray.get(hashedIndex);
-        if (bucket.getCount() == 1) {
-            this.bucketsWithDataCount++;
-        }
-        // TODO: If a delete or remove method is added, this function needs to be updated
-    }
-
+    /***
+     * Accepts a Key Value Pair and adds then to the hashtable.
+     * @param key String
+     * @param value Integer
+     */
     public void set(String key, int value) {
-        var hashedIndex = this.hash(key);
-        PairLinkedList bucket = this.backingArray.get(hashedIndex);
+        int hashedIndex = this.hash(key);
+        PairLinkedList bucket = this.BACKING_ARRAY.get(hashedIndex);
         Pair<String,Integer> entry = new Pair<>(key, value);
         bucket.add(entry);
-        this.keyCollection.add(key);
-        this.objectCount++;
-        this.calculateBucketsWithDataCount(hashedIndex, value);
+        this.objectCount++; //  actual kpv count stored in this hashtable
+
+        if (!this.KEYS_COLLECTION.contains(key)) {
+            this.KEYS_COLLECTION.add(key);    //  only add unique keys to the key collection
+            this.keyIndexCount++;
+        }
     }
 
-    public Integer get(String key) {
+    /***
+     * Accepts a Key, finds the hashed index, and returns the correct value.
+     * @param key String
+     * @return Integer
+     * @throws NullPointerException If value is not found in this hashtable.
+     */
+    public Integer get(String key) throws NullPointerException {
         int hashedIndex = this.hash(key);
-        PairLinkedList bucket = this.backingArray.get(hashedIndex);
+        PairLinkedList bucket = this.BACKING_ARRAY.get(hashedIndex);
         Pair<String,Integer> result = bucket.get(key);
         return result.getValue();
     }
 
+    /***
+     * Accepts a Key and returns true if key exists in this hashtable, otherwise returns false.
+     * @param key String
+     * @return boolean
+     */
     public boolean has(String key) {
         int hashedIndex = this.hash(key);
-        if (this.backingArray.get(hashedIndex) != null) {
-            return true;
-        }
-        return false;
+        return this.BACKING_ARRAY.get(hashedIndex).getCount() > 0;
     }
 
+    /***
+     * Accepts a Key and returns the hashed Key as an Integer.
+     * @param key String
+     * @return int
+     */
     public int hash(String key) {
         int hashedIndex = key.hashCode();
         hashedIndex *= 599;
-        hashedIndex %= this.backingArrayCapacity;
+        hashedIndex %= this.BACKING_ARRAY_SIZE;
         return Math.abs(hashedIndex);
     }
 
+    /***
+     * Returns true if there are not objects in this hashtable.
+     * @return boolean
+     */
     public boolean isEmpty() {
         return this.objectCount == 0;
     }
 
+    /***
+     * Returns the size of the array for debugging purposes.
+     * @return int
+     */
     public int getArraySize() {
-        return this.backingArray.size();
+        return this.BACKING_ARRAY.size();
     }
 
-    public int getItemCount() {
-        return this.keyCollection.size();
+    /***
+     * Returns the count of objects stored in this hashtable.
+     * @return int
+     */
+    public int getStoredItemsCount() {
+        return this.objectCount;
     }
 
-    public int getKeyIndexCount() {
-        return this.bucketsWithDataCount;
+    /***
+     * Shortcut property returns the number of keys that keys() would return.
+     * @return int
+     */
+    public int getKeysCount() {
+        return this.keyIndexCount;
     }
 
+    /***
+     * Returns the list of Keys stored in this hashtable.
+     * @return List of type String
+     */
     public List<String> keys() {
-        return this.keyCollection;
+        return this.KEYS_COLLECTION;
     }
 }
