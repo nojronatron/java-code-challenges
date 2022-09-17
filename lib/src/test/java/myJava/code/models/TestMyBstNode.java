@@ -1,4 +1,4 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
 import myJava.code.models.MyBstNode;
 import org.junit.jupiter.api.Test;

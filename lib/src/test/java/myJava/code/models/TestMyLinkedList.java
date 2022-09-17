@@ -1,4 +1,4 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
 import myJava.code.models.MyLinkedList;
 import myJava.code.models.MyLinkedListNode;
