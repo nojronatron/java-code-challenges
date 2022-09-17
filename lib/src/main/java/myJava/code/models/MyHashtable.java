@@ -6,7 +6,8 @@ import java.util.List;
 
 public class MyHashtable {
     private List<PairLinkedList> backingArray;
-    private int bucketCount;
+    private int objectCount;
+    private int bucketsWithDataCount;
     private final int backingArrayCapacity = 1024;
     private List<String> keyCollection;
 
@@ -18,10 +19,18 @@ public class MyHashtable {
 
     private void initializeBuckets() {
         for(int idx=0; idx<backingArrayCapacity; idx++) {
-            //this.backingArray.set(idx, new PairLinkedList());
             this.backingArray.add(new PairLinkedList());
         }
-        this.bucketCount = 0;
+        this.objectCount = 0;
+        this.bucketsWithDataCount = 0;
+    }
+
+    private void calculateBucketsWithDataCount(int hashedIndex, int value) {
+        var bucket = this.backingArray.get(hashedIndex);
+        if (bucket.getCount() == 1) {
+            this.bucketsWithDataCount++;
+        }
+        // TODO: If a delete or remove method is added, this function needs to be updated
     }
 
     public void set(String key, int value) {
@@ -30,7 +39,8 @@ public class MyHashtable {
         Pair<String,Integer> entry = new Pair<>(key, value);
         bucket.add(entry);
         this.keyCollection.add(key);
-        this.bucketCount++;
+        this.objectCount++;
+        this.calculateBucketsWithDataCount(hashedIndex, value);
     }
 
     public Integer get(String key) {
@@ -52,11 +62,23 @@ public class MyHashtable {
         int hashedIndex = key.hashCode();
         hashedIndex *= 599;
         hashedIndex %= this.backingArrayCapacity;
-        return hashedIndex;
+        return Math.abs(hashedIndex);
     }
 
     public boolean isEmpty() {
-        return this.bucketCount == 0;
+        return this.objectCount == 0;
+    }
+
+    public int getArraySize() {
+        return this.backingArray.size();
+    }
+
+    public int getItemCount() {
+        return this.keyCollection.size();
+    }
+
+    public int getKeyIndexCount() {
+        return this.bucketsWithDataCount;
     }
 
     public List<String> keys() {
