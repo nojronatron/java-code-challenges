@@ -1,5 +1,6 @@
 package myJava.code.challenges;
 
+import myJava.code.models.MyHashtable;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestMyHashtable {
     @Test
     void test_CanInstantiateMyHashtableEmpty() {
-        assertEquals(0, 0);
+        MyHashtable sut = new MyHashtable();
+        assertNotNull(sut);
     }
-
 
     @Test
     void test_PredictableHashingFunction() {

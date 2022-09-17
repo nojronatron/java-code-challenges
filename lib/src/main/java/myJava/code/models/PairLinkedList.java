@@ -4,6 +4,7 @@ import org.apache.commons.math3.util.Pair;
 
 public class PairLinkedList {
     private PairNode head = null;
+    private int count = 0;
 
     public boolean includes(Integer value) {
         PairNode current = this.head;
@@ -20,6 +21,7 @@ public class PairLinkedList {
         PairNode newNode = new PairNode(newPair.getKey(), newPair.getValue());
         newNode.setNext(this.head);
         this.head = newNode;
+        this.count++;
     }
 
     public boolean addBefore(Pair<String,Integer> newItem, Pair<String,Integer> valueToAddBefore) {
@@ -31,6 +33,7 @@ public class PairLinkedList {
                 this.head.getValue() == valueToAddBefore.getValue()) {
             newNode.setNext(this.head);
             this.head = newNode;
+            this.count ++;
             return true;
         }
         PairNode current = this.head;
@@ -39,6 +42,7 @@ public class PairLinkedList {
                     current.next.getValue() == valueToAddBefore.getValue()) {
                 newNode.setNext(current.getNext());
                 current.setNext(newNode);
+                this.count++;
                 return true;
             }
             current = current.getNext();
@@ -53,11 +57,16 @@ public class PairLinkedList {
         PairNode current = this.head;
         while (current != null) {
             if (current.getKey().equals(key)) {
-                return new Pair<String,Integer>(current.getKey(), current.getValue());
+                Pair<String,Integer> result = new Pair<>(current.getKey(), current.getValue());
+                return result;
             }
             current = current.getNext();
         }
         return null;
+    }
+
+    public int getCount() {
+        return this.count;
     }
 
     static class PairNode {
