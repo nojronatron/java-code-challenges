@@ -63,8 +63,12 @@ public class MyHashtable {
      * @return boolean
      */
     public boolean has(String key) {
-        int hashedIndex = this.hash(key);
-        return this.BACKING_ARRAY.get(hashedIndex).getCount() > 0;
+        try {
+            return this.get(key) != null;
+        } catch (NullPointerException nullPointerException) {
+            System.out.println("info: hashtable: " + nullPointerException.getMessage());
+            return false;
+        }
     }
 
     /***
