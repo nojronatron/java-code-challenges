@@ -1,5 +1,7 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
+
+import myJava.code.models.MyKaryNode;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

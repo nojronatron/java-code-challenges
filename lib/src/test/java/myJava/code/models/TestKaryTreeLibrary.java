@@ -1,8 +1,6 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;

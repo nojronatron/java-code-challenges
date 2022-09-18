@@ -14,9 +14,10 @@ Some libraries will contain core algorithm and data structures, others will cont
 
 The following index links to readme files specific for each data structure and code challenge in the base library.
 
-- [ ] [Linked Lists]()
-- [ ] [Stacks and Queues]()
-- [ ] [Trees](docs/readme-trees.md)
-- [ ] [Hash Tables]()
-- [ ] [Graphs]()
-- [ ] Binary Tree Challenge: [Count Leaf Nodes]()
+- [ ] [Linked Lists](docs/readme-linkedlists.md)
+- [X] [Stacks and Queues](docs/readme-queues.md)
+- [X] [Trees](docs/readme-trees.md)
+- [ ] [Hash Tables](docs/readme-hashtables.md)
+- [ ] [Graphs](docs/readme-graphs.md)
+- [X] Binary Tree Challenge: [Count Leaf Nodes](docs/readme-leafCounterChallenge.md)
+- [ ] Hashtable Challenge: [Find Most Common Word](docs/readme-mostCommonWordChallenge.md)

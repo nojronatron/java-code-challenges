@@ -121,12 +121,12 @@ Look at MyNode.java for an excellent example of a Class refactored to be Generic
 
 ## Unit Tests
 
-- [Test Queue Library](../lib/src/test/java/myJava/code/challenges/TestQueueLibrary.java)
+- [Test Queue Library](../lib/src/test/java/myJava/code/models/TestQueueLibrary.java)
 
 ## Code
 
-- [My Node Class for use with My Queue class](../lib/src/main/java/myJava/code/challenges/MyNode.java)
-- [My Queue Class definition](../lib/src/main/java/myJava/code/challenges/MyQueue.java)
+- [My Node Class for use with My Queue class](../lib/src/main/java/myJava/code/models/MyNode.java)
+- [My Queue Class definition](../lib/src/main/java/myJava/code/models/MyQueue.java)
 
 ## Advanced Enqueue and Dequeue
 

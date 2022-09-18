@@ -1,4 +1,7 @@
-package myJava.code.challenges;
+package myJava.code.models;
+
+import myJava.code.models.MyBinaryNode;
+import myJava.code.models.MyQueue;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
 public class MyQueue<T> {
     private MyNode<T> front = null;

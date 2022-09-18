@@ -1,4 +1,4 @@
-package myJava.code.challenges;
+package myJava.code.models;
 
 public class MyNode<T> {
     private T value;
