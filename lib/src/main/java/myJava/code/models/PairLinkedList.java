@@ -6,7 +6,12 @@ public class PairLinkedList {
     private PairNode head = null;
     private int count = 0;
 
-    public boolean includes(Integer value) {
+    /***
+     * Searches the Linked List Nodes and returns True if a node with matching value is found, otherwise returns false.
+     * @param value Integer
+     * @return boolean
+     */
+    public boolean includes(int value) {
         PairNode current = this.head;
         while (current != null) {
             if (current.getValue() == value) {
@@ -17,6 +22,10 @@ public class PairLinkedList {
         return false;
     }
 
+    /***
+     * Creates a new Node and adds it to the beginning of the linked list.
+     * @param newPair String, Integer
+     */
     public void add(Pair<String,Integer> newPair) {
         PairNode newNode = new PairNode(newPair.getKey(), newPair.getValue());
         newNode.setNext(this.head);
@@ -24,6 +33,13 @@ public class PairLinkedList {
         this.count++;
     }
 
+    /***
+     * Inserts a new node in the position before the node with the second given parameters.
+     * Returns True if successful, False if valueToAddBefore was not found.
+     * @param newItem String,Integer
+     * @param valueToAddBefore String,Integer
+     * @return boolean
+     */
     public boolean addBefore(Pair<String,Integer> newItem, Pair<String,Integer> valueToAddBefore) {
         if (this.head == null) {
             return false;
@@ -50,6 +66,12 @@ public class PairLinkedList {
         return false;
     }
 
+    /***
+     * Returns the Key-Value pair of the item in the list matching the given Key.
+     * Returns Null if Key is not in this list.
+     * @param key String
+     * @return Pair String,Integer
+     */
     public Pair<String,Integer> get(String key) {
         if (this.head == null) {
             return null;
@@ -57,6 +79,7 @@ public class PairLinkedList {
         PairNode current = this.head;
         while (current != null) {
             if (current.getKey().equals(key)) {
+                //noinspection UnnecessaryLocalVariable
                 Pair<String,Integer> result = new Pair<>(current.getKey(), current.getValue());
                 return result;
             }
@@ -71,9 +94,9 @@ public class PairLinkedList {
 
     static class PairNode {
         private String key;
-        private Integer value;
+        private int value;
         private PairNode next = null;
-        public PairNode(String key, Integer value) {
+        public PairNode(String key, int value) {
             this.key = key;
             this.value = value;
         }
