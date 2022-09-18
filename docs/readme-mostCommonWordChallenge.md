@@ -196,4 +196,44 @@ Responses to questions like these will give you time to think about how to solve
 - Will the input string contain any punctuation or other special characters that my algorithm needs to strip or process?
 - If my algorithm receives an empty String, or one-or-more space characters, should it return what it received or null or something else?
 
-etc...
+## Code Analysis
+
+Quick Review:
+
+- Linked List Traversal: O(n).
+- Hashtable Get or Set: O(1).
+- Traversing an Array: O(n).
+
+Integrating those facts into this solution:
+
+- Instantiating the hashtable: O(1).
+- String.replaceAll: Given it is a REGEX the complexity could be anything, but perhaps as bad as O(charactersInString) in this case. Had I implemented more a more complex REGEX with look-ahead and used match groups, maybe it could be *much worse*.
+- String.split(String): O(charactersInString). It must iterate over the String, character by character, and instantiate an array, placing the delimited items into it. This changes the input:output calculation a bit since the string of characters is now an array of Strings of characters.
+- String.toLowerCase(Locale.ROOT): Most certainly an O(charactersInString) operation over the characters in the String it is given. The output substring will be the same character size as the input, so every character must be accessed.
+- Hashtable.has(word): An O(1) operation.
+- Hashtable.set(word): An O(1) operation.
+- Instantiating a Pair type: O(1).
+- The advanced FOR loop is of course O(wordsInArray).
+
+Adding this all together:
+
+1. Strike all O(1) operations as insignificant, given there are more complex operations evaluated here.
+2. String.ReplaceAll() + String.split() + For Loop iterated String.toLowerCase + For Loop iterated.
+
+Calculating-out #2:
+
+O(characters_in_input) + O(characters_in_input) * (characters_in_input / some_common_word_length)
+
+Since O(characters_in_input) are the same, we'll not add them.
+
+Now the complexity is something like O(chars * (chars / 5)), which would be better than O(n^2) but worse than O(log(n)).
+
+*Note*: I am not particularly skills in mathematics, so this is really armchair quarterbacking.
+
+*Note2*: My evaluation of "some_common_word_length" to 5 is based on my very limited research, where some articles mentioned 4.7 as the mean, others just over 5, and a few outlier internet posts stating 8 or 9 was the mean. These last two numbers seem too high, so I dismissed them out of hand so I could finish this analysis.
+
+## Code and Test Cases
+
+[Most Commonly Used Word java class](../lib/src/main/java/myJava/code/challenges/MostCommonlyUsedWord.java)
+
+[Most Commonly Used Word Java Tests](../lib/src/test/java/myJava/code/challenges/TestMostCommonlyUsedWord.java)
