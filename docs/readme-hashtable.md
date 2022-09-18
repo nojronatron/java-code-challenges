@@ -218,7 +218,7 @@ In the past I've used a simple calculation of (_total_buckets_ / _count_of_keys_
 
 The purpose of Load Factor is to determine when to balance the hashtable.
 
-For this codebase I will implement Load Factor as a simple way to determine how full (or empty) the hashtable is, but no rebalancing will be done.
+For this codebase I will implement Load Factor as a simple way to determine how full (or empty) the hashtable is, but no re-balancing will be done.
 
 ## Big-O Analysis
 
