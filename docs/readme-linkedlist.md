@@ -174,3 +174,7 @@ My Linked List and My Linked List Node [Unit Tests](../lib/src/test/java/myJava/
 ## Resources and Acknowledgements
 
 - Code Fellows Common Curriculum
+
+## Footer
+
+Return to [root readme](../README.md)

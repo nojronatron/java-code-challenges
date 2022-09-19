@@ -237,3 +237,7 @@ Now the complexity is something like O(chars * (chars / 5)), which would be bett
 [Most Commonly Used Word java class](../lib/src/main/java/myJava/code/challenges/MostCommonlyUsedWord.java)
 
 [Most Commonly Used Word Java Tests](../lib/src/test/java/myJava/code/challenges/TestMostCommonlyUsedWord.java)
+
+## Footer
+
+Return to [root readme](../README.md)
