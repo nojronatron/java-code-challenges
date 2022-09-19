@@ -153,3 +153,7 @@ There are other situations, but the best advice I can give is as follows:
 ## Resources and Acknowledgements
 
 Code Fellows common curriculum: Overall guidance and pseudocode.
+
+## Footer
+
+Return to [root readme](../README.md)

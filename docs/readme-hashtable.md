@@ -244,3 +244,7 @@ Set a Value: O(1) in Time because the Hashing function locates the index of wher
 
 - Baeldung.com article: [Using Pair in Java](https://www.baeldung.com/java-pairs)
 - Code Fellows Common Curriculum.
+
+## Footer
+
+Return to [root readme](../README.md)

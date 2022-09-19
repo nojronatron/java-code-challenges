@@ -265,3 +265,7 @@ Attempting to pass values around within a call-stack of recursive methods can be
 ## Resources and Acknowledgements
 
 Code Fellows common curriculum: Overall guidance and pseudocode.
+
+## Footer
+
+Return to [root readme](../README.md)
