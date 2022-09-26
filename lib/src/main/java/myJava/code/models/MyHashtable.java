@@ -66,7 +66,7 @@ public class MyHashtable {
         try {
             return this.get(key) != null;
         } catch (NullPointerException nullPointerException) {
-            System.out.println("info: hashtable: " + nullPointerException.getMessage());
+//            System.out.println("info: hashtable: " + nullPointerException.getMessage());
             return false;
         }
     }
