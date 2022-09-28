@@ -4,21 +4,28 @@ import java.util.LinkedList;
 
 public class BrowserNavHistory {
     private final LinkedList<String> history;
-    private final LinkedList<String> current;
+    private Integer currentIdx;
     public BrowserNavHistory() {
         this.history = new LinkedList<>();
-        this.current = null;
+        this.currentIdx = -1;
     }
-    public void go(String address) {
-
+    public void go(String address) throws IndexOutOfBoundsException {
+        this.currentIdx++;
+        this.history.add(currentIdx, address);
     }
     public String forward() {
-
-        return "";
+        if (this.currentIdx == this.getCount() - 1) {
+            return "";
+        }
+        this.currentIdx++;
+        return this.history.get(currentIdx);
     }
     public String back() {
-
-        return "";
+        if (this.currentIdx == 0) {
+            return "";
+        }
+        this.currentIdx--;
+        return this.history.get(currentIdx);
     }
     public int getCount() {
         return history.size();
