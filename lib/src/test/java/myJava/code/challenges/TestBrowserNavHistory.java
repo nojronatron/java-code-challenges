@@ -78,15 +78,21 @@ public class TestBrowserNavHistory {
         String expectedAddress3 = "uri-3";
         var sut = new BrowserNavHistory();
         assertEquals(0, sut.getCount());
-        sut.go(expectedAddress1);
+
+        sut.go(expectedAddress1);   //  uri-1 -> null
         assertEquals(1, sut.getCount());
         assertTrue(sut.contains(expectedAddress1));
-        sut.go(expectedAddress2);
+
+        sut.go(expectedAddress2);   //  uri-2 -> uri-1 -> null
         assertEquals(2, sut.getCount());
+        assertTrue(sut.contains(expectedAddress1));
+        assertTrue(sut.contains(expectedAddress2));
         assertEquals(expectedAddress1, sut.back());
+
         sut.go(expectedAddress3);
         assertEquals(3, sut.getCount());
-        assertEquals(expectedAddress2, sut.back());
+        assertTrue(sut.contains(expectedAddress3));
+        assertEquals(expectedAddress1, sut.back());
     }
     @Test
     public void test_GoGoBackForwardWorksAsExpected() {
