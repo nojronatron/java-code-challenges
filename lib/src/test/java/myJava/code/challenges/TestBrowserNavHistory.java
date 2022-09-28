@@ -70,7 +70,7 @@ public class TestBrowserNavHistory {
         sut.go(expectedAddress2);
         assertEquals(2, sut.getCount());
         assertEquals(expectedAddress2, sut.getHead());
-        assertNotEquals(expectedAddress2, sut.getTail());
+        assertEquals(expectedAddress1, sut.getTail());
     }
     @Test
     public void test_BackToNodeWithValue() {
