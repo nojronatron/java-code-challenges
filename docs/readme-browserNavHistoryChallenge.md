@@ -183,13 +183,13 @@ Assertions will be made to verify functionality:
 
 ## Enhanced Solution
 
-I decided to implement this a second way to more closely follow Chrome:
+I decided to implement this a second way to more closely follow Chrome: History.
 
-Go(address): Any currently selected item will get removed from its current location and inserted to the front of the history. Then the address parameter will get inserted into the front of the history.
+Go(address): The current address is removed from history and inserted to the front of the history. Then address parameter is inserted to the front of the history.
 
-Forward(): If there is a non-null entry in the next position, the current pointer will get decremented to that location and the address will be returned to the caller.
+Forward(): If there is a non-null entry in the previous position, the current pointer will get decremented to that location and the address will be returned to the caller. Otherwise, the current address will be returned to the caller.
 
-Back(): If there is a non-null entry in the previous position, the current pointer will get incremented to that location and teh address will be returned to the caller.
+Back(): If there is a non-null entry in the next position, the current pointer will get incremented to that location and teh address will be returned to the caller. Otherwise, the current address will be returned to the caller.
 
 ### Pseudocode
 
@@ -202,21 +202,16 @@ DECLARE: Constructor that takes no arguments and instantiates History and initia
 DEFINE: Class Method EnhancedGo
 INPUT: String Address
 OUTPUT: Nothing
-DESCRIPTION: Currently selected item moved to front of history and then address is inserted to front of history.
-IF: Address is empty
+DESCRIPTION: Current address is moved to front of history, then the address parameter is inserted to front of history.
+IF: Address is empty (see Class method isNotBlankInput)
     RETURN: Void and exit method
-IF: Address is in History
-    ASSIGN: TempIndex <- History index of Address
-    EXECUTE: History delete <- TempIndex
-    ASSIGN: CurrentIndex <- TempIndex
-IF: CurrentIndex is greater than -1
-    ASSIGN: TempAddress <- History at CurrentIndex
-    ASSIGN: CurrentIndex <- 0
-    INSERT: Insert TempAddress to History before CurrentIndex
-    INSERT: Insert Address to History before CurrentIndex
-ELSE:
-    ADD: History <- Address
-    ASSIGN: CurrentIndex <- 0
+IF: History at CurrentIndex is greater than 0
+    ASSIGN: CurrentAddress <- History item at CurrentIndex
+    EXECUTE: History delete <- History item at CurrentAddress
+    EXECUTE: History insert <- CurrentAddress
+    EXECUTE: History delete <- Address
+EXECUTE: History insert <- Address
+ASSIGN: CurrentIndex <- 0
 RETURN: Void and exit method
 
 DEFINE Class Method EnhancedForward
@@ -226,9 +221,10 @@ DESCRIPTION: Current pointer gets decremented and address at that will be return
 IF: CurrentIndex is greater than 0
     DECREMENT: CurrentIndex
     RETURN: Address <- History at CurrentIndex
-IF: CurrentIndex is 0
+ELSE IF: CurrentIndex is 0
     RETURN: Address <- History at CurrentIndex
-RETURN: Empty String and exit method
+ELSE:
+    RETURN: Empty String and exit method
 
 DEFINE Class Method EnhancedBack
 INPUT: Nothing
@@ -237,24 +233,43 @@ DESCRIPTION: Current pointer gets incremented and address at that location is re
 IF: History size is greater than CurrentIndex + 1
     INCREMENT: CurrentIndex
     RETURN: Address <- History at CurrentIndex
-IF: History size is equal to CurrentIndex + 1
-    Return: Address <- History at CurrentIndex
-RETURN: Empty String and exit method
+ELSE IF: History size is equal to CurrentIndex + 1
+    RETURN: Address <- History at CurrentIndex
+ELSE:
+    RETURN: Empty String and exit method
+
+DEFINE Class Method IsNotBlankInput
+INPUT: String Address
+OUTPUT: Boolean
+DESCRIPTION: Check input for non-word characters or too-small length and return false if it does not meet requirements.
+IF: Address length is not at least 11
+    RETURN False and exit method.
+ELSE IF: Address does not contain word characters
+    RETURN False and exit method.
+ELSE:
+    RETURN True and exit method.
 ```
 
 ### Enhanced Solution Code
 
-[Enhanced Browser Nav History java code](../lib/src/main/java/myJava/code/challenges/EnhancedBrowserNavHistory.java)
+Look for method names prefixed with the word "enhanced" in [Browser Nav History java code](../lib/src/main/java/myJava/code/challenges/BrowserNavHistory.java)
 
 ### Enhanced Solution Unit Tests
 
-[Ehanced Browser Nav History Unit Tests](../lib/src/test/java/myJava/code/challenges/TestEnhancedBrowserNavHistory.java)
+A separate unit test file was created for the Enhanced methods [Unit Tests](../lib/src/test/java/myJava/code/challenges/TestEnhancedBrowserNavHistory.java)
 
 ### Enhanced Solution Analysis
 
-Time: 
+Time:
+- Enhanced Go: All operations are O(1).
+- Both Enhanced Forward and Enhanced Back: All operations are O(1).
+- Underlying LinkedList: Traversal is usually an O(n) in Time. Using a doubly-linked list with indices simplifies getting a value to an O(1) operation in time if the index is known. Because a History is "you are here", "traverse 1 forward of back from here", or "add a new entry to the front", only Insert (new Head) operations are performed on the Linked List, which are O(1). Also, traversing back (Node.next) and forward (Node.previous) is an O(1) operation as well.
+- Overall: Thanks to the nature of the problem domain and a doubly-linked list, operations are O(1) in time.
 
 Space: 
+- Enhanced Go: Each time this is called the input parameter must be stored, as well as the current pointer content (current address), making storage an O(2), which boils down to O(1).
+- Both Enhanced Forward and Enhanced Back: No additional storage is needed. The LinkedList is asked to return a value at a location, which is returned to the caller.
+- Overall: O(1) in space.
 
 ## Footer
 
