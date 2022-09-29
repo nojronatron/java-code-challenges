@@ -34,8 +34,13 @@ public class BrowserNavHistory {
                 this.currentIdx = this.history.indexOf(address);
                 this.history.remove(address);
             }
-            if (this.currentIdx > -1) {
-                String tempAddress = this.history.get(this.currentIdx);
+            if (this.currentIdx > -1 && this.history.size() == 2) {
+                this.history.add(address);
+                this.currentIdx = 0;
+            } else if (this.currentIdx > -1 && this.history.size() > 2) {
+
+            }
+            String tempAddress = this.history.get(this.currentIdx);
                 this.currentIdx = 0;
                 this.history.add(tempAddress);
                 this.history.add(address);
