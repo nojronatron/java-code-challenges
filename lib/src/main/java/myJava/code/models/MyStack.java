@@ -8,7 +8,7 @@ public class MyStack {
         this.bottom = null;
     }
 
-    public void Push(Object data) {
+    public void push(Object data) {
         StackNode newNode = new StackNode(data);
         if (this.isEmpty()) {
             this.top = newNode;
@@ -21,7 +21,7 @@ public class MyStack {
         }
     }
 
-    public Object Pop() {
+    public Object pop() {
         if (this.isEmpty()) {
             return new NullPointerException("There are no items in this Stack.");
         } else {
@@ -32,7 +32,7 @@ public class MyStack {
         }
     }
 
-    public Object Peek() {
+    public Object peek() {
         if (this.isEmpty()) {
             throw new NullPointerException("There are no items in this Stack.");
         } else {
@@ -50,6 +50,7 @@ public class MyStack {
     }
 
     class StackNode {
+        // todo: convert to generic to avoid boxing, unboxing operations
         private Object value;
         private StackNode next;
         public StackNode(Object data) {
