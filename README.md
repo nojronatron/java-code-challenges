@@ -15,7 +15,8 @@ Some Packages will contain core algorithm and data structures, others will conta
 The following index links to readme files specific for each data structure and code challenge in the base library.
 
 - [X] [Linked Lists](docs/readme-linkedlist.md)
-- [X] [Stacks and Queues](docs/readme-queues.md)
+- [X] [Queues](docs/readme-queues.md)
+- [ ] [Stacks](docs/readme-stacks.md)
 - [X] [Trees](docs/readme-trees.md)
 - [X] [Hash Tables](docs/readme-hashtable.md)
 - [ ] [Graphs](docs/readme-graphs.md)
