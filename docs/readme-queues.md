@@ -17,7 +17,7 @@ Last-in-first-out (LIFO): Another way of saying FIFO, but from the other perspec
 - Peek: Retrieve the *value* of the Front node without de-queuing it. Throws an exception if Queue is empty.
 - IsEmpty: Property returns true when no Nodes are in the Queue, otherwise returns false.
 
-## Properties
+## Fields
 
 ### Front
 
@@ -39,9 +39,9 @@ Rear node is the only Node that points to null unless there is only one node, th
 
 Hold the value assigned to the Node.
 
-## Operations
+## Methods
 
-## IsEmpty
+### IsEmpty
 
 Simply returns whether Front is null or not (boolean).
 
