@@ -82,7 +82,7 @@ ELSE:
     RETURN: Top.Value
 ```
 
-## IS EMPTY
+### IS EMPTY
 
 Returns true if the Stack is empty, false if there are items in the Stack.
 
@@ -91,7 +91,7 @@ Pseudocode:
 ```text
 DEFINE: Method IsEmpty
 INPUT: Nothing
-OUTPUT: Integer
+OUTPUT: Boolean
 IF: Top equals Bottom
     IF: Top equals Null
         RETURN: True
