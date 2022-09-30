@@ -128,14 +128,16 @@ Approach:
 
 Test Happy Paths:
 - IsEmpty() returns true when empty, false in any case when there are 1 or more items in the Stack.
-- Peek() returns the Value stored in Top and removes it from the Stack if the Stack has items in it, otherwise it raises an exception.
+- Pop() returns the Value stored in Top and removes it from the Stack if the Stack has items in it, otherwise it raises an exception.
 - Push(value) adds an item to the Stack whether the Stack is empty or not.
-- Pop() returns the value of Top if the Stack has items in it, otherwise it raises an exception.
+- Peek() returns the value of Top if the Stack has items in it, otherwise it raises an exception.
 
 Test Edge Cases (non-exhaustive list):
 
 - Test adding and removing multiple values, verifying size increases and decreases as expected.
-- Test peek function with zero, one, few, and many items, verifying top's value is returned but size stays the same.
+- Test peek function with zero items in Stack throws Null Pointer Exception.
+- Test peek function with, one, few, and many items, verifying top's value is returned but size stays the same.
+- Test pop function with zero items in Stack throws Null Pointer Exception.
 
 [Unit Test File](../lib/src/test/java/myJava/code/models/TestMyStack.java)
 
