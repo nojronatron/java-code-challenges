@@ -10,34 +10,42 @@ public class MyStack {
 
     public void push(Object data) {
         StackNode newNode = new StackNode(data);
+
+        // more than one item in this Stack
+        if (this.bottom != this.top) {
+            newNode.next = this.top;
+            this.top = newNode;
+        }
+
+        // one item in this Stack
+        if (this.bottom == this.top && !this.isEmpty()) {
+            this.top = newNode;
+            this.top.next = this.bottom;
+        }
+
+        // this Stack is empty
         if (this.isEmpty()) {
             this.top = newNode;
             this.bottom = newNode;
-        } else {
-            if (this.bottom == this.top) {
-                this.top = newNode;
-                this.top.next = bottom;
-            }
         }
     }
 
-    public Object pop() {
-        if (this.isEmpty()) {
-            return new NullPointerException("There are no items in this Stack.");
+    public Object pop() throws NullPointerException {
+        StackNode tempNode = this.top;
+        if (this.top == this.bottom) {
+            this.bottom = null;
+            this.top = null;
+        } else if (this.top.next == this.bottom) {
+            this.top.next = null;
+            this.top = bottom;
         } else {
-            StackNode tempNode = this.top;
-            this.top = top.getNext();
-            tempNode.setNext(null);
-            return tempNode.getValue();
+            this.top = top.next;
         }
+        return tempNode.value;
     }
 
-    public Object peek() {
-        if (this.isEmpty()) {
-            throw new NullPointerException("There are no items in this Stack.");
-        } else {
-            return this.top.getValue();
-        }
+    public Object peek() throws NullPointerException {
+        return this.top.value;
     }
 
     public boolean isEmpty() {
