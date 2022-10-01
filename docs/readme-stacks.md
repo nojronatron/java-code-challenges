@@ -31,23 +31,26 @@ DEFINE: Method Push
 INPUT: A Value
 OUTPUT: Nothing
 INSTANTIATE: Node newNode <- input value
-IF: Stack.IsEmpty
+IF: Bottom is NOT equal to Top
+    ASSIGN: newNode.Next <- Top
+    ASSIGN: Top <- newNode
+IF: Bottom is equal to Top AND Stack IsEmpty returns FALSE
+    ASSIGN: Top <- newNode
+    ASSIGN: Top.Next <- Bottom
+IF: IsEmpty returns TRUE
     ASSIGN: Top <- newNode
     ASSIGN: Bottom <- newNode
-ELSE:
-    IF: Bottom is equal to Top
-        ASSIGN: Top <- newNode
-        ASSIGN: Top.Next <- Bottom
-    ELSE:
-        ASSIGN: newNode.Next <- Top
-        ASSIGN: Top <- newNode
 ```
+
+*Note*: This method is adding items to the data structure. The situation changes when there are one or fewer Nodes in the Stack, so those conditions must be detected and handled.
 
 ### POP
 
 Popping the Stack will return the item at the TOP of the stack.
 
 If there are no items in the Stack, POP will raise an exception.
+
+Top and Bottom references must be updated when there are 2 or fewer Nodes in the Stack.
 
 Pseudocode:
 
@@ -56,13 +59,20 @@ DEFINE: Method Pop
 INPUT: Nothing
 OUTPUT: A Value
 IF: Stack.IsEmpty equals TRUE
-    RETURN: An Exception
+    RETURN: Null Pointer Exception
+INSTANTIATE: tempNode <- Top
+IF: Top Equals Bottom
+    ASSIGN: Bottom = null
+    ASSIGN: Top = null;
+ELSE IF: Top.Next Equals Bottom
+    ASSIGN: Top.Next = null
+    ASSIGN: Bottom = Top
 ELSE:
-    INSTANTIATE: tempNode <- Top
     ASSIGN: Top <- Top.Next
-    ASSIGN: tempNode.Next <- NULL
-    RETURN: tempNode.Value
+RETURN: tempNode.Value
 ```
+
+*Note*: This could probably be refactored to eliminate the else-if and else statements. Also, the NullPointerException class can added to the method using the `throws` method keyword.
 
 ### PEEK
 
@@ -77,10 +87,12 @@ DEFINE: Method Peek
 INPUT: Nothing
 OUTPUT: A Value
 IF: Stack.IsEmpty
-    RETURN: Exception
+    RETURN: Null Pointer Exception
 ELSE:
     RETURN: Top.Value
 ```
+
+*Note*: The Null Pointer Exception should be raised using the method keyword `throws`.
 
 ### IS EMPTY
 
@@ -99,21 +111,19 @@ ELSE:
     RETURN: False
 ```
 
+*Note*: This method can be refactored to a single boolean return statement, see actual code.
+
 ## Big-O Analysis
 
-PUSH: No traversal is necessary to add an item to the stack. Takes the new value and assign it's NEXT to the TOP ref, then reassign TOP ref to the new value/node. Time: O(1); Space: O(1).
+PUSH: No traversal is necessary to add an item to the stack. Individual reassignments are performed and are all O(1) in time. A Node is created and added to the Stack, incrementing total storage at a 1:1 ratio. Time: O(1); Space: O(1).
 
-POP: No traversal is necessary to remove an item from the stack. Takes the value from the TOP ref and reassign TOP's next as the new TOP, then return the value to the caller.
+POP: No traversal is necessary to remove an item from the stack. Individual reassignments (including nullification) are performed, which are all O(1) in time. A temporary Node is created, and then destroyed. Time: O(1); Space: O(1).
 
-PEEK: No traversal is necessary to view the value on the TOP ref node. Takes the TOP Value and returns that to the caller without changing any REF linkages.
+PEEK: No traversal is necessary to view the value on the TOP ref node. No temporary Nodes or variables are created, so no additional storage is consumed. Time: O(1); Space: O(1);
 
-ISEMPTY: No traversal is performed, only an O(1) comparison of TOP and BOTTOM nodes.
+ISEMPTY: No traversal is performed, only an O(1) comparison of TOP and BOTTOM nodes is done. Time: O(1); Space: O(1);
 
-Overall Performance:
-
-Time: O(1)
-
-Space: O(1)
+Overall Performance: Time: O(1); Space: O(1).
 
 ## Code
 
