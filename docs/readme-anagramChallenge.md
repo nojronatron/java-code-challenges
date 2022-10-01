@@ -90,7 +90,7 @@ OUTPUT: Boolean
 INSTANTIATE: CharStack <- New Stack
 INITIALIZE: Characters <- StringInput.toCharArray()
 INITIALIZE: ArrCount <- Characters.length
-INITIALIZE: HalfLength <- (ArrCount) mode 2 Equals 0 ?
+INITIALIZE: HalfLength <- (ArrCount) modulus 2 Equals 0 ?
     TRUE: <- ArrCount divided by 2
     FALSE: <- (ArrCount - 1) divided by 2
 ITERATE: From index 0 to HalfLength, step +1
@@ -127,13 +127,19 @@ RETURN: True
 
 ## Edge Cases
 
+- Can instantiate the hosting class.
+- An anagram input returns true.
+- An anagram input with mixed casing returns true (proving case insensitivity).
+- A word that is not an anagram input returns false.
+- The method does not raise an exception.
+
 ## Algorithm Analysis
 
 ## Code and Test Cases
 
-[]()
+[Anagram Expert Class Code](../lib/src/main/java/myJava/code/challenges/AnagramExpert.java)
 
-[]()
+[Anagram Expoer Unit Tests](../lib/src/test/java/myJava/code/challenges/TestIsAnagram.java)
 
 ## Footer
 
