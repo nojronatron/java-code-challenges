@@ -49,12 +49,7 @@ public class MyStack {
     }
 
     public boolean isEmpty() {
-        if (this.top == this.bottom) {
-            if (this.top == null) {
-                return true;
-            }
-        }
-        return false;
+        return this.top == this.bottom && this.top == null;
     }
 
     class StackNode {
