@@ -61,4 +61,57 @@ public class TestMyStackLibrary {
             sut.pop();
         });
     }
+    @Test
+    public void test_manyPushCallsAddMoreItems() {
+        String expectedValue1 = "Alpha";
+        String expectedValue2 = "Bravo";
+        String expectedValue3 = "Charlie";
+        String expectedValue4 = "Delta";
+        MyStack sut = new MyStack();
+
+        sut.push(expectedValue1);
+        assertFalse(sut.isEmpty());
+        assertEquals(expectedValue1, sut.peek());
+
+        sut.push(expectedValue2);
+        assertFalse(sut.isEmpty());
+        assertEquals(expectedValue2, sut.peek());
+
+        sut.push(expectedValue3);
+        assertFalse(sut.isEmpty());
+        assertEquals(expectedValue3, sut.peek());
+
+        sut.push(expectedValue4);
+        assertFalse(sut.isEmpty());
+        assertEquals(expectedValue4, sut.peek());
+    }
+    @Test
+    public void test_fourPushesFourPopsLeavesNullTopAndBottomAndExpectedLifoReturnOrder() {
+        String expectedValue1 = "Alpha";
+        String expectedValue2 = "Bravo";
+        String expectedValue3 = "Charlie";
+        String expectedValue4 = "Delta";
+        MyStack sut = new MyStack();
+        sut.push(expectedValue1);
+        sut.push(expectedValue2);
+        sut.push(expectedValue3);
+        sut.push(expectedValue4);
+
+        assertFalse(sut.isEmpty());
+        assertEquals(expectedValue4, sut.pop());
+
+        assertFalse(sut.isEmpty());
+        assertEquals(expectedValue3, sut.pop());
+
+        assertFalse(sut.isEmpty());
+        assertEquals(expectedValue2, sut.pop());
+
+        assertFalse(sut.isEmpty());
+        assertEquals(expectedValue1, sut.pop());
+
+        assertTrue(sut.isEmpty());
+        assertThrows(NullPointerException.class, ()->{
+            sut.pop();
+        });
+    }
 }
