@@ -109,18 +109,22 @@ INPUT: String StringInput
 OUTPUT: Boolean
 INSTANTIATE: CharStack <- New Stack
 INITIALIZE: Characters <- StringInput.toCharArray()
-INITIALIZE: ArrCount <- Characters.length
-IF: ArrCount modulus 2 equals 0 ?
-    TRUE: HalfLength <- ArrCount divided by 2
-    FALSE: HalfLength <- (ArrCount - 1) divided by 2
-ITERATE: From index 0 to HalfLength, step +1
+INITIALIZE: MaxLeftIndex <= 0;
+IF: ArrCount modulo 2 does not Equal 0
+    ASSIGN: MaxLeftIndex <- (MaxIndex divided by 2) - 1
+ELSE:
+    ASSIGN: MaxLeftIndex <- MaxIndex divided by 2
+ITERATE: From index 0 up to an including MaxLeftIndex, step +1
     EXECUTE: CharStack.Push <- Characters at index
-INITIALIZE: CurrIndex <- HalfLength
+IF: ArrCount modulo 2 does not Equal 0
+    ASSIGN: MaxLeftIndex <- MaxLeftIndex + 1
+ELSE:
+    NOOP
 ITERATE: While CharStack.IsEmpty is False:
-    ASSIGN: CurrIndex <- CurrIndex + 1
+    ASSIGN: MaxLeftIndex <- MaxLeftIndex + 1
     INITIALIZE: PoppedChar <- CharStack.Pop
-    INITIALIZE: IndexedChar <- Character at Characters CurrIndex
-    IF: TempChar.ToLower NOT equals IndexedChar.ToLower
+    INITIALIZE: IndexedChar <- Character at Characters MaxLeftIndex
+    IF: TempChar.ToLowerCase NOT equals IndexedChar.ToLowerCase
         TRUE: Return false
 RETURN: True
 ```
@@ -132,8 +136,24 @@ RETURN: True
 - An anagram input with mixed casing returns true (proving case insensitivity).
 - A word that is not an anagram input returns false.
 - The method does not raise an exception.
+- Very small anagram e.g. 1 or 2 characters.
+- Larger anagrams of both odd and even sizes.
+- Small and Large character count words that are not anagrams.
 
 ## Algorithm Analysis
+
+Multiple execution steps are taking place:
+
+- Internal String method `String.toCharArray()` is certainly an O(n) in time, as it must iterate through the Characters stored in the String to get the Character values and set them into an array.
+- Getting the size of an array is O(1) in time.
+- Calculating addition, subtraction, and division are O(1) in time.
+- The For iterator operates on 50% or less of the input array, so worst case is O(n/2) in time.
+- Stack operations are all O(1) in time.
+- Comparing `Character.toLowerCase(char)` instances is a hidden method, but I would guess it is a O(1) math problem and an O(1) comparison of integers, so probably O(1) in time.
+
+Overall the worst case scenario in time is O(n) due to the 'toCharArray()' method.
+
+As for space, the same 'toCharArray()' method will always duplicate each Character in the input string, so it will be an O(n) operation, making the entire algorithm O(n) in Space.
 
 ## Code and Test Cases
 
