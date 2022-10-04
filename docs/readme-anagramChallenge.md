@@ -1,5 +1,9 @@
 # Is It An Anagram Challenge
 
+This effort is the result of re-attempting the Anagram Challenge.
+
+The previous time I attempted this, I mistook anagram for palindrome, so I've created a separate solution for that in the [palindrome expert class](../lib/src/main/java/myJava/code/challenges/PalindromeExpert.java).
+
 ## Input and Output
 
 Input will be a String type:
@@ -9,55 +13,44 @@ Input will be a String type:
 - No punctuation.
 - Case can be ignored i.e. 'A' is equal to 'a'.
 
+Note: An updated version accepts *two* input strings and determine if one is an anagram of the other.
+
 Output will be boolean:
 
-- If the input String is an anagram, return True.
+- If the input String is a palindrome, return True.
 - Otherwise, return False.
 
 ## Breaking Down The Problem
 
-An anagram is a word that reads the same forwards and backwards. For example: "tacocat".
+An anagram is a pair of words that share the same characters, such as "debit card" and "bad credit".
 
 A String is a type made up of Chars (characters).
 
 Characters in the String need to be compared to determine if input is an anagram.
 
-The algorithm will need to compare the "left half" of the input String to the "right half".
+The algorithm will need to compare the two String inputs.
 
-In the case of odd-length String, a means to find "left half" and "right half" will need to be implemented.
+Since we are checking if characters in one String exist within another String, a hashtable will be implemented for rapid storage, retrieval, and comparison.
 
-Achieve this by process half of the characters in the String, so they can be compared to the second half of characters in the String.
+1. Filter *out* any punctuation from both String inputs.
+2. Filter *out* space characters.
+3. Compare the lengths of the two String inputs and if they are different, then they cannot be an anagram so return false and exit.
+4. Break the String inputs into their own Character arrays, one for each.
+5. Iterate through the characters in the 1st array, adding each to a hashtable instance, until all 1st array characters have been added.
+6. Iterate through the 2nd array, checking the hashtable if each character already in there.
+7. If the current iteration's character is *not* found in the hashtable, return false and exit the function.
+8. Once the 2nd character array has been iterated through completely and the function has not already exited, return true and exit.
 
-Start an iterator that will index through one half of the character array.
+### About Hash Tables
 
-In each iteration do the following:
+See my [readme about hash tables](./readme-hashtable.md) for details.
 
-1. Push the characters from the array into the Stack until the iterator ends.
+A Hash Table is a good data structure to use here because:
 
-Start a new iterator at the index where the first iterator left off, ending with the last index of the character array.
-
-In each iteration do the following:
-
-1. POP a character from the stack.
-2. Transform the POPed character to its lower-cased version.
-3. Get the next indexed item from the character array.
-4. Transform the indexed item to its lower-cased version.
-5. Compare the lower-cased version of the POPped character with the next character in the input "right half" character array.
-6. If they are NOT equal, return False and exit the function
-7. If they are equal continue with the next iteration.
-
-Once the Stack is empty, if the algorithm is still running all items must have matched to return TRUE and exit the algorithm.
-
-### About Stacks
-
-See my [readme about Stacks](./readme-stacks.md) for details.
-
-A Stack is a good data structure to use here because:
-
-- FILO has the effect of returning items in the opposite order from how they were added.
-- It is O(1) in all operations, space and time, so is fairly efficient.
-- Easily utilized within an iterative construct.
-- Determining when the Stack is empty, or what the next value is w/o removing it, can be helpful.
+- Adding items to the hash table is an O(1) operation.
+- Checking to see if a value is already in the hash table is O(1).
+- The space used by a hash table can be large to start, but storage is efficient even with very large inputs.
+- Hash tables guarantee ability to test for non-uniqueness in a collection of items.
 
 ### About Strings and Characters
 
@@ -85,47 +78,57 @@ As originally written on the whiteboard during the 40-minute challenge:
 
 ```text
 ALGORITHM: isAnagram()
-INPUT: String StringInput
+INPUT: String Input1, String Input2
 OUTPUT: Boolean
-INSTANTIATE: CharStack <- New Stack
-INITIALIZE: Characters <- StringInput.toCharArray()
-INITIALIZE: ArrCount <- Characters.length
-INITIALIZE: HalfLength <- (ArrCount) modulus 2 Equals 0 ?
-    TRUE: <- ArrCount divided by 2
-    FALSE: <- (ArrCount - 1) divided by 2
-ITERATE: From index 0 to HalfLength, step +1
-    EXECUTE: CharStack.Push <- Characters at index
-ITERATE: From HalfLength to Characters.length - 1, step +1
-    INITIALIZE: TempChar <- CharStack.Pop
-
-// Time expired
+INSTANTIATE: Hashtable <- New Hashtable Character, Integer
+INITIALIZE: FirstInput <- Input1 replace non-word-characters with blank string
+INITIALIZE: SecondInput <- Input2 replace non-word-characters with blank string
+IF: FirstInput length is NOT EQUAL to SecondInput length
+    RETURN: False
+ELSE:
+    CONTINUE
+INITIALIZE: InputArr1 <- FirstInput toCharArray()
+INITIALIZE: InputArr2 <- SecondInput toCharArray()
+ITERATE: Index 0 through InputArr1 length - 1, step +1
+    EXECUTE: Hashtable.add <- InputArr1 at Index
+ITERATE: Index 0 through InputArr2 length - 1, step +1
+    ASSIGN: Result <- hashtable has <- InputArr2 at Index
+    IF: Result EQUALS FALSE
+        RETURN: False
+    ELSE:
+        CONTINUE
+RETURN: True
 ```
+
+There are a few issues with this algorithm that I did not catch due to time pressures:
+
+1. Testing for upper vs lower case. This is a simple one-line test e.g. Character.toLowerCase(char c) Equals ...
+2. String.replace() is pretty good but in order to use a REGEX (as implied) the actual method in Java is `String.replaceAll(regex, replacement)`.
+3. Utilize Enhanced For or ForEach (depending on language) to avoid having to index through the array(s).
 
 The following refined Algorithm was created in Pseudocode to simplify operation and leverage available Fields and Methods:
 
 ```text
 ALGORITHM: isAnagram()
-INPUT: String StringInput
+INPUT: String Input1, String Input2
 OUTPUT: Boolean
-INSTANTIATE: CharStack <- New Stack
-INITIALIZE: Characters <- StringInput.toCharArray()
-INITIALIZE: MaxLeftIndex <= 0;
-IF: ArrCount modulo 2 does not Equal 0
-    ASSIGN: MaxLeftIndex <- (MaxIndex divided by 2) - 1
+INSTANTIATE: Hashtable <- New Hashtable Character, Integer
+INITIALIZE: FirstInput <- Input1 replace all non-word-characters with blank string
+INITIALIZE: SecondInput <- Input2 replace all non-word-characters with blank string
+IF: FirstInput length is NOT EQUAL to SecondInput length
+    RETURN: False
 ELSE:
-    ASSIGN: MaxLeftIndex <- MaxIndex divided by 2
-ITERATE: From index 0 up to an including MaxLeftIndex, step +1
-    EXECUTE: CharStack.Push <- Characters at index
-IF: ArrCount modulo 2 does not Equal 0
-    ASSIGN: MaxLeftIndex <- MaxLeftIndex + 1
-ELSE:
-    NOOP
-ITERATE: While CharStack.IsEmpty is False:
-    ASSIGN: MaxLeftIndex <- MaxLeftIndex + 1
-    INITIALIZE: PoppedChar <- CharStack.Pop
-    INITIALIZE: IndexedChar <- Character at Characters MaxLeftIndex
-    IF: TempChar.ToLowerCase NOT equals IndexedChar.ToLowerCase
-        TRUE: Return false
+    CONTINUE
+INITIALIZE: InputArr1 <- FirstInput toCharArray()
+INITIALIZE: InputArr2 <- SecondInput toCharArray()
+ITERATE: For each Item in InputArr1:
+    EXECUTE: Hashtable.add <- Item toLowerCase
+ITERATE: For each Item in InputArr2
+    ASSIGN: Result <- hashtable has <- InputArr2 at Index
+    IF: Result EQUALS FALSE
+        RETURN: False
+    ELSE:
+        CONTINUE
 RETURN: True
 ```
 
@@ -144,22 +147,23 @@ RETURN: True
 
 Multiple execution steps are taking place:
 
+- Internal String replacement method `String.replaceAll(regex, replacement)` is likely an O(n) operation on each input, so O(2 * n).
 - Internal String method `String.toCharArray()` is certainly an O(n) in time, as it must iterate through the Characters stored in the String to get the Character values and set them into an array.
 - Getting the size of an array is O(1) in time.
-- Calculating addition, subtraction, and division are O(1) in time.
-- The For iterator operates on 50% or less of the input array, so worst case is O(n/2) in time.
-- Stack operations are all O(1) in time.
+- The For iterator operates on each input array, so worst case is O(2 * n) in time.
+- Hash Table operations are all O(1) in time.
 - Comparing `Character.toLowerCase(char)` instances is a hidden method, but I would guess it is a O(1) math problem and an O(1) comparison of integers, so probably O(1) in time.
 
-Overall the worst case scenario in time is O(n) due to the 'toCharArray()' method.
+Overall the worst case scenario in time is O(n * 6) due to the 'toCharArray()' method calls, the replaceAll method calls, and the 2 custom For iterators to interact with the hash table with O(1) operations. Final algorithmic efficiency in time is O(n).
 
-As for space, the same 'toCharArray()' method will always duplicate each Character in the input string, so it will be an O(n) operation, making the entire algorithm O(n) in Space.
+As for space, multiple operations store and operate on the inputs. In a worst-case scenario the duplication is fully both inputs at each assignment, and while adding items to the hashmap, which is perhaps as bad as O(n * 5). Final algorithmic efficiency in space is O(n).
 
 ## Code and Test Cases
 
 [Anagram Expert Class Code](../lib/src/main/java/myJava/code/challenges/AnagramExpert.java)
 
-[Anagram Expoer Unit Tests](../lib/src/test/java/myJava/code/challenges/TestIsAnagram.java)
+[Anagram Expert Unit Tests](../lib/src/test/java/myJava/code/challenges/TestIsAnagram.java)
+
 
 ## Footer
 
