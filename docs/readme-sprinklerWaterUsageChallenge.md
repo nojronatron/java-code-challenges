@@ -124,7 +124,7 @@ Design test cases that will cover for these situations:
 - Pay attention to details like "calculate the answer from anywhere in the system". This statement actually makes this Tree-ish problem a Graph problem instead!
 - When I start to feel like time is getting short, I need to very rapidly go over BigO Time and Space. I can always go back and refine/expand on it later if there is more time.
 - When I feel like time is short, I need to write out at least 4 statements about my testing approach: JUnit Jupiter, Happy Path, Null In/Out, and 1 or 2 edge case inputs with expected outputs.
-- When looking at a tree-ish problem, pay attention to the number of nodes. Don't build a K-ary Tree if only a Binary Tree is necessary. Similarly, don't build a Binary Search Tree if ordering of information is not important!
+- When looking at a tree-ish problem, pay attention to the number of nodes. *Don't build a K-ary Tree* if only a Binary Tree is necessary. Similarly, don't build a Binary Search Tree if ordering of information is not important!
 
 ## Footer
 

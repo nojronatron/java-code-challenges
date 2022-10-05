@@ -26,4 +26,4 @@ The following index links to readme files specific for each data structure and c
 - [X] Linked List Challenge: [Browser Navigation History](docs/readme-browserNavHistoryChallenge.md)
 - [X] Stack Challenge: [Anagram Expert](docs/readme-anagramChallenge.md)
 - [X] Hashtable Challenge: [Palindrome Expert](docs/readme-palindromeNonChallenge.md)
-- 
+- [ ] Tree or Graph Challenge: [Sprinkler Water Usage](docs/readme-sprinklerWaterUsageChallenge.md)
