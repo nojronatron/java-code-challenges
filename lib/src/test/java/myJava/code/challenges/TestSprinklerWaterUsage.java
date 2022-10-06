@@ -28,7 +28,7 @@ public class TestSprinklerWaterUsage {
     }
     @Test
     void test_exampleInputsReturns249() {
-        int expectedResult = 249;
+        int expectedResult = 294;
         var sut = new SprinklerWaterUsage();
         MyKaryNode<Integer> rootNode = new MyKaryNode<>(35);
         MyKaryNode<Integer> rootLeftChild = new MyKaryNode<>(41);
@@ -44,6 +44,9 @@ public class TestSprinklerWaterUsage {
 
         rootRightChild.setChild(thirdLevelCharlie);
         rootRightChild.setChild(thirdLevelDelta);
+
+        rootNode.setChild(rootLeftChild);
+        rootNode.setChild(rootRightChild);
 
         assertEquals(expectedResult, sut.waterUsage(rootNode));
     }
