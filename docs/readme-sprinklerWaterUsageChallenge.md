@@ -97,7 +97,7 @@ For this round, using a Kary Tree, the Java code will follow the Pseudocode docu
 
 Create a new Class to contain one or more functions that will solve this challenge.
 
-[Sprinkler Water Usage Java Class]()
+[Sprinkler Water Usage Java Class](../lib/src/main/java/myJava/code/challenges/SprinklerWaterUsage.java)
 
 ### Test Cases
 
@@ -108,9 +108,15 @@ Design test cases that will cover for these situations:
 - Negative values in tree -> Ignore them.
 - Tree with at least 6 nodes with values 35, 41, 59, 33, 52, 30, 44 -> 249 is returned.
 
-[Sprinkler Water Usage Unit Tests]()
+[Sprinkler Water Usage Unit Tests](../lib/src/test/java/myJava/code/challenges/TestSprinklerWaterUsage.java)
 
 ### Big-O Analysis
+
+Kary Tree:
+
+Time: O(n) -> Each node must be checked for a value, and each child node traversed throughout entire tree.
+
+Space: O(w) -> However wide the Kary Tree is determines the maximum amount of space needed for storage at any time during traversal.
 
 ## Retrospective
 
@@ -124,7 +130,12 @@ Design test cases that will cover for these situations:
 - Pay attention to details like "calculate the answer from anywhere in the system". This statement actually makes this Tree-ish problem a Graph problem instead!
 - When I start to feel like time is getting short, I need to very rapidly go over BigO Time and Space. I can always go back and refine/expand on it later if there is more time.
 - When I feel like time is short, I need to write out at least 4 statements about my testing approach: JUnit Jupiter, Happy Path, Null In/Out, and 1 or 2 edge case inputs with expected outputs.
-- When looking at a tree-ish problem, pay attention to the number of nodes. *Don't build a K-ary Tree* if only a Binary Tree is necessary. Similarly, don't build a Binary Search Tree if ordering of information is not important!
+- When looking at a tree-ish problem, pay attention to the number of nodes. *Don't build a K-ary Tree* if only a Binary Tree is necessary. Similarly, *only* build a Binary Search Tree if ordering of information is important!
+- If a Binary Tree is to be used instead of a Kary Tree, then remember to create a Class with a storage array, and then use *depth first traversal* via a *recursive function* for best performance.
+
+## Resources and Acknowledgements
+
+Code Fellows common curriculum: Overall guidance and pseudocode.
 
 ## Footer
 
