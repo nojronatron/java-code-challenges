@@ -5,6 +5,9 @@ import myJava.code.models.MyQueue;
 
 public class SprinklerWaterUsage {
     public int waterUsage(MyKaryNode<Integer> tree) {
+        if (tree.isLeaf() && tree.getValue() < 0) {
+            return 0;
+        }
         MyQueue<MyKaryNode<Integer>> breadthQueue = new MyQueue<>();
         breadthQueue.enqueue(tree); // failed to test for null so exception is possible
         int sumValue = 0;
