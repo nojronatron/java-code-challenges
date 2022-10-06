@@ -162,6 +162,8 @@ while !breadth.is_empty()
 
 A binary tree is a special case of a K-ary Tree, so there is a lot of overlapping logic in this traversal method.
 
+K-ary Breadth-First Traversal is an O(n) operation as every Node is accessed within the while iteration block.
+
 ### Adding a Node
 
 According to Code Fellows curriculum there are no placement rules in a Binary Tree, nor a K-ary Tree.
