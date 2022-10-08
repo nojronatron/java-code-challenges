@@ -15,7 +15,7 @@ Use a hashtable to hold *unique* values, or as storage for dictionary items, or 
 
 ## About Hashtable
 
-A Hashtable is a datastructures.
+A Hashtable is a datastructure.
 
 A Hashtable can:
 
@@ -23,10 +23,6 @@ A Hashtable can:
 - Quickly retrieve a value.
 - Encode Keys using a hash of the value to create an index.
 - Efficient at lookups for values.
-
-A Hashtable has:
-
-Hashing Function: Takes a key and returns an integer.
 
 ## Methods
 
@@ -156,9 +152,13 @@ RETURN: FALSE
 
 ### HASH
 
+A Hashing function takes a key and returns an integer.
+
+This is used as a means to find an index in a collection.
+
 `number hash(String key)`
 
-Accepts a key as a String, hashes it, and returns an index of the array where the key-value-pair should be placed.
+Accepts a key as a String, hashes it, and returns an integer. This can be used to determine where the key-value-pair should be placed in a collection.
 
 Pseudocode:
 
