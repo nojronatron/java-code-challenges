@@ -110,7 +110,7 @@ Connections between related data items can easily be represented using a Graph.
 
 Any system where relationships between items needs to be understood and traversed are good candidates for a Graph data structure.
 
-Mapping software can use a Graph to help determine how to traverse roads from point A to point B, via other points or direct.
+Graphs are used in GPS and mapping applications, Social networks, for Airline traffic, and many other purpses.
 
 ## Graph Properties (Fields)
 
@@ -132,6 +132,8 @@ Graphs *can be* Cyclic, so additional consideration must be made to avoid traver
 
 ### Breadth First Traversal
 
+Overview:
+
 1. Enqueue the declared 'start' Node (Vertex).
 2. Iterate through additional code while the Queue is not empty.
 3. Dequeue the first Node.
@@ -149,24 +151,64 @@ Pseudocode:
 DECLARE: Method BreadthFirst(vertex)
 INPUT: Node Vertex
 OUTPUT: Collection of Nodes
-INSTANTIATE: Nodes <- new List
 INSTANTIATE: BreadthQueue <- new Queue
-INSTANTIATE: Visited <- new Set
 EXECUTE: BreadthQueue <- enqueue Vertex
-EXECUTE: Visited <- add Vertex
+INSTANTIATE: Visited <- new Set
 ITERATE: While BreadthQueue is not empty
     INSTANTIATE: Front <- dequeue BreadthQueue
-    EXECUTE: Nodes <- add Front
+    IF: Front is not in Visited
+        EXECUTE: Visited <- Add Front
     ITERATE: For each Child in Front Children (Neighbors)
-        IF: Child not is Visited
-            EXECUTE: Visited <- add Child
-            EXECUTE: BreadthQueue <- enqueue Child
-RETURN: Nodes
+        EXECUTE: BreadthQueue <- enqueue Child
+RETURN: Visited
 ```
 
 ### Depth First
 
+Overview:
+
+1. Push the root node into a Stack.
+2. Mark the root node as Visited.
+3. Enter an iteration so long as the Stack is not empty.
+4. Pop the top Node off the Stack.
+5. If a Neighbor hasn't been visited, Push it onto the Stack and mark it as Visited.
+6. Repeat until the Stack is empty.
+
+Pseudocode:
+
+```text
+DECLARE: Method DepthFirst(vertex)
+INPUT: Node Vertex
+OUTPUT: Collection of Nodes
+INSTANTIATE: Nodes <- new Set
+EXECUTE: Visited <- add Temp
+INSTANTIATE: DepthStack <- new Stack
+EXECUTE: DepthStack <- push Vertex
+ITERATE: While Stack is not empty
+    EXECUTE: Node Temp <- pop Stack
+    ITERATE: For each Neighbor to Temp
+        IF: Neighbor not in Visited
+            EXECUTE: Visited <- add Neighbor
+            EXECUTE: Stack <- push Neighbor
+RETURN: Visited
+```
 ## Big-O Analysis
+
+Pushing a Node onto a Stack: O(1).
+
+Popping a Node from a Stack: O(1).
+
+Pushing a Node into a Queue: O(1).
+
+Popping a Node from a Queue: O(1).
+
+Checking if Set HAS Node in it: O(1).
+
+Adding a Node to a Set: O(1).
+
+Iterating through collection of Edges: O(Edges).
+
+Iterating through all Vertices once in a connected Graph and visiting each Vertex only once: O(Nodes + Edges) -> roughly O(n^2).
 
 ## Code
 
@@ -174,7 +216,9 @@ RETURN: Nodes
 
 ## Resources and Acknowledgements
 
-- Code Fellows Common Curriculum.
+Code Fellows Common Curriculum.
+
+University of Washington computer science program presentation [algorithms and computational complexity](https://courses.cs.washington.edu/courses/cse417/12wi/notes/03graphs.pdf)
 
 ## Footer
 
