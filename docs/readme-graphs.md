@@ -217,34 +217,49 @@ The following is a draft of how the Java code could look when completed, and wil
 
 ```java
 import java.util.Hashtable;
+import java.util.Set;
 
 public class GraphTraverser {
     private final int[] adjacencyMatrix = new int[]{};
-    private final Set<T> visitedNodes;
+    private final Set<GraphNode> visitedNodes;
     private final Hashtable<T, U> adjacencyList;
+
     public GraphTraverser() {
-        this.visitedNodes = new Set<Integer>();
+        this.visitedNodes = new Set<GraphNode>();
         this.adjacencyList = new Hashtable<Integer, String>();
     }
     // here: public getters for adjacencyMatrix, visitedNodes, and adjacencyList
-    
+
     public Set<T> breadthFirstTraversal(GraphNode<T> vertex) {
-        Queue<MyGraphNode> breadthQueue = new Queue<>();
+        Queue<GraphNode> breadthQueue = new Queue<>();
         breadthQueue.enqueue(vertex);
         this.visitedNodes = new Set<>();
         while (!breadthQueue.isEmpty()) {
-            MyGraphNode front = breadthQueue.dequeue();
-            if (!visitedNodes.contains(front)) {
+            GraphNode front = breadthQueue.dequeue();
+            if (!visitedNodes.add(front)) {
                 visitedNodes.add(front);
             }
-            for(MyGraphEdge neighbor: front.getNeighbors()) {
-                MyGraphNode tempNode = neighbor.getNeighbor();
+            for (MyGraphEdge neighbor : front.getNeighbors()) {
+                breadthQueue.enqueue(neighbor);
             }
         }
+        return visitedNodes;
     }
-    
+
     public Set<T> depthFirstTraversal(GraphNode<T> vertex) {
-        
+        this.visitedNodes.add(vertex);
+        Stack<GraphNode> depthStack = new Stack<>();
+        depthStack.push(vertex);
+        while(!depthStack.isEmpty()) {
+            GraphNode temp = depthStack.pop();
+            for(GraphNode neighbor: temp.getNeighbors()) {
+                if(!visitedNodes.contains(neighbor)) {
+                    this.visitedNodes.add(neighbor);
+                    depthStack.push(neighbor);
+                }
+            }
+        }
+        return this.visited;
     }
 }
 ```
@@ -252,22 +267,22 @@ public class GraphTraverser {
 Here is a draft of what the Java code for a Node class and an Edge class:
 
 ```java
-class MyGraphNode {
+class GraphNode {
     private int value;
     private List<MyGraphEdge> neighbors;
 
-    public MyGraphNode(int value) {
+    public GraphNode(int value) {
         this.value = value;
     }
     // public setter setNeighbor(vertex, weight)
     // public setters and getters for value and neighbors
 }
-class MyGraphEdge {
-    private MyGraphNode neighbor;
+class NodeEdge {
+    private GraphNode neighbor;
     private int weight;
     
     // If an Edge is needed, then a neighbor and weight are required (weight could be defaulted to 0)
-    public MyGraphEdge(MyGraphNode neighbor, int weight) {
+    public NodeEdge(GraphNode neighbor, int weight) {
         this.neighbor = neighbor;
         this.weight = weight;
     }
@@ -275,6 +290,12 @@ class MyGraphEdge {
     // public getters for neighbor and weight
 }
 ```
+
+### Questions to Explore
+
+Should the Adjacency List be used as the Set of visited nodes that the pseudocode is referring to?
+
+The Adjacency List is a Collection of Keys, which in the examples is the *value* held in the Graph node, and the Buckets would store the NodeEdge objects, which contain the Neighbor and Weight information.
 
 ## Tests and Approach
 
