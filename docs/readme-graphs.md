@@ -16,7 +16,7 @@ Degree: The number of Edges connected to the current Vertex/Node.
 
 Undirected
 
-- Each edge is bi-directional.
+- Each edge is bidirectional.
 - Static, in than there is not directed traversal between Neighbors via an Edge.
 
 Directed or "Digraph"
@@ -192,6 +192,7 @@ ITERATE: While Stack is not empty
             EXECUTE: Stack <- push Neighbor
 RETURN: Visited
 ```
+
 ## Big-O Analysis
 
 Pushing a Node onto a Stack: O(1).
@@ -212,7 +213,87 @@ Iterating through all Vertices once in a connected Graph and visiting each Verte
 
 ## Code
 
-## Tests
+The following is a draft of how the Java code could look when completed, and will be replaced with links to actual code at a later time.
+
+```java
+import java.util.Hashtable;
+
+public class GraphTraverser {
+    private final int[] adjacencyMatrix = new int[]{};
+    private final Set<T> visitedNodes;
+    private final Hashtable<T, U> adjacencyList;
+    public GraphTraverser() {
+        this.visitedNodes = new Set<Integer>();
+        this.adjacencyList = new Hashtable<Integer, String>();
+    }
+    // here: public getters for adjacencyMatrix, visitedNodes, and adjacencyList
+    
+    public Set<T> breadthFirstTraversal(GraphNode<T> vertex) {
+        Queue<MyGraphNode> breadthQueue = new Queue<>();
+        breadthQueue.enqueue(vertex);
+        this.visitedNodes = new Set<>();
+        while (!breadthQueue.isEmpty()) {
+            MyGraphNode front = breadthQueue.dequeue();
+            if (!visitedNodes.contains(front)) {
+                visitedNodes.add(front);
+            }
+            for(MyGraphEdge neighbor: front.getNeighbors()) {
+                MyGraphNode tempNode = neighbor.getNeighbor();
+            }
+        }
+    }
+    
+    public Set<T> depthFirstTraversal(GraphNode<T> vertex) {
+        
+    }
+}
+```
+
+Here is a draft of what the Java code for a Node class and an Edge class:
+
+```java
+class MyGraphNode {
+    private int value;
+    private List<MyGraphEdge> neighbors;
+
+    public MyGraphNode(int value) {
+        this.value = value;
+    }
+    // public setter setNeighbor(vertex, weight)
+    // public setters and getters for value and neighbors
+}
+class MyGraphEdge {
+    private MyGraphNode neighbor;
+    private int weight;
+    
+    // If an Edge is needed, then a neighbor and weight are required (weight could be defaulted to 0)
+    public MyGraphEdge(MyGraphNode neighbor, int weight) {
+        this.neighbor = neighbor;
+        this.weight = weight;
+    }
+    
+    // public getters for neighbor and weight
+}
+```
+
+## Tests and Approach
+
+- Utilize JUnit Jupiter
+- Adjacency List populates unique nodes and correct Edge relationships.
+- Connected
+- Non-cyclical, connected, undirected graph, depth traversal returns unique items ordered properly.
+- Non-cyclical, connected, undirected graph, breadth traversal returns unique items ordered properly.
+- Non-cyclical, connected, directed graph, depth traversal returns unique items ordered properly.
+- Non-cyclical, connected, directed graph, breadth traversal returns unique items ordered properly.
+- Cyclical, connected, undirected graph, depth traversal...
+- Cyclical, connected, undirected graph, breadth traversal...
+- Cyclical, connected, directed graph, depth traversal...
+- Cyclical, connected, directed graph, breadth traversal...
+- Empty graph in, empty return.
+- Disconnected graph segments or 'Islands' are NOT traversed unless an Island Node is input.
+- Sparse graph traversal(s).
+- Dense graph traversal(s).
+- Weighted Graph traversal(s).
 
 ## Resources and Acknowledgements
 
