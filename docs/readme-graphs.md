@@ -17,7 +17,7 @@ Degree: The number of Edges connected to the current Vertex/Node.
 Undirected
 
 - Each edge is bidirectional.
-- Static, in than there is not directed traversal between Neighbors via an Edge.
+- Connections are static - traversal between Neighbors via an Edge can happen in either direction.
 
 Directed or "Digraph"
 
@@ -38,12 +38,13 @@ Disconnected
 
 - One or more Vertices/Nodes do not have any edges.
 - Disconnected Graphs may have Vertices/Nodes with edges, however there will be at least one Vertex/Node with no Edges.
+- Graphs that are disconnected from each other *do not share any Edge*.
 - A standalone Vertex or Edge is known as an Island within a graph data structure.
 
 Cycles In A Graph
 
-- One or more loops in the traversal of Vertices Edges.
-- Repetitive visits to the same state or item are possible in a 'cycle'.
+- One or more loops in the traversal of Edges between Vertices.
+- Repetitive visits to the same Vertex / item are possible in a 'cycle'.
 - While traversing a Graph, if the same Vertex is seen twice, the graph is considered 'Cyclic'.
 
 Acyclic Graph
@@ -75,10 +76,10 @@ Asymmetric Graph
 Adjacency Matrix
 
 - A 2-dimensional array.
-- Dimensions are determined by the number of Vertices squared.
+- Dimensions are determined by the number of Vertices, squared.
 - A 4-vertices Graph will have a 4x4 Adjacency Matrix.
-- At each intersection (cell or record) in the matrix, a '1' is placed if there *is* an Edge between the X-Vertex and the Y-Vertex.
-- Any intersection where an Edge does *not* exist between X-Vertex and Y-Vertex, a '0' is placed.
+- At each intersection (cell or record) in the matrix, a truthy value is placed if there *is* an Edge between the X-Vertex and the Y-Vertex.
+- Any intersection where an Edge does *not* exist between X-Vertex and Y-Vertex, a falsy (or no value) is placed.
 
 Adjacency List
 
@@ -90,17 +91,19 @@ Weighted Graph
 
 - Edges can have value.
 - Call the Edge Value 'Weight'.
-- The weight is abstract, and depends on the implementation. For example, the cost to travel an Edge between Vertices could be time, money, or fuel.
+- The weight is abstract, and depends on the implementation.
+- For example, the cost to travel an Edge between Vertices could be time, money, fuel, or some other resource.
 
 Weighted Matrix
 
 - An Adjacency Matrix that uses Edge Weights to identify relationships between Vertices.
 - A '0' represents "no Edge between these Vertices".
+- Any other value represents the "weight of the Edge between these vertices".
 
 Weighted Adjacency List
 
 - An Adjacency List that records the Vertex value, as well as the Edge Weight in each Bucket Node.
-- For example, if Node "A" has 2 Edges, one each to "B" and "C". The Bucket would then look like: `[A] :[B,4] -> [C,5] -> null`
+- For example, if Node "A" has 2 Edges, one each to "B (weight: 4)" and "C (weight: 5)" the Bucket would then look like: `[A] :[B,4] -> [C,5] -> null`
 
 ## Purpose
 
@@ -110,19 +113,29 @@ Connections between related data items can easily be represented using a Graph.
 
 Any system where relationships between items needs to be understood and traversed are good candidates for a Graph data structure.
 
-Graphs are used in GPS and mapping applications, Social networks, for Airline traffic, and many other purpses.
+Graphs are used in GPS and mapping applications, Social networks, Airline traffic management, and many other purposes.
 
 ## Graph Properties (Fields)
 
-Adjacency Matrix: A 2-dimensional Array of all Vertices on X- and Y- axes, with Edge data stored in each intersection.
+Adjacency Matrix:
 
-Adjacency List: Could be a Hashtable that stores an Array of unique Vertices (Keys), with Buckets (Linked List) containing Edge/Adjacency information (Values).
+- A 2-dimensional Array of all Vertices on X- and Y- axes
+- Edge data is stored in each intersection.
 
-Visited Collection: An internal List that traversals can use to determine if a Vertex has been accessed before.
+Adjacency List:
+
+- Could be a Hashtable
+- Stores an Array of unique Vertices (Keys).
+- Could use Buckets (Linked Lists) containing Edge/Adjacency information (Values).
+
+Visited Collection:
+
+- An internal List.
+- Traversal methods can use it to determine if a Vertex has been accessed before.
 
 ## Traversals
 
-Similar to Trees, Graphs can be traversed using Breadth-first or Depth-first methods.
+Graphs can be traversed using Breadth-first or Depth-first methods, similar to Trees.
 
 A key difference is dealing with Cyclic vs. Acyclic graphs.
 
@@ -135,7 +148,7 @@ Graphs *can be* Cyclic, so additional consideration must be made to avoid traver
 Overview:
 
 1. Enqueue the declared 'start' Node (Vertex).
-2. Iterate through additional code while the Queue is not empty.
+2. Iterate through the next steps while the Queue is not empty.
 3. Dequeue the first Node.
 4. If the Node is not in the 'Visited' array, add it. 
 5. If the Node has Edges, Enqueue the Neighbor Vertices into the Queue.
@@ -143,7 +156,7 @@ Overview:
 Notes:
 
 1. Island Vertices will not be visited.
-2. Only Neighbors with a path to the selected 'root' Node will be visited.
+2. Only Neighbors with an Edge to the selected 'root' Node will be visited.
 
 Pseudocode:
 
@@ -169,9 +182,9 @@ Overview:
 
 1. Push the root node into a Stack.
 2. Mark the root node as Visited.
-3. Enter an iteration so long as the Stack is not empty.
+3. Enter an iterator and do the following while the Stack is not empty.
 4. Pop the top Node off the Stack.
-5. If a Neighbor hasn't been visited, Push it onto the Stack and mark it as Visited.
+5. If the node's Neighbor has not been visited, push it onto the Stack and mark it as visited.
 6. Repeat until the Stack is empty.
 
 Pseudocode:
@@ -207,13 +220,21 @@ Checking if Set HAS Node in it: O(1).
 
 Adding a Node to a Set: O(1).
 
-Iterating through collection of Edges: O(Edges).
+Iterating through collection of Edges (i.e. Adjacency List or Visited Array): O(Edges).
 
-Iterating through all Vertices once in a connected Graph and visiting each Vertex only once: O(Nodes + Edges) -> roughly O(n^2).
+Iterating through all Vertices one single time each in a connected Graph: O(Nodes + Edges) -> roughly O(n^2), arguably O(n+m). *[University of Washington, see Resources section of this document]*
+
+Time:
+
+The worst-case scenario for traversing a Graph either by Depth First or Breadth First is O(n+m).
+
+Space:
+
+Additional space is needed for storing visited nodes, and the Stack and Queue storage, which could add up to O(stackMax+queueMax+visitedList) in wost-case scenario, probably up to O(n^3).
 
 ## Code
 
-The following is a draft of how the Java code could look when completed, and will be replaced with links to actual code at a later time.
+The following is a draft of how the Java code could look when completed. These draft code examples will be replaced with links to actual code at a later time.
 
 ```java
 import java.util.Hashtable;
@@ -293,15 +314,25 @@ class NodeEdge {
 
 ### Questions to Explore
 
-Should the Adjacency List be used as the Set of visited nodes that the pseudocode is referring to?
+Could (and should) the Adjacency List be used as the Set of visited nodes that the pseudocode is referring to?
 
-The Adjacency List is a Collection of Keys, which in the examples is the *value* held in the Graph node, and the Buckets would store the NodeEdge objects, which contain the Neighbor and Weight information.
+- The Adjacency List is a Collection of Keys.
+- Examples show the Adjacency List Key as the *value* held in the Graph node.
+- Buckets would store the NodeEdge objects, containing the Neighbor and Weight information.
+- Uniqueness would be guaranteed.
 
 ## Tests and Approach
 
+The following is a brainstorm list of tests to attempt to write. Some may be retained, others removed or minimized:
+
 - Utilize JUnit Jupiter
+- GraphTraverser can be property instantiated.
+- GraphNode can be instantiated with a value.
+- GraphEdge can be instantiated with a value and a weight.
+- GraphNode can have a GraphEdge (with a neighbor) added to it.
+- GraphNode Edge can point to same GraphNode.
 - Adjacency List populates unique nodes and correct Edge relationships.
-- Connected
+- Connected graph traversals travers all Nodes once each.
 - Non-cyclical, connected, undirected graph, depth traversal returns unique items ordered properly.
 - Non-cyclical, connected, undirected graph, breadth traversal returns unique items ordered properly.
 - Non-cyclical, connected, directed graph, depth traversal returns unique items ordered properly.
