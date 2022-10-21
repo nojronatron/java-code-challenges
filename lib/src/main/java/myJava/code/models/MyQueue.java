@@ -10,6 +10,7 @@ public class MyQueue<T> {
 
     public void enqueue(T value) {
         MyNode<T> newNode = new MyNode<>(value);
+
         // queue has 2 or more nodes
         if (this.rear != null && this.rear != this.front) {
             this.rear.setNext(newNode);
@@ -28,10 +29,14 @@ public class MyQueue<T> {
     }
 
     public T dequeue() throws NullPointerException {
+        if (this.isEmpty()) {
+            throw new NullPointerException("This Queue is empty.");
+        }
+
         var temp = this.front;
 
         // there is one node in the queue
-        if (this.rear != null && this.front != null && this.rear == this.front) {
+        if (this.rear != null && this.rear == this.front) {
             var returnVal = temp.getValue();
             this.rear = null;
             this.front = null;
@@ -39,16 +44,16 @@ public class MyQueue<T> {
         }
 
         // there are two nodes in the queue
-        if (this.rear != null && this.front != null && this.rear == this.front.getNext()) {
+        if (this.rear != null && this.rear == this.front.getNext()) {
             this.front = this.rear;
             temp.setNext(null);
             return temp.getValue();
         }
 
         // there are more than two nodes in the queue
-        this.front = front.getNext();
-        temp.setNext(null);
-        return temp.getValue();
+            this.front = front.getNext();
+            temp.setNext(null);
+            return temp.getValue();
     }
 
     public T peek() throws NullPointerException {
