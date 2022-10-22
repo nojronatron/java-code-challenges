@@ -112,7 +112,7 @@ WHILE: Current is not equal to NULL
 RETURN: FALSE
 ```
 
-*Note*: The original Pseudocode had to be altered in the following ways:
+*Note*: The original Pseudocode was different, so the above pseudocode reflect the following updates:
 
 1. To eliminate a bug that happened if the node to add before was Head node an Exception would be thrown.
 2. To avoid a NullValueException the While iterator must test if the Current node is not equal to null.
@@ -129,10 +129,12 @@ ALGORITHM: Print()
 INPUT: None
 OUTPUT: String
 INITIALIZE: Current <- Head
+INITIALIZE: String Result <- Empty
 WHILE: Current is not equal to NULL
-    OUTPUT: "[Current.Value]->"
+    APPEND: Result <- "[Current.Value]->"
     ASSIGN: Current <- Current.Next
-OUTPUT: "NULL"
+ASSIGN: Result <- "NULL"
+OUTPUT: Result
 ```
 
 ## Big-O Analysis
@@ -143,7 +145,7 @@ Because adding a new Node simply replaces Head and reassigns the Head reference 
 
 No traversing is necessary, and the operation is not affected by input or how many Nodes are in the Linked List.
 
-### Includes(someValue)
+### Includes(value)
 
 This function must traverse the Linked List, potentially every Node, and possibly to the end NULL before it returns, making it an O(n) operation.
 
@@ -165,11 +167,16 @@ Due to the iterating structure, the operation will walk all Nodes in the list in
 ## Code
 
 [My Linked List Class](../lib/src/main/java/myJava/code/models/MyLinkedList.java)
+
 [My Linked List Node Class](../lib/src/main/java/myJava/code/models/MyLinkedListNode.java)
+
+[PairLinkedList Class](../lib/src/main/java/myJava/code/models/PairLinkedList.java) for storing tuple-type Key-value pairs.
 
 ## Tests
 
 My Linked List and My Linked List Node [Unit Tests](../lib/src/test/java/myJava/code/models/TestMyLinkedList.java)
+
+[Pair Linked List Unit Tests](../lib/src/test/java/myJava/code/models/TestPairLinkedList.java)
 
 ## Resources and Acknowledgements
 

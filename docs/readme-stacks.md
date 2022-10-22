@@ -1,8 +1,8 @@
 # Stacks
 
-Stacks are a simple data structure and are commonly used.
+Stacks are a simple data structure and are commonly used to solve coding problems.
 
-Consider the call stack of an application as a prime example.
+Consider the call stack of an application as a prime example of the use of a Stack data structure.
 
 Create a Stack as a Class and implement Fields and Methods to get the Stack behavior.
 
@@ -14,9 +14,9 @@ LIFO: Last In First Out: The last item added to the Stack will be the first item
 
 ## Fields
 
-TOP: A reference pointing to the last item PUSHed to the Stack.
+TOP: A reference pointing to the last item 'pushed' into the Stack.
 
-BOTTOM: A reference pointing to the very first item PUSHED to the Stack. It will be the last item POPped.
+BOTTOM: A reference pointing to the very first item 'pushed' into the Stack. It will be the last item to be 'popped' out of the Stack.
 
 ## Methods
 
@@ -42,7 +42,7 @@ IF: IsEmpty returns TRUE
     ASSIGN: Bottom <- newNode
 ```
 
-*Note*: This method is adding items to the data structure. The situation changes when there are one or fewer Nodes in the Stack, so those conditions must be detected and handled.
+*Note*: With every new call to Push, the logic detects when there are few or no values stored in the Stack so that the TOP and BOTTOM references are managed properly.
 
 ### POP
 
@@ -72,11 +72,13 @@ ELSE:
 RETURN: tempNode.Value
 ```
 
-*Note*: This could probably be refactored to eliminate the else-if and else statements. Also, the NullPointerException class can added to the method using the `throws` method keyword.
+*Note*: This could be refactored to eliminate the else-if and else statements.
+
+A NullPointerException class could optionally be added to the method using the `throws` method keyword.
 
 ### PEEK
 
-Allows viewing the TOP item in the Stack without POPping it off the Stack.
+Allows viewing the TOP item in the Stack without 'popping' it off the Stack.
 
 If there are no items in the Stack, PEEK will raise an exception.
 
