@@ -167,11 +167,16 @@ Due to the iterating structure, the operation will walk all Nodes in the list in
 ## Code
 
 [My Linked List Class](../lib/src/main/java/myJava/code/models/MyLinkedList.java)
+
 [My Linked List Node Class](../lib/src/main/java/myJava/code/models/MyLinkedListNode.java)
+
+[PairLinkedList Class](../lib/src/main/java/myJava/code/models/PairLinkedList.java) for storing tuple-type Key-value pairs.
 
 ## Tests
 
 My Linked List and My Linked List Node [Unit Tests](../lib/src/test/java/myJava/code/models/TestMyLinkedList.java)
+
+[Pair Linked List Unit Tests](../lib/src/test/java/myJava/code/models/TestPairLinkedList.java)
 
 ## Resources and Acknowledgements
 

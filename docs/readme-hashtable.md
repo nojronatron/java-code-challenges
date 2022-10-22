@@ -2,20 +2,13 @@
 
 Overview of the Hashtable datastructures, and how to use them in an algorithm.
 
-## Terminology
-
-- Hash: Take an incoming String and convert it into a numeric value. Could be used for security or as a key-index to a table.
-- Buckets: Abstract containers located at each index of the hashtable array. Multiple key/value pairs can be stored in each Bucket as collisions occur.
-- Collisions: More than one key gets hashed to the same numeric value. For a Hashtable, this means the values will be placed in the same hashtable array index or Bucket.
-- Node: Alternative terminology for Bucket, but also more descriptive abstraction of how data is stored in a Bucket. Each Node holds both the Key and the Value of each data item within the Bucket.
-
 ## Purpose
 
 Use a hashtable to hold *unique* values, or as storage for dictionary items, or libraries of entries.
 
 ## About Hashtable
 
-A Hashtable is a datastructure.
+A Hashtable is a data structure.
 
 A Hashtable can:
 
@@ -24,15 +17,26 @@ A Hashtable can:
 - Encode Keys using a hash of the value to create an index.
 - Efficient at lookups for values.
 
+## Terminology
+
+- Hash: Take an incoming String and convert it into a numeric value. Could be used for security or as a key-index to a table.
+- Buckets: Abstract containers located at each index of the hashtable array. Multiple key/value pairs can be stored in each Bucket as collisions occur.
+- Collisions: More than one key gets hashed to the same numeric value. For a Hashtable, this means the values will be placed in the same hashtable array index or Bucket.
+- Node: Alternative terminology for Bucket, but also more descriptive abstraction of how data is stored in a Bucket. Each Node holds both the Key and the Value of each data item within the Bucket.
+
 ## Methods
 
-In a production environment there may be other methods, depending on the hashtable purpose. Similarly, some of the following methods might not be directly available for use, or will be otherwise abstracted within a Library, App, or Service.
+In a production environment there may be other methods, depending on the hashtable purpose.
+
+Not all methods discussed here will be directly available for use from existing Java libraries.
+
+Some methods will be abstracted within a Library, App, or Service, although the overall functionality will be there, just under a different name.
 
 ### SET
 
 `void set(String key, obj value)`
 
-Accepts a Key Value Pair and adds then hashtable.
+Accepts a Key Value Pair and adds them to the backing array.
 
 Pseudocode:
 
@@ -45,7 +49,7 @@ INSTANTIATE: entry <- new Pair types String, Integer
 ADD: BackingArray at hashedIndex <- entry
 ```
 
-*Remember*: Each backing array index "bucket" is actually a linked list, so just get a reference to the linked list and use its add() function to store the item.
+*Remember*: Each backing array index "bucket" might be a linked list so just get a reference to the Bucket and use its existing functions to process the current item.
 
 ### GET
 
@@ -53,7 +57,7 @@ ADD: BackingArray at hashedIndex <- entry
 
 Accepts a Key and finds the hashed index for that key, iterates through the Bucket to find the key and returns the value, or null if not found.
 
-Datatype will be a tuple-like type, similar to Pair:
+In my implementation, the Datatype will be a tuple-like type, similar to Pair:
 
 ```text
 Pair<String, Integer> newPair = new Pair<>(key, value);
@@ -99,9 +103,7 @@ The CodeFellows curriculum states 'Keys() returns a collection (array) of unique
 
 One approach is to just iterate through the backing array and return all the indexes (hashed Keys) and return those number.
 
-A better outcome is to get the actual keys that are stored *in the buckets*.
-
-[Wikipedia - Collision Resolution](https://en.wikipedia.org/wiki/Hash_table#Collision_resolution) indicates that the keys themselves *should* be returned, since they contain useful data and would never be null-valued.
+A complete approach might be to return an Array of the actual keys that are stored *in the buckets* (see *[Wikipedia article on Linked Lists]*).
 
 So, the following Pseudocode attempts to get all bucket Keys and return them to the caller.
 
@@ -125,7 +127,7 @@ A more efficient approach would be:
 1. Create a property in the Hashtable that is a collection type, called keysCollection.
 2. Every time an item is added, copy the key to the keysCollection.
 3. Any time an item is *removed*, remove that item's key from the keysCollection.
-4. When keys() is called, just return the keysCollection property contents to the caller.
+4. When keys() is called, just return the collection directly to the caller (an O(1) operation).
 
 ```text
 FUNCTION: keys()
@@ -158,7 +160,9 @@ This is used as a means to find an index in a collection.
 
 `number hash(String key)`
 
-Accepts a key as a String, hashes it, and returns an integer. This can be used to determine where the key-value-pair should be placed in a collection.
+Accepts a key as a String, hashes it, and returns an integer.
+
+This can be used to determine where the key-value-pair should be placed in a collection.
 
 Pseudocode:
 
@@ -224,9 +228,9 @@ For this codebase I will implement Load Factor as a simple way to determine how 
 
 Lookup a Value: O(1) in time, because the hash reproduces the index that locates the value in the array in one step.
 
-Arrays are fast, but searching for data without knowing the index of the data ahead of time is slow - an O(n) operation.
+> Arrays are fast, but searching for data without knowing the index of the data ahead of time is slow - an O(n) operation.
 
-Knowing the exact location of the data in an array is an O(1) operation!
+> Knowing the exact location of the data in an array is an O(1) operation!
 
 Hashing Function: O(1) in Time.
 
@@ -236,14 +240,20 @@ Set a Value: O(1) in Time because the Hashing function locates the index of wher
 
 [My Hash Table class](../lib/src/main/java/myJava/code/models/MyHashtable.java)
 
+[PairLinkedList Class](../lib/src/main/java/myJava/code/models/PairLinkedList.java) for storing tuple-type Key-value pairs.
+
 ## Tests
 
 [My Hash Table Unit Tests](../lib/src/test/java/myJava/code/models/TestMyHashtable.java)
+
+[Pair Linked List Unit Tests](../lib/src/test/java/myJava/code/models/TestPairLinkedList.java)
 
 ## Resources and Acknowledgements
 
 - Baeldung.com article: [Using Pair in Java](https://www.baeldung.com/java-pairs)
 - Code Fellows Common Curriculum.
+- [Wikipedia - Collision Resolution](https://en.wikipedia.org/wiki/Hash_table#Collision_resolution) indicates that the keys themselves *should* be returned, since they contain useful data and would never be null-valued.
+
 
 ## Footer
 
