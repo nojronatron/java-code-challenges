@@ -62,13 +62,15 @@ Processing usually entails reading the value of the node, and perhaps performing
 
 Each time 'preOrder()' is called, it adds the Node to the call stack.
 
-In the pseudocode example above, root's left property is checked if it is not null and if true, preOrder() is called with root.left child node as the argument.
+In the pseudocode example above, root's left property is checked and if it is *not* null preOrder() is called with root.left child node as the argument.
 
-When a function call on the call stack is completed, it is "popped off" the stack, and the function call will continue its execution where it left off.
+When a function call on the call stack is completed, it is "popped off" the stack, and the function call will continue its execution from where it left off.
 
-In the pseudocode example above, root's right property is checked if it is not null and if true, preOrder() is called again in the next line of code, and the root.right child node is supplied as the argument.
+In the pseudocode example above, root's right property is checked and if it is *not* null, preOrder() is called again with root.right child node as the argument.
 
 When both root.left and root.right are null, the code exits and the function pops-off the call stack.
+
+When the last function pops-off the call stack, all work is completed.
 
 #### In-Order Traversal
 
@@ -83,6 +85,8 @@ if root.right is not NULL:
     inOrder(root.right)
 ```
 
+Like preOrder, inOrder works the same except the "processing" portion of the code is in-between calls to root.left and root.right.
+
 #### Post-Order Traversal
 
 Pseudocode:
@@ -95,6 +99,8 @@ if root.right is not NULL
     postOrder(root.right)
 Process: root.value
 ```
+
+Like preOrder and inOrder, postOrder works the same except the "processing" portion of the code is *after* the calls to root.left and root.right are completed.
 
 ### Breadth First Traversal
 
@@ -168,11 +174,17 @@ K-ary Breadth-First Traversal is an O(n) operation as every Node is accessed wit
 
 According to Code Fellows curriculum there are no placement rules in a Binary Tree, nor a K-ary Tree.
 
-In this case, just place a new node in any empty child spot, from the top down.
+In this case, just place a new node in any empty child spot, from the top down, and from index 0 to the last index of node's K children.
 
-This implies using breadth-first traversal to find the next-best placement spot.
+Use breadth-first traversal to find the next-best placement spot in the tree, and an iterator to index to the 1st null child.
 
-To place a node in a specific location, reference both the new node to create *and* the parent node the new node should be attached to. Fill the empty child 'slots' from left-to-right. Depending on whether or not the targeted parent node is 'full' with children, this could be successful or cause an exception that should be handled gracefully.
+To place a node in a specific location:
+
+1. Reference both the new node to create *and* the parent node the new node should be attached to.
+2. Check the child 'slots' for the 1st empty one.
+3. Fill the first empty child 'slot' found, and then exit.
+
+*Note*: Depending on whether the targeted parent node is 'full' with children or not, this could be successful or cause an exception that should be handled gracefully.
 
 ### Big-O of Trees
 
@@ -180,40 +192,42 @@ Time Complexity:
 
 - Node insertion: O(n)
 - Search for specific node: O(n)
-- Traversal: O(n) => If the tree has N nodes, traversing the tree would require visiting N nodes in the worst case scenario.
+- Any Traversal: O(n) => If the tree has N nodes, traversing the tree would require visiting N nodes in the worst case scenario.
 
 Space Complexity:
 
-- Node insertion: O(w) where w is *width* of the tree at its widest level.
+- Node insertion using Breadth Traversal: O(w) where w is *width* of the tree at its widest level.
 
 ## Binary Search Trees
 
 Similar to a binary tree, but *does have structure*.
 
-Referred to as 'BST'.
-
-Nodes are organized by value: The farthest left to the furthest down and right.
+- Referred to as 'BST'.
+- Nodes are organized by value: The farthest left to the furthest down and right.
 
 Specifically:
 
 - Nodes with value LESSER than the root are placed to the LEFT.
 - Nodes with value GREATER than the root are placed to the RIGHT.
+- The above rules apply to whatever "current" node is selected.
 
 ### Searching a BST
 
-Faster than searching a binary tree, because only certain nodes are visited to find the target node value.
+Faster than searching a binary tree because only certain nodes are visited to find the target node value.
+
+Basically, the problem of finding the node is cut in half at every Node that is visited.
 
 1. Take the input value you are searching for.
-2. Compare it to the current Node (starting with Root) and move left or right depending on the comparison:
-3. Less than root.value? Look at root.left.
-4. Greater than root.value? Look at root.right.
+2. Compare it to the current Node (starting with Root):
+3. Child Node value less than Root/Current value? Traverse to Current Left child.
+4. Child Node value greater than root/Current value? Traverse to Current Right child.
 
 Searching a tree with 10 nodes might require:
 
 - Up to 10 operations to search a balanced binary tree.
-- Up to h (height) operations to search a BST.
+- Up to h (height or edge) operations to search a BST.
 
-Code Fellows Curriculum recommends using a 'while' loop to search a BST, which will end when it hits a leaf (not found), or hits a node value that matches the search criteria (success).
+Code Fellows Curriculum recommends using a 'while' loop to search a BST, which will end when it hits a node value that matches the search criteria (success), or when it hits a leaf node whose value does not match.
 
 ### BST Big-O Analysis
 
@@ -221,7 +235,7 @@ Time:
 
 - Insertion and Search operations: O(h) aka O(height).
 - Balanced (or perfect) tree search: O(log(n)).
-- Unbalanced tree search: O(n).
+- Unbalanced tree search (for example, a BST that looks like a Linked List): O(n).
 
 Space:
 
@@ -229,7 +243,7 @@ Space:
 
 ## Unit Tests
 
-- [Test Queue](../lib/src/test/java/myJava/code/models/TestQueueLibrary.java)
+- [Test Queue](../lib/src/test/java/myJava/code/models/TestQueueLibrary.java) (for breadth-first traversal)
 - [Test Binary Tree Library](../lib/src/test/java/myJava/code/models/TestBinaryTreeLibrary.java)
 - [Test Leaf Counter challenge](../lib/src/test/java/myJava/code/challenges/TestLeafCounter.java)
 - [Test K ary Tree](../lib/src/test/java/myJava/code/models/TestKaryTreeLibrary.java)
@@ -239,8 +253,8 @@ Space:
 
 Code can be found in java-code-challenges library files:
 
-- [My Queue](../lib/src/main/java/myJava/code/models/MyQueue.java)
-- [My Node (for My Queue)](../lib/src/main/java/myJava/code/models/MyNode.java)
+- [My Queue](../lib/src/main/java/myJava/code/models/MyQueue.java) (for breadth-first traversal)
+- [My Node (for My Queue)](../lib/src/main/java/myJava/code/models/MyNode.java) (for breadth-first traversal)
 - [My Binary Node](../lib/src/main/java/myJava/code/models/MyBinaryNode.java)
 - [My Binary Tree (deprecated, will be removed)](../lib/src/main/java/myJava/code/models/MyBinaryTree.java)
 - [Leaf Counter Challenge Class](../lib/src/main/java/myJava/code/challenges/LeafCounter.java)
@@ -249,7 +263,9 @@ Code can be found in java-code-challenges library files:
 
 ### Interfaces
 
-I experimented with using interfaces to constrain generic classes. While I was able to utilize the interfaces, in the end they did not help much with "generisizing" the classes as I needed.
+I experimented with using interfaces to constrain generic classes.
+
+While I was able to utilize the interfaces, in the end they did not help much with making the classes as I needed 'generic'.
 
 - [Interface My Binary Node](../lib/src/main/java/myJava/code/models/IMyBinaryNode.java)
 - [Interface My K-ary Node](../lib/src/main/java/myJava/code/models/IMyKaryNode.java)
