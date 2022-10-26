@@ -184,10 +184,9 @@ OUTPUT: String resultStr
 IF: inputInt is less than 1
     RETURN: Empty String
 ELSE: CONTINUE
-INITIALIZE: Array RomanNumerals <- [ "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "MC", "M", "M~V", "~V" ]
+INITIALIZE: Array RomanNumerals <- [ "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M", "M~V", "~V" ]
 INITIALIZE: Array NumeralValues <- [ 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000, 4000, 5000 ]
 INITIALIZE: Integer inputNumber <- inputInt
-INITIALIZE: Integer currentValue <- 0
 INITIALIZE: String result <- empty String
 
 ITERATE: While inputNumber is greater than 0
