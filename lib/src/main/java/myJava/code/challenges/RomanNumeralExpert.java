@@ -59,8 +59,39 @@ public class RomanNumeralExpert {
         return result.toString();
     }
 
-    public static String toRomanNumerals(int inputNumbers) {
+    public static String toRomanNumerals(int inputNumber) {
+        if (inputNumber < 1) {
+            return "";
+        }
 
+        String[] RomanNumerals = { "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M", "M~V", "~V" };
+        int[] NumeralValues = { 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000, 4000, 5000 };
+        int inputNum = inputNumber;
+        int currentValue = 0;
+        StringBuilder result = new StringBuilder();
+
+        while (inputNum > 0) {
+            for (int idx=0; idx < NumeralValues.length; idx++) {
+                currentValue = NumeralValues[idx];
+
+                if (inputNum < currentValue) {
+                    inputNum -= NumeralValues[idx-1];
+                    result.append(RomanNumerals[idx-1]);
+                    break;
+                }
+
+                if (inputNum == currentValue) {
+                    inputNum -= NumeralValues[idx];
+                    result.append(RomanNumerals[idx]);
+                }
+
+                if (inputNum == 0) {
+                    break;
+                }
+            }
+        }
+
+        return result.toString();
     }
 }
 
