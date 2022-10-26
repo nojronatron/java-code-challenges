@@ -8,17 +8,26 @@ The initial challenge question asserted the input to the method will be an Integ
 
 There was a maximum number limitation of 5,000. This meant the highest-order Roman Numeral that would be used is a "V" with a bar across the top, which I will depict using a tilde: "~V".
 
+Another limitation is to not use built-in methods. I'm pretty sure this is not possible and is there to frustrate the candidate in working through this challenge.
+
+The solution(s) I write about here:
+
+1. Will not necessarily be the best in performance nor efficiency.
+2. Might have adjusted requirements (that will be called out) so a slightly different approach can be taken.
+3. Show efforts from white boarding solutions to the problem domain.
+4. Demonstrate implementing good practices such as test-driven development, problem-solving before coding, leveraging the power of Java along the way.
+
 ## Design Approaches and Solutions
 
-### First Attempt
+### First and Second Attempts
 
-My first attempt at solving this challenge was a miserable failure.
+My first attempts at solving this challenge were miserable failures. I actually forgot about trying this 3 times before getting close to an answer.
 
-I worked on other tasks and aspirations for a few days before attempting again, so I could approach it with a clear mind, ready to solve it.
+I worked on other tasks and aspirations for a few days before each attempt so that I could approach it with a clear mind each time.
 
-### Second Attempt
+### Third Attempt
 
-My second attempt was also a failure in that I ran out of time before documenting enough elements of technical discussion, and not having a viable solution in code.
+My third attempt was also a failure in that I ran out of time before documenting enough elements of technical discussion, and not having a viable solution in code.
 
 Although this was another failed attempt, a good deal of progress was made, so I took an extra 90 minutes (yes, tripling the time originally allowed) to come up with what could be a viable solution.
 
@@ -28,7 +37,7 @@ My reasoning is this:
 - Review my solution from the unit testing perspective, which will help find holes in my logic.
 - Review my solution while coding it in an IDE, so I can learn from mistakes, as well as reaffirm good decisions made during the challenge.
 
-#### Try 2 Overview
+#### Try 3 Overview
 
 My overall approach was:
 
@@ -45,7 +54,7 @@ The Algorithm was then designed to:
 2. Use a lookup table that will enable finding the current character-placement value, as well as the once-more-significant value, and the once-less significant value, to apply the correct numbering characters accordingly.
 3. Leverage the very inefficient String concatenation to force-together the Roman Numerals, once the algorithm finds what it needs based on the input.
 
-#### Try 2 Pseudocode
+#### Try 3 Pseudocode
 
 The following pseudocode was developed in its entirety within the initial 40-minute time limit:
 
@@ -82,15 +91,19 @@ RETURN: Result
 
 Pseudocode commentary:
 
-- I should have called StringBuilder or used a Char primitive Array to store and concatenate to variable Result. Using String is time and space heavy especially within nested loops.
+- I should have called StringBuilder or used a Char primitive Array to store and concatenate to variable Result.
+- Using String is time and space heavy especially within nested loops.
 - Instead of writing 'Result <- RomanNumerals[IDX-1] + Result' etc, I should have written 'Result <- RomanNumerals at IDX-1 and concatenate Result' (sticking with Strings of course).
-- I am not totally certain that Casting Char Item to an Integer is going to throw. In Java code I would test for valid inputs so a throw is unlikely that far into the algorithm.
+- I am not totally certain that Casting Char Item to an Integer is going to throw.
+- In Java code I would test for valid inputs so a throw is unlikely that far into an algorithm.
+- TempRN is never called, so capturing it ensures a bad result when the input value ends in 5, 6, 7, or 8.
+- 
 
-#### Try 2 Implementation
+#### Try 3 Implementation
 
 See JAVA Class [Integer to Roman Numeral Class](..lib/src/main/java/myJava/code/challenges/IntegerToRomanNumeral.java)
 
-#### Try 2 BigO Analysis
+#### Try 3 BigO Analysis
 
 Time: O(n*m)
 
@@ -104,7 +117,7 @@ Space: O(n^2)
 - New Stack of size n.
 - Array of size supported digit places *2 (1's, 5's, 10's, 50's, 100's, 500's, etc).
 
-#### Try 2 Test Approach and Test Cases
+#### Try 3 Test Approach and Test Cases
 
 For Java code I implement JUnit Jupiter.
 
@@ -130,7 +143,7 @@ Note: Additional test cases added while writing this readme:
 - "5000" returns "~V".
 - Any input greater than 5000 returns an empty string (since output is a String, it could be "sorry dave I can't do that").
 
-#### Try 2 Retrospective
+#### Try 3 Retrospective
 
 ##### What Went Well
 
@@ -144,9 +157,15 @@ Note: Additional test cases added while writing this readme:
 - When I don't understand the challenge, or I think there is a lot of ambiguity, I need to ask more questions and make note of the answers on the whiteboard.
 - Chars and Strings are closely related. Whenever dealing with portions of a String, I need to remember to consider the Char primitive to help with stepping through String values.
 - If I am going to concatenate Strings, then I need to reflect the poor time performance in my BigO analysis.
-- Write an out-of-bounds test-case statement, since the highest number supported in this challenge was 5000, that should have been easy.
+- Write an out-of-bounds test-case statement, since the highest number supported in this challenge was 5000, that should have been easy to do and taken very little time to write.
 - I need to remember to transform String inputs to character arrays using `stringInput.toCharArray()`. It is not possible to iterate through a String directly.
+- Ask: What is the maximum number Roman Numerals support?
+- Follow-up question: What if the input is above that number, what are the expectations?
 - Go faster. :smiley:
+
+## Overall Takeaways From This Experience
+
+Turns out that Roman Numerals only count up to 3999 *[Mozilla.org]* and *[en.wikipedia.org]* without significant modification of characters, or simply extending usage of "M" (thousands).
 
 ## Footer
 
