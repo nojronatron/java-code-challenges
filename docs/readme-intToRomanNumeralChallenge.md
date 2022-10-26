@@ -97,11 +97,10 @@ Pseudocode commentary:
 - I am not totally certain that Casting Char Item to an Integer is going to throw.
 - In Java code I would test for valid inputs so a throw is unlikely that far into an algorithm.
 - TempRN is never called, so capturing it ensures a bad result when the input value ends in 5, 6, 7, or 8.
-- 
 
 #### Try 3 Implementation
 
-See JAVA Class [Integer to Roman Numeral Class](..lib/src/main/java/myJava/code/challenges/IntegerToRomanNumeral.java)
+See JAVA Class [Integer to Roman Numeral Class](../lib/src/main/java/myJava/code/challenges/IntegerToRomanNumeral.java)
 
 #### Try 3 BigO Analysis
 
@@ -163,9 +162,59 @@ Note: Additional test cases added while writing this readme:
 - Follow-up question: What if the input is above that number, what are the expectations?
 - Go faster. :smiley:
 
+### Working With Integer Input Instead
+
+In this scenario the expected inputs are Integer (or int) types, eliminating the need to wrangle String characters just to get started.
+
+#### Integer Input Approach
+
+1. Any input value less than 1 is immediately returned as an empty String ("").
+2. Define a data structure that stores Key Value pairs in the form `[ Key: int, Value: String ]` where Value is a Roman Numeral character.
+3. While input value is greater than 0, find the largest roman numeral value and append its Roman Numeral String character to the end of result variable.
+4. Subtract the Roman Numeral value from the input value then test iteration condition.
+5. Return the String representation of result to the caller.
+
+#### Integer Input Pseudocode
+
+```text
+DECLARE: Method IntToRomanNumeral
+INPUT: Integer inputInt
+OUTPUT: String resultStr
+
+IF: inputInt is less than 1
+    RETURN: Empty String
+ELSE: CONTINUE
+INITIALIZE: Array RomanNumerals <- [ "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "MC", "M", "M~V", "~V" ]
+INITIALIZE: Array NumeralValues <- [ 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000, 4000, 5000 ]
+INITIALIZE: Integer inputNumber <- inputInt
+INITIALIZE: Integer currentValue <- 0
+INITIALIZE: String result <- empty String
+
+ITERATE: While inputNumber is greater than 0
+    ITERATE: For index from 0 to NumeralValues length - 1
+        ASSIGN: currentValue <- NumeralValues[index]
+        IF: inputNumber is equal to currentValue
+            REASSIGN: inputNumber <- inputNumber - NumeralValues at index
+            APPEND: result <- RomanNumerals at index
+        IF: inputNumber is less than currentValue
+            REASSIGN: inputNumber <- inputNumber - NumeralValues at index - 1
+            APPEND: result <- RomanNumerals at index - 1
+            BREAK: Out of parent iterator
+        ELSE: Next iteration
+RETURN: result
+```
+
+#### Integer Input Analysis
+
+BigO in Time:
+
+BigO in Space:
+
 ## Overall Takeaways From This Experience
 
 Turns out that Roman Numerals only count up to 3999 *[Mozilla.org]* and *[en.wikipedia.org]* without significant modification of characters, or simply extending usage of "M" (thousands).
+
+It is also worth noting that there is evidence of inconsistencies with Roman Numeral counting, historically and contemporarily. 2 points for built-in ambiguity.
 
 ## Footer
 
