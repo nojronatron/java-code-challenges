@@ -126,7 +126,7 @@ public class TestRomanNumeralExpert {
     @Test
     public void test_FourThousandFourHundredNinetyFourReturnsCorrectValue() {
         String testInput = "4494";
-        String expectedResult = "M~VCMIXIV";
+        String expectedResult = "M~VCDXCIV";
         String actualResult = RomanNumeralExpert.toRomanNumerals(testInput);
         assertEquals(expectedResult, actualResult);
     }
