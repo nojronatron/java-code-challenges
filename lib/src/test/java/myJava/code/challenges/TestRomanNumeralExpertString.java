@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 
-public class TestRomanNumeralExpert {
+public class TestRomanNumeralExpertString {
     @Test
     public void test_nineteenHundredReturnsMCM() {
         String testInput = "1900";
