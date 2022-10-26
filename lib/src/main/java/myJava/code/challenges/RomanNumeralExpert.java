@@ -2,37 +2,55 @@ package myJava.code.challenges;
 
 import myJava.code.models.MyStack;
 
+import java.util.Locale;
+
 public class RomanNumeralExpert {
     public static String toRomanNumerals(String inputNumbers) {
         String result = "";
+
+        if (inputNumbers.length() < 1) {
+            return result;
+        }
+
         String[] romanNumerals = {"I", "V", "X", "L", "C", "D", "M", "~V"};
         int idx = 0;
         MyStack numberStack = new MyStack();
-        char[] inputChars = inputNumbers.toCharArray();
+        String[] inputArr = inputNumbers.split("");
 
-        for (Character item: inputChars) {
-            numberStack.push((int)item);
+        for(String item: inputArr) {
+            if (item.equals("-")) {
+                return result;
+            }
+
+            int intItem = Integer.parseInt(item);
+            numberStack.push(intItem);
         }
 
         while (!numberStack.isEmpty()) {
             int currentValue = (int)numberStack.pop();
             idx = idx + 2;
+
             if (currentValue > 0 && currentValue < 4) {
                 for(int i=0; i < currentValue; i++) {
                     result = romanNumerals[idx-2] + result;
                 }
-            } else if (currentValue == 4) {
-                result = romanNumerals[idx-2] + result;
-                result = romanNumerals[idx-1] + result;
-            } else if (currentValue > 4 && currentValue < 9) {
+            }
+
+            if (currentValue == 4) {
+                result = romanNumerals[idx-2] + romanNumerals[idx-1] + result;
+            }
+
+            if (currentValue > 4 && currentValue < 9) {
                 String tempRN = romanNumerals[idx-1];
                 currentValue = currentValue - 5;
                 for (int i=0; i < currentValue; i++) {
-                    result = romanNumerals[idx-1] + result;
+                    result = romanNumerals[idx-2] + result;
                 }
-            } else {
-                result = romanNumerals[idx-2] + result;
-                result = romanNumerals[idx] + result;
+                result = tempRN + result;
+            }
+
+            if (currentValue == 9) {
+                result = romanNumerals[idx-2] + romanNumerals[idx] + result;
             }
         }
 
