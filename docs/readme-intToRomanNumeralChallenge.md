@@ -145,6 +145,7 @@ Note: Additional test cases added while writing this readme:
 - Chars and Strings are closely related. Whenever dealing with portions of a String, I need to remember to consider the Char primitive to help with stepping through String values.
 - If I am going to concatenate Strings, then I need to reflect the poor time performance in my BigO analysis.
 - Write an out-of-bounds test-case statement, since the highest number supported in this challenge was 5000, that should have been easy.
+- I need to remember to transform String inputs to character arrays using `stringInput.toCharArray()`. It is not possible to iterate through a String directly.
 - Go faster. :smiley:
 
 ## Footer
