@@ -16,7 +16,7 @@ public class RomanNumeralExpert {
         MyStack numberStack = new MyStack();
         String[] inputArr = inputNumbers.split("");
 
-        for(String item: inputArr) {
+        for (String item : inputArr) {
             if (item.equals("-")) {
                 return "";
             }
@@ -28,34 +28,39 @@ public class RomanNumeralExpert {
         StringBuilder result = new StringBuilder();
 
         while (!numberStack.isEmpty()) {
-            int currentValue = (int)numberStack.pop();
+            int currentValue = (int) numberStack.pop();
             idx = idx + 2;
 
             if (currentValue > 0 && currentValue < 4) {
-                for(int i=0; i < currentValue; i++) {
-                    result.insert(0, romanNumerals[idx-2]);
+                for (int i = 0; i < currentValue; i++) {
+                    result.insert(0, romanNumerals[idx - 2]);
                 }
             }
 
             if (currentValue == 4) {
-                result.insert(0, romanNumerals[idx-1]);
-                result.insert(0, romanNumerals[idx-2]);
+                result.insert(0, romanNumerals[idx - 1]);
+                result.insert(0, romanNumerals[idx - 2]);
             }
 
             if (currentValue > 4 && currentValue < 9) {
-                result.insert(0, romanNumerals[idx-1]);
+                result.insert(0, romanNumerals[idx - 1]);
                 currentValue -= 5;
 
-                for (int i=0; i < currentValue; i++) {
-                    result.insert(1, romanNumerals[idx-2]);
+                for (int i = 0; i < currentValue; i++) {
+                    result.insert(1, romanNumerals[idx - 2]);
                 }
             }
 
             if (currentValue == 9) {
-                result.insert(0, romanNumerals[idx]).insert(0, romanNumerals[idx-2]);
+                result.insert(0, romanNumerals[idx]).insert(0, romanNumerals[idx - 2]);
             }
         }
 
         return result.toString();
     }
+
+    public static String toRomanNumerals(int inputNumbers) {
+
+    }
 }
+
