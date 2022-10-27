@@ -28,4 +28,4 @@ The following index links to readme files specific for each data structure and c
 - [X] Hashtable Challenge: [Palindrome Expert](docs/readme-palindromeNonChallenge.md)
 - [X] Tree Challenge: [Sprinkler Water Usage](docs/readme-sprinklerWaterUsageChallenge.md)
 - [ ] Graph Challenge: [Sprinkler Water Usage](docs/readme-sprinklerWaterUsageChallenge.md)
-- [ ] Challenge: [Convert Integer to Roman Numeral](docs/readme-intToRomanNumeralChallenge.md)
+- [X] Challenge: [Convert Integer to Roman Numeral](docs/readme-intToRomanNumeralChallenge.md)
