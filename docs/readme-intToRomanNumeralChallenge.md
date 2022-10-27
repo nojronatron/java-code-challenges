@@ -192,28 +192,50 @@ INITIALIZE: String result <- empty String
 ITERATE: While inputNumber is greater than 0
     ITERATE: For index from 0 to NumeralValues length - 1
         ASSIGN: currentValue <- NumeralValues[index]
-        IF: inputNumber is equal to currentValue
-            REASSIGN: inputNumber <- inputNumber - NumeralValues at index
-            APPEND: result <- RomanNumerals at index
         IF: inputNumber is less than currentValue
             REASSIGN: inputNumber <- inputNumber - NumeralValues at index - 1
             APPEND: result <- RomanNumerals at index - 1
+            BREAK: Out of parent iterator
+        IF: inputNumber is equal to currentValue
+            REASSIGN: inputNumber <- inputNumber - NumeralValues at index
+            APPEND: result <- RomanNumerals at index
+        IF: inputNumber is 0
             BREAK: Out of parent iterator
         ELSE: Next iteration
 RETURN: result
 ```
 
+Note: This was written after skimming about a possible solution found in *[Code Fellows Common Curriculum]*.
+
 #### Integer Input Analysis
+
+Comments:
+
+- Some effort was put into creating a class to contain a tuple (more or less) of RomanNumerals and NumeralValues but that proved to be taking too long, considering the point of code challenges.
+- The idea of using a Linked List to contain the K:V pair RomanNumeral:NumeralValue seemed like a potential alternate solution but it wouldn't buy anything in terms of readability of code, nor code efficiency.
+- Another idea would be to iterate from the highest to the lowest value and store the last value accessed so the high-to-low iteration could continue where it left off rather than iterating all the way through values it will never match.
 
 BigO in Time:
 
+- It is pretty clear that the nested loops are going to reduce performance for many values of inputs.
+- While an input of 1 will execute 8 lines of code, an input of 11 will execute nearly 40, an input of 559 will execute nearly 140 lines of code, and an input of 3997 will execute about 320 lines of code.
+- Rationalizing those inputs we get 8, 3.6, 4, and 12.5, meaning the time efficiency varies greatly.
+- In worst-case scenarios, an assumption of 12:1 isn't out of the question, so the BigO in time is going to be exponential: O(2^n).
+
 BigO in Space:
+
+- Two 15-length arrays are instantiated when an input is 1 or larger.
+- One of the arrays is Strings, the other are primitive ints.
+- Every execution of this method allocates that memory regardless of how small (or big) the input primitive int is.
+- However, the same amount of data is stored *regardless of the input* therefore the BigO in space is O(1).
 
 ## Overall Takeaways From This Experience
 
 Turns out that Roman Numerals only count up to 3999 *[Mozilla.org]* and *[en.wikipedia.org]* without significant modification of characters, or simply extending usage of "M" (thousands).
 
 It is also worth noting that there is evidence of inconsistencies with Roman Numeral counting, historically and contemporarily. 2 points for built-in ambiguity.
+
+If the instructions say "takes an integer" and the examples show "strings" for some reason, question that. Dealing with int inputs instead of Strings in this case was much easier.
 
 ## Footer
 
