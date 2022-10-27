@@ -34,8 +34,6 @@ Traversing History using the browser buttons (go/Enter, Back, Forward) is a litt
 
 Clicking the Back button several times and then clicking a link or typing in a new "go" address, will *truncate the history list* and the new head will be the new site, previous will be the site linked-from/just prior, and all the other "forward" sites are removed from the list.
 
-### How To Move [this project] Forward
-
 ## Design Approach
 
 Current Implementation:
