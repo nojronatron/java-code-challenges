@@ -10,6 +10,18 @@ While Gradle treats this repository as a single project, it is just a container 
 
 Some Packages will contain core algorithm and data structures, others will contain code that relies on those core structures, completing code challenges, and implementing unit tests.
 
+## Building and Testing Libraries
+
+Java JDK: temurin-17-jdk-amd64
+
+Gradle: 7.4.2
+
+Build: `./gradlew build`
+
+Test: `./gradlew test`
+
+Test results pretty html output: 'java-code-challenges/lib/build/reports/tests/test/index.html'
+
 ## Index of Libraries
 
 The following index links to readme files specific for each data structure and code challenge in the base library.
