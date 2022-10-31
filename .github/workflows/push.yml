@@ -1,5 +1,10 @@
 name: Run Build Jobs on Push
-on: push
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - '**.java'
 jobs:
   build:
     runs-on: ubuntu-latest
