@@ -1,4 +1,4 @@
-name: Run Build And Test Jobs
+name: Run Build Jobs on Push
 on: push
 jobs:
   build:
@@ -16,8 +16,3 @@ jobs:
 
       - name: Execute Gradle build
         run: ./gradlew build
-
-      - name: test all classes
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: test
