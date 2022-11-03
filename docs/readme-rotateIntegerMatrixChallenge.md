@@ -39,7 +39,43 @@ There is plenty of room for refactoring here, but with the limited time that was
 
 ## Pseudocode
 
-I will update this section with Pseudocode that represents the working Java solution after it is built and fully tested.
+The pseudocode below was produced *after* actual unit tests were written, and actual Java code was implemented and debugged.
+
+```text
+DECLARE: Function Rotate
+INPUT: Array of Arrays of type Integer InputArr
+OUTPUT: Array of Arrays of type Integer ResultArr
+
+IF: InputArr length is less than 3 OR InputArr Index 0 length is less than 3:
+    RETURN: Empty Array of Arrays of type Integer
+INSTANTIATE: ResultArr <- New Integer Array of Arrays With Rows of InputArr length and Cols of InputArr at 0 length
+INSTANTIATE: Queue <- New Queue of type Integer
+INSTANTIATE: OuterLength <- InputArr length
+INSTANTIATE: InnerLength <- InputArr at 0 Length
+ITERATE: Integer OuterIDX <- 0 to OuterLength increment 1:
+    ITERATE: Integer InnerIdx <- 0 to InnerLength increment 1:
+        ASSIGN: Queue Enqueue <- InputArr at OuterIDX at InnerIdx
+ASSIGN: OuterLength <- ResultArray at 0 Length
+ITERATE: Integer Col <- OuterLength-1 to 0 decrement 1:
+    ITERATE: Integer Row <- 0 to InnerLength - 1 increment 1:
+        ASSIGN: ResultArr at Row at Col <- Queue Dequeue
+RETURN: ResultArr
+```
+
+### Pseudocode Comments
+
+There is probably some other, more efficient approach to solving this problem.
+
+This solution was developed:
+
+1. Under a strict time limit to start with (see Attempted Algorithm, above).
+2. Refined using actual unit tests and actual Java code.
+
+The biggest concern with performance of this algorithm is that with large inputs, the time to complete will grow at a very high rate due to O(N^2) nested iterators.
+
+## Java Code
+
+See the actual code [here in the repo](../lib/src/main/java/myJava/code/challenges/RotateMatrix.java)
 
 ## Test Approach
 
@@ -62,6 +98,11 @@ Test empty or too small inputs:
 - `[[1,1,1]]` => `[]`
 - `[[1,1,1],[2,2,2]]` => `[]`
 - `[[1,1,1,1],[2,2,2,2]]`  => `[]`
+- `[[1,1],[2,2],[3,3]]` => `[]`
+
+### Unit Tests
+
+See the actual unit tests [here in the repo](../lib/src/test/java/myJava/code/challenges/TestRotateMatrix.java)
 
 ## Retrospective
 
@@ -86,6 +127,7 @@ Test empty or too small inputs:
 ### Other Key Takeaways
 
 - Unit tests can have bugs too!
+- Whenever approaching a matrix or nested array problem, stick with 'Row and Col' terminology and be prepared to translate that to 'Outer and Inner' within a basic top-to-bottom, left-to-right traversal through the matrix.
 
 ## Footer
 
