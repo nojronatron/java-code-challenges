@@ -41,3 +41,4 @@ The following index links to readme files specific for each data structure and c
 - [X] Tree Challenge: [Sprinkler Water Usage](docs/readme-sprinklerWaterUsageChallenge.md)
 - [ ] Graph Challenge: [Sprinkler Water Usage](docs/readme-sprinklerWaterUsageChallenge.md)
 - [X] Challenge: [Convert Integer to Roman Numeral](docs/readme-intToRomanNumeralChallenge.md)
+- [X] Challenge: [Rotate 3x3 Matrix Of Integers](docs/readme-rotateIntegerMatrixChallenge.md)
