@@ -57,6 +57,28 @@ Test multiple rotations:
 
 Test empty or too small inputs:
 
-- `[]` => `[]`
-- `[[]]` => `[[]]`
-- etc
+- ~~`[]` => `[]`~~
+- `[[]]` => `[]`
+- `[[1,1,1],[2,2,2]]` => `[]`
+- `[[1,1,1,1],[2,2,2,2]]`  => `[]`
+
+## Retrospective
+
+### What Went Well
+
+- Relaxed and confident I could find an answer to the solution throughout the experience.
+- Did not worry about getting the algorithm to be efficient, nor the code to be 100% exact.
+- Went back to step-through to find a bug in my algorithm, which I then went back and fixed.
+- As soon as I mentioned a test case, I went a wrote a test approach section and a few simple test cases.
+- My algorithm includes an if statement that catches a bad input.
+
+### What Needs Work
+
+- Initializing an int[] requires a starting size `[inputArray.length]` or an initial array `int[] temp = { 1, 2, 3 };` (I should know this).
+- Initializing a 2d array requires `int[][] foo = {{ 1, 2, 3}, ...}`. I know this, too.
+- Review different ways to traverse multidimensional arrays to gain more confidence and get to a solution more quickly next time.
+- I can take a second out of the challenge time to make the Java Method 'static' and it will make testing much easier.
+
+## Footer
+
+Return to [ROOT README](../README.md)
