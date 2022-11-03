@@ -93,4 +93,25 @@ public class TestRotateMatrix {
         var actualResult = sut.rotate(actualInput);
         assertArrayEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void test_MatricesGreaterThanThreeByThreeAreProcessed() {
+        // this is a bonus feature test
+        int[][] actualInput = {{3, 2, 1}, {3, 2, 1}, {3, 2, 1}, {3, 2, 1}};
+        int[][] expectedResult = {{3, 3, 3, 3}, {2, 2, 2, 2}, {1, 1, 1, 1}};
+
+        RotateMatrix sut = new RotateMatrix();
+        int[][] actualResult = sut.rotate(actualInput);
+        assertArrayEquals(expectedResult, actualResult);
+    }
+    @Test
+    void test_MatrixTwoByFiveRotatesAsExpected() {
+        // this is a bonus feature test
+        int[][] actualInput = {{5, 4, 3, 2, 1}, {5, 4, 3, 2, 1}, {5, 4, 3, 2, 1}};
+        int[][] expectedResult = {{5, 5, 5}, {4, 4, 4}, {3, 3, 3}, {2, 2, 2}, {1, 1, 1}};
+
+        RotateMatrix sut = new RotateMatrix();
+        int[][] actualResult = sut.rotate(actualInput);
+        assertArrayEquals(expectedResult, actualResult);
+    }
 }
