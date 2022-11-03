@@ -104,6 +104,7 @@ public class TestRotateMatrix {
         int[][] actualResult = sut.rotate(actualInput);
         assertArrayEquals(expectedResult, actualResult);
     }
+
     @Test
     void test_MatrixThreeByFiveRotatesAsExpected() {
         // this is a bonus feature test
@@ -114,6 +115,7 @@ public class TestRotateMatrix {
         int[][] actualResult = sut.rotate(actualInput);
         assertArrayEquals(expectedResult, actualResult);
     }
+
     @Test
     void test_MatrixLessThanThreeByThreeReturnEmpty() {
         int[][] actualInputThreeByTwo = {{1, 1}, {2, 2}, {3, 3}};
