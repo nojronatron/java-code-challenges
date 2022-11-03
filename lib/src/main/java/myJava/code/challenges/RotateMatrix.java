@@ -8,17 +8,22 @@ public class RotateMatrix {
             return new int[][]{{}};
         }
 
-        int[][] result = new int[inputArr.length][inputArr.length]; // todo: properly account for 2nd dimension size
+        int[][] result = new int[inputArr[0].length][inputArr.length];
         MyQueue<Integer> queue = new MyQueue<>();
 
-        for (int outerIdx=0; outerIdx<3; outerIdx++) {
-            for (int innerIdx=0; innerIdx<3; innerIdx++) {
+        int outerLength = inputArr.length;
+        int innerLength = inputArr[0].length;
+
+        for (int outerIdx=0; outerIdx < outerLength; outerIdx++) {
+            for (int innerIdx=0; innerIdx < innerLength; innerIdx++) {
                 queue.enqueue(inputArr[outerIdx][innerIdx]);
             }
         }
 
-        for (int col=2; col>=0; col--) {
-            for (int row=0; row<3; row++) {
+        outerLength = result[0].length;
+
+        for (int col=outerLength-1; col >= 0; col--) {
+            for (int row=0; row < innerLength; row++) {
                 result[row][col] = queue.dequeue();
             }
         }
