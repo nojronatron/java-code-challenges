@@ -4,7 +4,7 @@ import myJava.code.models.MyQueue;
 
 public class RotateMatrix {
     public int[][] rotate(int[][] inputArr) {
-        if (inputArr.length < 3) {
+        if (inputArr.length < 3 || inputArr[0].length < 3) {
             return new int[][]{{}};
         }
 
