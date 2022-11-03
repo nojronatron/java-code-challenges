@@ -59,6 +59,7 @@ Test empty or too small inputs:
 
 - ~~`[]` => `[]`~~
 - `[[]]` => `[]`
+- `[[1,1,1]]` => `[]`
 - `[[1,1,1],[2,2,2]]` => `[]`
 - `[[1,1,1,1],[2,2,2,2]]`  => `[]`
 
@@ -78,6 +79,12 @@ Test empty or too small inputs:
 - Initializing a 2d array requires `int[][] foo = {{ 1, 2, 3}, ...}`. I know this, too.
 - Review different ways to traverse multidimensional arrays to gain more confidence and get to a solution more quickly next time.
 - I can take a second out of the challenge time to make the Java Method 'static' and it will make testing much easier.
+- While it is okay to use 'outer' and 'inner' for looping through a 2D array, in cases like this one, it might have been easier to understand to use 'row' and 'col'.
+- When transcoding from Algorithm to Pseudocode (or Pseudocode to actual Code), be sure to actually write the code as you planned it (don't insert new bugs by not writing what is written).
+
+### Other Key Takeaways
+
+- Unit tests can have bugs too!
 
 ## Footer
 
