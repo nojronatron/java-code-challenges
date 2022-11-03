@@ -105,7 +105,7 @@ public class TestRotateMatrix {
         assertArrayEquals(expectedResult, actualResult);
     }
     @Test
-    void test_MatrixTwoByFiveRotatesAsExpected() {
+    void test_MatrixThreeByFiveRotatesAsExpected() {
         // this is a bonus feature test
         int[][] actualInput = {{5, 4, 3, 2, 1}, {5, 4, 3, 2, 1}, {5, 4, 3, 2, 1}};
         int[][] expectedResult = {{5, 5, 5}, {4, 4, 4}, {3, 3, 3}, {2, 2, 2}, {1, 1, 1}};
@@ -113,5 +113,19 @@ public class TestRotateMatrix {
         RotateMatrix sut = new RotateMatrix();
         int[][] actualResult = sut.rotate(actualInput);
         assertArrayEquals(expectedResult, actualResult);
+    }
+    @Test
+    void test_MatrixLessThanThreeByThreeReturnEmpty() {
+        int[][] actualInputThreeByTwo = {{1, 1}, {2, 2}, {3, 3}};
+        int[][] actualInputTwoByThree = {{1, 2, 3}, {1, 2, 3}};
+        int[][] expectedResult = {{}};
+
+        RotateMatrix sut = new RotateMatrix();
+
+        int[][] actualResultThreeByTwo = sut.rotate(actualInputThreeByTwo);
+        assertArrayEquals(expectedResult, actualResultThreeByTwo);
+
+        int[][] actualResultTwoByThree = sut.rotate(actualInputTwoByThree);
+        assertArrayEquals(expectedResult, actualResultTwoByThree);
     }
 }
