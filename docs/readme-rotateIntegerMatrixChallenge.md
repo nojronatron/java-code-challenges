@@ -81,6 +81,7 @@ Test empty or too small inputs:
 - I can take a second out of the challenge time to make the Java Method 'static' and it will make testing much easier.
 - While it is okay to use 'outer' and 'inner' for looping through a 2D array, in cases like this one, it might have been easier to understand to use 'row' and 'col'.
 - When transcoding from Algorithm to Pseudocode (or Pseudocode to actual Code), be sure to actually write the code as you planned it (don't insert new bugs by not writing what is written).
+- Using 'magic numbers' will ensure buggy code, especially for things like for-loops where we are used to writing temporary variables. In this case, we need to use the actual dimensional variables.
 
 ### Other Key Takeaways
 
