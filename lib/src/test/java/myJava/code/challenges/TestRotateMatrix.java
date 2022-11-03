@@ -18,7 +18,7 @@ public class TestRotateMatrix {
         int[][] expectedResult = {{3, 2, 1}, {3, 2, 1}, {3, 2, 1}};
 
         RotateMatrix sut = new RotateMatrix();
-        var actualResult = sut.rotate(actualInput);
+        int[][] actualResult = sut.rotate(actualInput);
         assertArrayEquals(expectedResult, actualResult);
     }
 
@@ -38,7 +38,8 @@ public class TestRotateMatrix {
         int[][] expectedResult = {{3, 3, 3}, {2, 2, 2}, {1, 1, 1}};
 
         RotateMatrix sut = new RotateMatrix();
-        var actualResult = sut.rotate(actualInput);
+        int[][] interimResult = sut.rotate(actualInput);
+        int[][] actualResult = sut.rotate(interimResult);
         assertArrayEquals(expectedResult, actualResult);
     }
 
@@ -48,7 +49,8 @@ public class TestRotateMatrix {
         int[][] expectedResult = {{1, 2, 3}, {1, 2, 3}, {1, 2, 3}};
 
         RotateMatrix sut = new RotateMatrix();
-        var actualResult = sut.rotate(actualInput);
+        int[][] interimResult = sut.rotate(actualInput);
+        int[][] actualResult = sut.rotate(interimResult);
         assertArrayEquals(expectedResult, actualResult);
     }
 
