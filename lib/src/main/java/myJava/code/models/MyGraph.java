@@ -11,6 +11,15 @@ public class MyGraph {
         this.adjacencyList = new Hashtable<>();
     }
 
+    public boolean addNode(int value) throws NullPointerException {
+        MyGraphNode newNode = new MyGraphNode(value);
+        return this.adjacencyList.put(newNode, newNode) == null;
+    }
+
+    public MyGraphNode removeNode(MyGraphNode vertex) throws NullPointerException {
+        return this.adjacencyList.remove(vertex);
+    }
+
     public int[] getVisitedNodes() {
         int[] result = new int[this.visitedNodes.size()];
         int counter = 0;
@@ -85,6 +94,10 @@ class MyGraphNode {
     public MyGraphNode(int value) {
         this.edges = new ArrayList<>(){};
         this.value = value;
+    }
+
+    public List<MyGraphEdge> getEdges() {
+        return edges;
     }
 
     public ArrayList<MyGraphNode> getNeighbors() {
