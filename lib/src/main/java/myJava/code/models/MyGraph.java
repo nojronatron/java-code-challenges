@@ -1,26 +1,58 @@
 package myJava.code.models;
 
+import org.apache.commons.math3.exception.NullArgumentException;
+
 import java.util.*;
 
 public class MyGraph {
-    private final HashSet<MyGraphNode> visitedNodes;
+    private final List<MyGraphNode> visitedNodes;
     private final Hashtable<MyGraphNode, MyGraphNode> adjacencyList;
 
+    public int getGraphSize() {
+        return adjacencyList.size();
+    }
+
     public MyGraph() {
-        this.visitedNodes = new HashSet<>();
+        this.visitedNodes = new ArrayList<>();
         this.adjacencyList = new Hashtable<>();
     }
 
+    /**
+     * Adds a new Graph Node with the param value, effectively making it an "Island" Graph member.
+     * @param value Integer
+     * @return boolean
+     * @throws NullPointerException if param is Null
+     */
     public boolean addNode(int value) throws NullPointerException {
         MyGraphNode newNode = new MyGraphNode(value);
-        return this.adjacencyList.put(newNode, newNode) == null;
+
+        if (this.adjacencyList.containsValue(newNode)) {
+            return false;
+        }
+
+        this.adjacencyList.put(newNode, newNode);
+        return true;
+    }
+
+    /**
+     * Adds the param GraphNode to the Graph as a connected Graph member if it has an Edge to a Node in this Graph.
+     * @param vertex MyGraphNode
+     * @return boolean
+     * @throws NullPointerException if MyGraphNode is null
+     */
+    public boolean addNode(MyGraphNode vertex) throws NullPointerException {
+        if (this.adjacencyList.containsValue(vertex)) {
+            return false;
+        }
+        this.adjacencyList.put(vertex, vertex);
+        return true;
     }
 
     public MyGraphNode removeNode(MyGraphNode vertex) throws NullPointerException {
         return this.adjacencyList.remove(vertex);
     }
 
-    public int[] getVisitedNodes() {
+    public int[] getVisitedNodeValues() {
         int[] result = new int[this.visitedNodes.size()];
         int counter = 0;
 
@@ -32,7 +64,12 @@ public class MyGraph {
         return result;
     }
 
-    public HashSet<MyGraphNode> breadthFirstTraversal(MyGraphNode vertex) {
+    public MyGraphNode[] getVisitedNodes() {
+        MyGraphNode[] result = this.visitedNodes.toArray(new MyGraphNode[0]);
+        return result;
+    }
+
+    public List<MyGraphNode> breadthFirstTraversal(MyGraphNode vertex) {
         if (vertex == null) {
             return null;
         }
@@ -46,19 +83,19 @@ public class MyGraph {
 
             if (!this.visitedNodes.contains(front)) {
                 this.visitedNodes.add(front);
-            }
 
-            ArrayList<MyGraphNode> neighbors = front.getNeighbors();
+                ArrayList<MyGraphNode> neighbors = front.getNeighbors();
 
-            for(MyGraphNode child: neighbors) {
-                breadthQueue.enqueue(child);
+                for (MyGraphNode child : neighbors) {
+                    breadthQueue.enqueue(child);
+                }
             }
         }
 
         return this.visitedNodes;
     }
 
-    public HashSet<MyGraphNode> depthFirstTraversal(MyGraphNode vertex) {
+    public List<MyGraphNode> depthFirstTraversal(MyGraphNode vertex) {
         if (vertex == null) {
             return null;
         }
@@ -80,6 +117,16 @@ public class MyGraph {
         }
 
         return this.visitedNodes;
+    }
+
+
+    /**
+     * Returns a Node from the Adjacency List. Not guaranteed to be in a particular order.
+     * @return MyGraphNode
+     */
+    public MyGraphNode getNodeFromGraph() throws NoSuchElementException {
+        Iterator<MyGraphNode> item = this.adjacencyList.keys().asIterator();
+        return item.next();
     }
 
     public boolean isEmpty() {
@@ -124,10 +171,21 @@ class MyGraphNode {
         return results;
     }
 
+    /**
+     * Creates a new Edge with default weight 1 and neighbor param vertex and attaches it to this Node.
+     * @param vertex MyGraphNode
+     * @return boolean
+     */
     public boolean addNeighbor(MyGraphNode vertex) {
         return this.addNeighbor(vertex, 0); // default weight
     }
 
+    /**
+     * Creates a new Edge with param weight and neighbor param vertex and attaches it to this Node.
+     * @param vertex MyGraphNode
+     * @param weight Integer
+     * @return boolean
+     */
     public boolean addNeighbor(MyGraphNode vertex, int weight) {
         boolean result = false;
         MyGraphEdge newEdge = new MyGraphEdge(vertex, weight);
