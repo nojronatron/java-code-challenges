@@ -16,7 +16,7 @@ public class TestMyGraph {
         int expectedValue = 11;
         var sut = new MyGraphNode(expectedValue);
         assertNotNull(sut);
-        var actualValue = sut.getValue();
+        int actualValue = sut.getValue();
         assertEquals(expectedValue, actualValue);
     }
     @Test void test_CanInstantiateEdge() {
@@ -67,34 +67,131 @@ public class TestMyGraph {
 
         int actualEdgeWeight = edges.get(0).getWeight();
         assertEquals(expectedEdgeWeight, actualEdgeWeight);
+
+        ArrayList<MyGraphNode> actualNeighborNode = sut.getNeighbors();
+        assertEquals(expectedEdgeListSize, actualNeighborNode.size());
+
+        int actualNeighborValue = sut.getNeighbors().get(0).getValue();
+        assertEquals(expectedNeighborValue, actualNeighborValue);
     }
     @Test void test_AdjacencyListPopulatesCorrectly() {
         int expectedAlphaNodeValue = 11;
         int expectedBravoNodeValue = 22;
         int expectedCharlieNodeValue = 33;
+
         int expectedEdgeWeightThree = 3;
         int expectedEdgeWeightFour = 4;
         int expectedEdgeWeightFive = 5;
-        int expectedEdgeListSize = 3;
+
+        int expectedAdjacencyListSize = 3;
         var sut = new MyGraph();
 
         var alphaGraphNode = new MyGraphNode(expectedAlphaNodeValue);
         var bravoGraphNode = new MyGraphNode(expectedBravoNodeValue);
         var charlieGraphNode = new MyGraphNode(expectedCharlieNodeValue);
 
-        alphaGraphNode.addNeighbor(bravoGraphNode, expectedEdgeWeightThree);
-        alphaGraphNode.addNeighbor(charlieGraphNode, expectedEdgeWeightFour);
-        bravoGraphNode.addNeighbor(charlieGraphNode, expectedEdgeWeightFive);
+        assertTrue(alphaGraphNode.addNeighbor(bravoGraphNode, expectedEdgeWeightThree));
+        assertTrue(alphaGraphNode.addNeighbor(charlieGraphNode, expectedEdgeWeightFour));
+        assertTrue(bravoGraphNode.addNeighbor(charlieGraphNode, expectedEdgeWeightFive));
 
-        assertTrue(graphNode.addNeighbor(neighbor, expectedEdgeWeight));
+        assertTrue(sut.addNode(alphaGraphNode));
+        assertTrue(sut.addNode(bravoGraphNode));
+        assertTrue(sut.addNode(charlieGraphNode));
+        assertEquals(expectedAdjacencyListSize, sut.getGraphSize());
+    }
+    @Test void test_NonCyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
 
-        int actualValue = graphNode.getValue();
-        assertEquals(expectedValue, actualValue);
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
 
-        List<MyGraphEdge> edges = graphNode.getEdges();
-        assertEquals(expectedEdgeListSize, edges.size());
+        assertTrue(alpha.addNeighbor(bravo));
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(bravo.addNeighbor(charlie));
+        assertTrue(bravo.addNeighbor(echo));
+        assertTrue(charlie.addNeighbor(delta));
+        assertTrue(delta.addNeighbor(echo));
+        assertTrue(delta.addNeighbor(foxtrot));
+        assertTrue(foxtrot.addNeighbor(echo));
 
-        int actualEdgeWeight = edges.get(0).getWeight();
-        assertEquals(expectedEdgeWeight, actualEdgeWeight);
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, bravo, charlie, echo, delta, foxtrot };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.breadthFirstTraversal(alpha);
+        MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
+
+        assertArrayEquals(expectedResult, actualResult);
+    }
+    @Test void test_CyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
+
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
+
+        assertTrue(alpha.addNeighbor(bravo));
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(bravo.addNeighbor(charlie)); // undirected edge in graph
+        assertTrue(bravo.addNeighbor(echo)); // undirected ege in graph
+        assertTrue(charlie.addNeighbor(delta)); // undirected ege in graph
+        assertTrue(charlie.addNeighbor(bravo)); // undirected edge in graph
+        assertTrue(delta.addNeighbor(echo));
+        assertTrue(delta.addNeighbor(foxtrot));
+        assertTrue(delta.addNeighbor(charlie)); // undirected ege in graph
+        assertTrue(echo.addNeighbor(bravo)); // undirected ege in graph
+        assertTrue(foxtrot.addNeighbor(echo));
+
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, bravo, charlie, echo, delta, foxtrot };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.breadthFirstTraversal(alpha);
+        MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
+
+        assertArrayEquals(expectedResult, actualResult);    }
+    @Test void test_NonCyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
+
+    }
+    @Test void test_CyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
+
+    }
+    @Test void test_DirectedNonCyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+
+    }
+    @Test void test_DirectedCyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+
+    }
+    @Test void test_UndirectedNonCyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
+
+    }
+    @Test void test_UndirectedCyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
+
+    }
+    @Test void test_EmptyGraphReturnsEmptyAdjacencyList() {
+
+    }
+    @Test void test_DisconnectedNodeNoteTraversedInDisconnectedGraphs() {
+
+    }
+    @Test void test_WeightedGraphTraversal() {
+
     }
 }
