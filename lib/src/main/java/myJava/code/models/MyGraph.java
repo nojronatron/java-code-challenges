@@ -103,6 +103,7 @@ public class MyGraph {
         Stack<MyGraphNode> depthStack = new Stack<>();
         depthStack.push(vertex);
         this.visitedNodes.clear();
+        this.visitedNodes.add(vertex);
 
         while (!depthStack.isEmpty()) {
             MyGraphNode top = depthStack.pop();
