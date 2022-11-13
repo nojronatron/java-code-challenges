@@ -1,17 +1,22 @@
 package myJava.code.models;
 
-import org.apache.commons.math3.exception.NullArgumentException;
-
 import java.util.*;
 
 public class MyGraph {
     private final List<MyGraphNode> visitedNodes;
     private final Hashtable<MyGraphNode, MyGraphNode> adjacencyList;
 
+    /**
+     * Returns integer count of Vertices in the Adjacency List.
+     * @return Integer
+     */
     public int getGraphSize() {
         return adjacencyList.size();
     }
 
+    /**
+     * Custom constructor initialized internal Fields.
+     */
     public MyGraph() {
         this.visitedNodes = new ArrayList<>();
         this.adjacencyList = new Hashtable<>();
@@ -36,7 +41,7 @@ public class MyGraph {
 
     /**
      * Adds the param GraphNode to the Graph as a connected Graph member if it has an Edge to a Node in this Graph.
-     * @param vertex MyGraphNode
+     * @param vertex MyGraphNode to add
      * @return boolean
      * @throws NullPointerException if MyGraphNode is null
      */
@@ -48,10 +53,20 @@ public class MyGraph {
         return true;
     }
 
+    /**
+     * Attempts to remove a specific Node/Vertex. Returns removed Vertex if found, null if not. Throws an exception if input is null.
+     * @param vertex MyGraphNode to find
+     * @return MyGraphVertex found_node
+     * @throws NullPointerException upon Null input
+     */
     public MyGraphNode removeNode(MyGraphNode vertex) throws NullPointerException {
         return this.adjacencyList.remove(vertex);
     }
 
+    /**
+     * Returns a list of integer values of each Vertex in the Visited List array.
+     * @return Integer Array
+     */
     public int[] getVisitedNodeValues() {
         int[] result = new int[this.visitedNodes.size()];
         int counter = 0;
@@ -64,11 +79,25 @@ public class MyGraph {
         return result;
     }
 
+    /**
+     * Returns an Integer Array of the Vertices visited in the last traversal run.
+     * Returns empty Array if no traversals have returned anything.
+     * @return MyGraphNode Array
+     */
     public MyGraphNode[] getVisitedNodes() {
-        MyGraphNode[] result = this.visitedNodes.toArray(new MyGraphNode[0]);
-        return result;
+        if (this.visitedNodes.size() < 1) {
+            return new MyGraphNode[]{};
+        }
+
+        return this.visitedNodes.toArray(new MyGraphNode[0]);
     }
 
+    /**
+     * Traverse this Graph's Vertices starting with param 'vertex' across neighbor vertices from 'left-to-right'.
+     * Returns a unique collection of traversed Vertices.
+     * @param vertex Starting Node
+     * @return Collection of unique MyGraphNode instances
+     */
     public List<MyGraphNode> breadthFirstTraversal(MyGraphNode vertex) {
         if (vertex == null) {
             return null;
@@ -95,6 +124,12 @@ public class MyGraph {
         return this.visitedNodes;
     }
 
+    /**
+     * Traverse this Graph's Vertices starting with param 'vertex' in hierarchical order down neighboring vertices from 'top-to-bottom'.
+     * Returns a unique collection of traversed Vertices.
+     * @param vertex Starting Node
+     * @return Collection of unique MyGraphNode instances
+     */
     public List<MyGraphNode> depthFirstTraversal(MyGraphNode vertex) {
         if (vertex == null) {
             return null;
@@ -120,9 +155,8 @@ public class MyGraph {
         return this.visitedNodes;
     }
 
-
     /**
-     * Returns a Node from the Adjacency List. Not guaranteed to be in a particular order.
+     * Returns the first Vertex from the Adjacency List using as Iterator.
      * @return MyGraphNode
      */
     public MyGraphNode getNodeFromGraph() throws NoSuchElementException {
@@ -130,6 +164,10 @@ public class MyGraph {
         return item.next();
     }
 
+    /**
+     * Returns true if the AdjacencyList is empty, otherwise false.
+     * @return boolean
+     */
     public boolean isEmpty() {
         return this.adjacencyList.isEmpty();
     }
@@ -137,7 +175,7 @@ public class MyGraph {
 
 class MyGraphNode {
     private int value;
-    private List<MyGraphEdge> edges;
+    final private List<MyGraphEdge> edges;
 
     public MyGraphNode(int value) {
         this.edges = new ArrayList<>(){};
@@ -188,12 +226,15 @@ class MyGraphNode {
      * @return boolean
      */
     public boolean addNeighbor(MyGraphNode vertex, int weight) {
-        boolean result = false;
         MyGraphEdge newEdge = new MyGraphEdge(vertex, weight);
-        result = this.edges.add(newEdge);
-        return result;
+        return this.edges.add(newEdge);
     }
 
+    /**
+     * Locates a neighbor vertex and removes it and its edge connection from this Vertex.
+     * @param neighborVertex MyGraphNode
+     * @return boolean true if succeeds, false if fails
+     */
     public boolean removeNeighbor(MyGraphNode neighborVertex) {
         for (MyGraphEdge edge: this.edges) {
             if (edge.getNeighbor().equals(neighborVertex)) {
