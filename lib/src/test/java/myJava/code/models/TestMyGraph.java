@@ -99,7 +99,7 @@ public class TestMyGraph {
         assertTrue(sut.addNode(charlieGraphNode));
         assertEquals(expectedAdjacencyListSize, sut.getGraphSize());
     }
-    @Test void test_NonCyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+    @Test void test_DirectedNonCyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
         int expectedAlphaNodeValue = 11;
         int expectedBravoNodeValue = 22;
         int expectedCharlieNodeValue = 33;
@@ -132,7 +132,37 @@ public class TestMyGraph {
 
         assertArrayEquals(expectedResult, actualResult);
     }
-    @Test void test_CyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+    @Test void test_DirectedCyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
+
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
+
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(charlie.addNeighbor(delta));
+        assertTrue(delta.addNeighbor(foxtrot));
+        assertTrue(foxtrot.addNeighbor(echo));
+        assertTrue(echo.addNeighbor(bravo));
+        assertTrue(bravo.addNeighbor(charlie)); // directed edge cyclical point
+
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, charlie, delta, foxtrot, echo, bravo };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.breadthFirstTraversal(alpha);
+        MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
+
+        assertArrayEquals(expectedResult, actualResult);    }
+    @Test void test_NonCyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
         int expectedAlphaNodeValue = 11;
         int expectedBravoNodeValue = 22;
         int expectedCharlieNodeValue = 33;
@@ -149,46 +179,140 @@ public class TestMyGraph {
 
         assertTrue(alpha.addNeighbor(bravo));
         assertTrue(alpha.addNeighbor(charlie));
-        assertTrue(bravo.addNeighbor(charlie)); // undirected edge in graph
-        assertTrue(bravo.addNeighbor(echo)); // undirected ege in graph
-        assertTrue(charlie.addNeighbor(delta)); // undirected ege in graph
-        assertTrue(charlie.addNeighbor(bravo)); // undirected edge in graph
+        assertTrue(bravo.addNeighbor(charlie));
+        assertTrue(bravo.addNeighbor(echo));
+        assertTrue(charlie.addNeighbor(delta));
         assertTrue(delta.addNeighbor(echo));
         assertTrue(delta.addNeighbor(foxtrot));
-        assertTrue(delta.addNeighbor(charlie)); // undirected ege in graph
-        assertTrue(echo.addNeighbor(bravo)); // undirected ege in graph
         assertTrue(foxtrot.addNeighbor(echo));
 
-        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, bravo, charlie, echo, delta, foxtrot };
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, bravo, charlie, delta, echo, foxtrot };
 
         MyGraph sut = new MyGraph();
 
-        List<MyGraphNode> resultList = sut.breadthFirstTraversal(alpha);
+        List<MyGraphNode> resultList = sut.depthFirstTraversal(alpha);
         MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
 
-        assertArrayEquals(expectedResult, actualResult);    }
-    @Test void test_NonCyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
-
+        assertArrayEquals(expectedResult, actualResult);
     }
     @Test void test_CyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
 
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
+
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(charlie.addNeighbor(delta));
+        assertTrue(delta.addNeighbor(foxtrot));
+        assertTrue(foxtrot.addNeighbor(echo));
+        assertTrue(echo.addNeighbor(bravo));
+        assertTrue(bravo.addNeighbor(charlie)); // directed edge cyclical point
+
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, charlie, delta, foxtrot, echo, bravo };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.depthFirstTraversal(alpha);
+        MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
+
+        assertArrayEquals(expectedResult, actualResult);
     }
-    @Test void test_DirectedNonCyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+    @Test void test_UndirectedDepthFirstTraversalReturnsAllNodesNoDuplicates() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
 
-    }
-    @Test void test_DirectedCyclicBreadthFirstTraversalReturnsAllNodesNoDuplicates() {
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
 
-    }
-    @Test void test_UndirectedNonCyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
+        assertTrue(alpha.addNeighbor(bravo));
+        assertTrue(bravo.addNeighbor(alpha));
+        assertTrue(bravo.addNeighbor(charlie));
+        assertTrue(charlie.addNeighbor(bravo));
+        assertTrue(charlie.addNeighbor(delta));
+        assertTrue(delta.addNeighbor(charlie));
+        assertTrue(delta.addNeighbor(echo));
+        assertTrue(echo.addNeighbor(delta));
+        assertTrue(echo.addNeighbor(foxtrot));
+        assertTrue(foxtrot.addNeighbor(echo));
 
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, bravo, charlie, delta, echo, foxtrot };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.depthFirstTraversal(alpha);
+        MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
+
+        assertArrayEquals(expectedResult, actualResult);
     }
     @Test void test_UndirectedCyclicDepthFirstTraversalReturnsAllNodesNoDuplicates() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
 
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
+
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(charlie.addNeighbor(alpha));
+
+        assertTrue(charlie.addNeighbor(alpha));
+        assertTrue(charlie.addNeighbor(bravo));
+        assertTrue(charlie.addNeighbor(delta));
+
+        assertTrue(delta.addNeighbor(charlie));
+        assertTrue(delta.addNeighbor(foxtrot));
+
+        assertTrue(foxtrot.addNeighbor(delta));
+        assertTrue(foxtrot.addNeighbor(echo));
+
+        assertTrue(echo.addNeighbor(bravo));
+        assertTrue(echo.addNeighbor(foxtrot));
+
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, charlie, bravo, delta, foxtrot, echo };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.depthFirstTraversal(alpha);
+        MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
+
+        assertArrayEquals(expectedResult, actualResult);
     }
     @Test void test_EmptyGraphReturnsEmptyAdjacencyList() {
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ };
 
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> breadthResultList = sut.breadthFirstTraversal(null);
+        assertNull(breadthResultList);
+
+        List<MyGraphNode> depthResultList = sut.depthFirstTraversal(null);
+        assertNull(depthResultList);
     }
-    @Test void test_DisconnectedNodeNoteTraversedInDisconnectedGraphs() {
+    @Test void test_DisconnectedNodeNotTraversedInDisconnectedGraphs() {
 
     }
     @Test void test_WeightedGraphTraversal() {
