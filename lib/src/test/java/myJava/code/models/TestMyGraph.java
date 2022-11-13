@@ -301,9 +301,88 @@ public class TestMyGraph {
 
         assertArrayEquals(expectedResult, actualResult);
     }
-    @Test void test_EmptyGraphReturnsEmptyAdjacencyList() {
-        MyGraphNode[] expectedResult = new MyGraphNode[]{ };
+    @Test void test_GetVisitedNodeValuesReturnsCorrectValuesInAnArray() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
 
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
+
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(charlie.addNeighbor(alpha));
+        assertTrue(charlie.addNeighbor(alpha));
+        assertTrue(charlie.addNeighbor(bravo));
+        assertTrue(charlie.addNeighbor(delta));
+        assertTrue(delta.addNeighbor(charlie));
+        assertTrue(delta.addNeighbor(foxtrot));
+        assertTrue(foxtrot.addNeighbor(delta));
+        assertTrue(foxtrot.addNeighbor(echo));
+        assertTrue(echo.addNeighbor(bravo));
+        assertTrue(echo.addNeighbor(foxtrot));
+
+        int expectedResultLength = 6;
+        int[] expectedResult = new int[]{ 11, 33, 22, 44, 66, 55 };
+        MyGraphNode[] expectedVertexList = new MyGraphNode[]{ alpha, charlie, bravo, delta, foxtrot, echo };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.depthFirstTraversal(alpha);
+        MyGraphNode[] visitedNodes = resultList.toArray(MyGraphNode[]::new);
+        assertEquals(expectedResultLength, visitedNodes.length);
+        assertArrayEquals(expectedVertexList, visitedNodes);
+
+        int[] actualResult = sut.getVisitedNodeValues();
+        assertArrayEquals(expectedResult, actualResult);
+    }
+    @Test void test_GetVisitedNodesListReturnsCorrectVertices() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
+
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
+
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(charlie.addNeighbor(alpha));
+        assertTrue(charlie.addNeighbor(alpha));
+        assertTrue(charlie.addNeighbor(bravo));
+        assertTrue(charlie.addNeighbor(delta));
+        assertTrue(delta.addNeighbor(charlie));
+        assertTrue(delta.addNeighbor(foxtrot));
+        assertTrue(foxtrot.addNeighbor(delta));
+        assertTrue(foxtrot.addNeighbor(echo));
+        assertTrue(echo.addNeighbor(bravo));
+        assertTrue(echo.addNeighbor(foxtrot));
+
+        int expectedResultLength = 6;
+        MyGraphNode[] expectedVertexList = new MyGraphNode[]{ alpha, charlie, bravo, delta, foxtrot, echo };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.depthFirstTraversal(alpha);
+        MyGraphNode[] visitedNodes = resultList.toArray(MyGraphNode[]::new);
+        assertEquals(expectedResultLength, visitedNodes.length);
+        assertArrayEquals(expectedVertexList, visitedNodes);
+
+        MyGraphNode[] actualResult = sut.getVisitedNodes();
+        assertArrayEquals(expectedVertexList, actualResult);
+    }
+    @Test void test_EmptyGraphReturnsEmptyAdjacencyList() {
         MyGraph sut = new MyGraph();
 
         List<MyGraphNode> breadthResultList = sut.breadthFirstTraversal(null);
@@ -312,10 +391,183 @@ public class TestMyGraph {
         List<MyGraphNode> depthResultList = sut.depthFirstTraversal(null);
         assertNull(depthResultList);
     }
-    @Test void test_DisconnectedNodeNotTraversedInDisconnectedGraphs() {
+    @Test void test_DisconnectedNodeNotTraversedInDisconnectedGraph() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
 
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
+
+        assertTrue(alpha.addNeighbor(bravo));
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(bravo.addNeighbor(charlie));
+        assertTrue(bravo.addNeighbor(echo));
+        assertTrue(charlie.addNeighbor(delta));
+        assertTrue(delta.addNeighbor(echo));
+        assertTrue(foxtrot.addNeighbor(delta)); // considered disconnected node in directed graph unless it is root
+
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, bravo, charlie, delta, echo };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.depthFirstTraversal(alpha);
+        MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
+
+        assertArrayEquals(expectedResult, actualResult);
     }
     @Test void test_WeightedGraphTraversal() {
+        // TODO: code is boilerplate. implement this unit test.
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedDeltaNodeValue = 44;
+        int expectedEchoNodeValue = 55;
+        int expectedFoxtrotNodeValue = 66;
 
+        MyGraphNode alpha = new MyGraphNode(expectedAlphaNodeValue);
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        MyGraphNode charlie = new MyGraphNode(expectedCharlieNodeValue);
+        MyGraphNode delta = new MyGraphNode(expectedDeltaNodeValue);
+        MyGraphNode echo = new MyGraphNode(expectedEchoNodeValue);
+        MyGraphNode foxtrot = new MyGraphNode(expectedFoxtrotNodeValue);
+
+        assertTrue(alpha.addNeighbor(bravo));
+        assertTrue(alpha.addNeighbor(charlie));
+        assertTrue(bravo.addNeighbor(charlie));
+        assertTrue(bravo.addNeighbor(echo));
+        assertTrue(charlie.addNeighbor(delta));
+        assertTrue(delta.addNeighbor(echo));
+        assertTrue(delta.addNeighbor(foxtrot));
+        assertTrue(foxtrot.addNeighbor(echo));
+
+        MyGraphNode[] expectedResult = new MyGraphNode[]{ alpha, bravo, charlie, delta, echo, foxtrot };
+
+        MyGraph sut = new MyGraph();
+
+        List<MyGraphNode> resultList = sut.depthFirstTraversal(alpha);
+        MyGraphNode[] actualResult = resultList.toArray(MyGraphNode[]::new);
+
+        assertArrayEquals(expectedResult, actualResult);
+    }
+    @Test void test_AddNodeToGraphIncreasesAdjacencyListSize() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+
+        MyGraph sut = new MyGraph();
+
+        int expectedCount = 0;
+        assertEquals(expectedCount, sut.getGraphSize());
+
+        assertTrue(sut.addNode(expectedAlphaNodeValue));
+
+        expectedCount = 1;
+        assertEquals(expectedCount, sut.getGraphSize());
+
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        assertTrue(sut.addNode(bravo));
+
+        expectedCount = 2;
+        assertEquals(expectedCount, sut.getGraphSize());
+    }
+    @Test void test_RemoveNodeReducesAdjacencyListSize() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+
+        MyGraph sut = new MyGraph();
+
+        int expectedCount = 0;
+        assertEquals(expectedCount, sut.getGraphSize());
+        assertTrue(sut.addNode(expectedAlphaNodeValue));
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        assertTrue(sut.addNode(bravo));
+        expectedCount = 2;
+        assertEquals(expectedCount, sut.getGraphSize());
+
+        MyGraphNode result = sut.removeNode(bravo);
+        assertEquals(bravo, result);
+
+        expectedCount = 1;
+        assertEquals(expectedCount, sut.getGraphSize());
+    }
+    @Test void test_RemovingValidNodeDoesNotThrow() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+
+        MyGraph sut = new MyGraph();
+
+        int expectedCount = 0;
+        assertEquals(expectedCount, sut.getGraphSize());
+        assertTrue(sut.addNode(expectedAlphaNodeValue));
+        MyGraphNode bravo = new MyGraphNode(expectedBravoNodeValue);
+        assertTrue(sut.addNode(bravo));
+        expectedCount = 2;
+        assertEquals(expectedCount, sut.getGraphSize());
+
+        assertDoesNotThrow(()->{
+            sut.removeNode(bravo);
+        });
+
+        expectedCount = 1;
+        assertEquals(expectedCount, sut.getGraphSize());
+    }
+    @Test void test_GetNodeFromGraphReturnsFirstVertexInAdjacencyList() {
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+
+        int expectedAdjacencyListSize = 1;
+        var sut = new MyGraph();
+
+        var alphaGraphNode = new MyGraphNode(expectedAlphaNodeValue);
+        var bravoGraphNode = new MyGraphNode(expectedBravoNodeValue);
+        var charlieGraphNode = new MyGraphNode(expectedCharlieNodeValue);
+
+        assertTrue(sut.addNode(alphaGraphNode));
+        MyGraphNode actualAdjacencyListVertex = sut.getNodeFromGraph();
+        assertEquals(expectedAdjacencyListSize, sut.getGraphSize());
+        assertEquals(alphaGraphNode, actualAdjacencyListVertex);
+
+        assertTrue(alphaGraphNode.addNeighbor(bravoGraphNode));
+        assertTrue(alphaGraphNode.addNeighbor(charlieGraphNode));
+
+        actualAdjacencyListVertex = sut.getNodeFromGraph();
+        assertEquals(alphaGraphNode, actualAdjacencyListVertex);
+    }
+    @Test void test_RemoveVertexFromGraphReducesAdjacencyListAndRemovesEdgeFromVertex() {
+        //  TODO: Refactor Vertex and Graph code because Adjacency List does not get updated when
+        //  a vertext with neighbors is added.
+        int expectedAlphaNodeValue = 11;
+        int expectedBravoNodeValue = 22;
+        int expectedCharlieNodeValue = 33;
+        int expectedAdjacencyListSize = 1;
+
+        var sut = new MyGraph();
+
+        var alphaGraphNode = new MyGraphNode(expectedAlphaNodeValue);
+        var bravoGraphNode = new MyGraphNode(expectedBravoNodeValue);
+        var charlieGraphNode = new MyGraphNode(expectedCharlieNodeValue);
+
+        assertTrue(alphaGraphNode.addNeighbor(bravoGraphNode));
+        assertTrue(alphaGraphNode.addNeighbor(charlieGraphNode));
+        assertTrue(bravoGraphNode.addNeighbor(charlieGraphNode));
+
+        assertTrue(sut.addNode(alphaGraphNode));
+        assertEquals(expectedAdjacencyListSize, sut.getGraphSize());
+
+        MyGraphNode firstVertex = sut.getNodeFromGraph();
+        assertEquals(alphaGraphNode, firstVertex);
+
+        MyGraphNode removeResult = sut.removeNode(bravoGraphNode);
+        var adjacencyListSize = sut.getGraphSize();
+
+        assertTrue(removeResult.removeNeighbor(charlieGraphNode));
     }
 }
