@@ -3,7 +3,7 @@ package myJava.code.models;
 import java.util.*;
 
 public class MyGraph {
-    private final List<MyGraphNode> visitedNodes;
+    private final HashSet<MyGraphNode> visitedNodes;
     private final Hashtable<MyGraphNode, MyGraphNode> adjacencyList;
 
     /**
@@ -18,7 +18,7 @@ public class MyGraph {
      * Custom constructor initialized internal Fields.
      */
     public MyGraph() {
-        this.visitedNodes = new ArrayList<>();
+        this.visitedNodes = new HashSet<>();
         this.adjacencyList = new Hashtable<>();
     }
 
@@ -54,13 +54,16 @@ public class MyGraph {
     }
 
     /**
-     * Attempts to remove a specific Node/Vertex. Returns removed Vertex if found, null if not. Throws an exception if input is null.
+     * Attempts to remove a specific Node/Vertex. Returns removed Vertex value if found, null if not.
+     * Throws an exception if input is null.
      * @param vertex MyGraphNode to find
      * @return MyGraphVertex found_node
      * @throws NullPointerException upon Null input
      */
-    public MyGraphNode removeNode(MyGraphNode vertex) throws NullPointerException {
-        return this.adjacencyList.remove(vertex);
+    public int removeNode(MyGraphNode vertex) throws NullPointerException {
+        // TODO: Add ability to remove Neighbor Edge links to the removed not in a Directed Graph
+        int result = this.adjacencyList.remove(vertex).getValue();
+        return result;
     }
 
     /**
@@ -121,7 +124,8 @@ public class MyGraph {
             }
         }
 
-        return this.visitedNodes;
+        List<MyGraphNode> result = this.visitedNodes.stream().toList();
+        return result;
     }
 
     /**
@@ -152,7 +156,8 @@ public class MyGraph {
             }
         }
 
-        return this.visitedNodes;
+        List<MyGraphNode> result = this.visitedNodes.stream().toList();
+        return result;
     }
 
     /**
@@ -161,7 +166,8 @@ public class MyGraph {
      */
     public MyGraphNode getNodeFromGraph() throws NoSuchElementException {
         Iterator<MyGraphNode> item = this.adjacencyList.keys().asIterator();
-        return item.next();
+        var result = item.next();
+        return result;
     }
 
     /**
@@ -232,6 +238,7 @@ class MyGraphNode {
 
     /**
      * Locates a neighbor vertex and removes it and its edge connection from this Vertex.
+     * Does NOT remove from a Graph Adjacency List.
      * @param neighborVertex MyGraphNode
      * @return boolean true if succeeds, false if fails
      */
