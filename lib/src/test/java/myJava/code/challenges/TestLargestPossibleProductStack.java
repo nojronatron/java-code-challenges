@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestLargestPossibleProductStack {
     @Test
     public void test_CanInstantiateClass() {
-        var sut = new LargestPossibleProductBasic();
+        var sut = new LargestPossibleProductStack();
         assertNotNull(sut);
     }
 
     @Test
     public void test_EmptyCollectionInputReturnsZero() {
-        var sut = new LargestPossibleProductBasic();
+        var sut = new LargestPossibleProductStack();
         ArrayList<Integer> emptyInput = new ArrayList<>();
         int expectedResult = 0;
         int actualResult = sut.LargestProduct(emptyInput);
@@ -24,7 +24,7 @@ public class TestLargestPossibleProductStack {
 
     @Test
     public void test_SingleItemInCollectionReturnsThatItemOrZero() {
-        var sut = new LargestPossibleProductBasic();
+        var sut = new LargestPossibleProductStack();
         ArrayList<Integer> arrayInput = new ArrayList<>();
         arrayInput.add(0);
         int expectedZeroResult = 0;
@@ -40,7 +40,7 @@ public class TestLargestPossibleProductStack {
 
     @Test
     public void test_TwoItemCollectionsInputsReturnExpectedValues() {
-        var sut = new LargestPossibleProductBasic();
+        var sut = new LargestPossibleProductStack();
         ArrayList<Integer> arrayInput = new ArrayList<>();
         arrayInput.add(10);
         arrayInput.add(11);
@@ -60,7 +60,7 @@ public class TestLargestPossibleProductStack {
 
     @Test
     public void test_ThreeOrMoreItemsCollectionsInputsReturnExpectedValues() {
-        var sut = new LargestPossibleProductBasic();
+        var sut = new LargestPossibleProductStack();
         ArrayList<Integer> arrayInput = new ArrayList<>();
         arrayInput.add(2);
         arrayInput.add(10);
@@ -88,7 +88,7 @@ public class TestLargestPossibleProductStack {
 
     @Test
     public void test_ManyItemsInCollectionInputReturnsExpectedValue() {
-        var sut = new LargestPossibleProductBasic();
+        var sut = new LargestPossibleProductStack();
         ArrayList<Integer> arrayInput = new ArrayList<>();
 
         for (int idx = -1000; idx <= 100; idx++) {

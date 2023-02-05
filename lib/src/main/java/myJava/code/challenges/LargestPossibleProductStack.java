@@ -3,40 +3,82 @@ package myJava.code.challenges;
 import java.util.ArrayList;
 
 public class LargestPossibleProductStack {
-    public int LargestProduct(ArrayList<Integer> arrList) {
-        if (arrList.size() < 1) {
+    public int LargestProduct(ArrayList<Integer> collection) {
+        if (collection.size() < 1) {
             return 0;
         }
-        if (arrList.size() == 1) {
-            // weakness is if an input is zero
-            return arrList.get(0);
-        }
-        if (arrList.size() == 2) {
-            // weakness is if an input is zero
-            return arrList.get(0) * arrList.get(1);
-        }
-        int firstValue = Integer.MIN_VALUE;
-        int secondValue = Integer.MIN_VALUE;
-        int thirdValue = Integer.MIN_VALUE;
-        for (int currentValue : arrList) {
-            if (currentValue == 0) {
+        LPStack<Integer> myStack = new LPStack<>();
+        for(int currentItem: collection) {
+            if (currentItem == 0) {
                 continue;
             }
-            if (currentValue > firstValue) {
-                int tempValue = firstValue;
-                firstValue = currentValue;
-                currentValue = tempValue;
-            }
-            if (currentValue > secondValue) {
-                int tempValue = secondValue;
-                secondValue = currentValue;
-                currentValue = tempValue;
-            }
-            if (currentValue > thirdValue) {
-                thirdValue = currentValue;
+            if (!myStack.isEmpty()) {
+                int tempNumber = myStack.peek();
+                if (currentItem > tempNumber) {
+                    myStack.push(currentItem);
+                } else {
+                    myStack.pop();
+                    myStack.push(currentItem);
+                    myStack.push(tempNumber);
+                }
             }
         }
-
-        return firstValue * secondValue * thirdValue;
+        int accumulator = 1;
+        int idxMax = Math.max(collection.size(), 3);
+        for(int idx=0; idx< idxMax; idx++) {
+            accumulator *= myStack.pop();
+        }
+        return accumulator;
+    }
+    private static class LPStack<T> {
+        private StackNode<T> top;
+        private StackNode<T> bottom;
+        public LPStack() {
+            this.top =null;
+            this.bottom = null;
+        }
+        public void push(T data) {
+            StackNode<T> newNode = new StackNode<>(data);
+            if (this.bottom != this.top) {
+                newNode.next = this.top;
+                this.top = newNode;
+            }
+            if (this.bottom == this.top && !this.isEmpty()) {
+                this.top = newNode;
+                this.top.next = this.bottom;
+            }
+            if (this.isEmpty()) {
+                this.top = newNode;
+                this.bottom = newNode;
+            }
+        }
+        public T pop() throws NullPointerException {
+            StackNode<T> tempNode = this.top;
+            if (this.top == this.bottom) {
+                this.bottom = null;
+                this.top = null;
+            } else if (this.top.next == this.bottom) {
+                this.top.next = null;
+                this.top = bottom;
+            } else {
+                this.top = top.next;
+            }
+            return tempNode.value;
+        }
+        public T peek() throws NullPointerException {
+            return this.top.value;
+        }
+        public boolean isEmpty() {
+            return this.top == this.bottom && this.top == null;
+        }
+        private static class StackNode<T> {
+            private T value;
+            private StackNode<T> next;
+            StackNode(T data) { this.value = data; }
+            public T getValue() { return this.value; }
+            public void setValue(T value) { this.value = value; }
+            public StackNode<T> getNext() { return next; }
+            public void setNext(StackNode<T> next) {this.next = next;}
+        }
     }
 }
