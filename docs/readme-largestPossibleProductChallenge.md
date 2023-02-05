@@ -5,15 +5,19 @@
 Example inputs were:
 
 ```java
-ArrayList<Integer> Input1 = [ 18, 3, 42, 17, 9, 27 ];
-ArrayList<Integer> Input2 = [ 4, 0, -5, 3, -1, -6, 2 ];
+public class CodeChallenge {
+    ArrayList<Integer> Input1 = { 18,3,42,17,9,27 };
+    ArrayList<Integer> Input2 = { 4,0,-5,3,-1,-6,2 };
+}
 ```
 
 Example expected outputs:
 
 ```java
-int expectedResult = 20_412; // the underscore is used for readability and represents a comma
-int expectedResult = 24;
+public class CodeChallenge {
+    int expectedResult = 20_412; // the underscore is used for readability and represents a comma
+    int expectedResult = 24;
+}
 ```
 
 ## Breaking Down The Problem
