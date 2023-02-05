@@ -126,8 +126,8 @@ The Challenge Code can be found in these packages:
 
 Test for this Challenge Code can be found in these packages:
 
-- [myJava.code.challenge BASIC](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProduct_Basic.java).
-- [myJava.code.challenge STACK](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProduct_Stack.java).
+- [myJava.code.challenge BASIC](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProductBasic.java).
+- [myJava.code.challenge STACK](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProductStack.java).
 
 ## Key Takeaways
 
