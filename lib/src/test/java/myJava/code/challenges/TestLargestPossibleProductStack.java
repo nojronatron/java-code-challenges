@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestLargestPossibleProductBasic {
+public class TestLargestPossibleProductStack {
     @Test
     public void test_CanInstantiateClass() {
         var sut = new LargestPossibleProductBasic();

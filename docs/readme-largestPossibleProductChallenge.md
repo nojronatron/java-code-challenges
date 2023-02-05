@@ -119,8 +119,8 @@ Problem? It fails to meet Edge Case requirements, so efficiency doesn't really m
 
 The Challenge Code can be found in these packages:
 
-- [myJava.code.challenge BASIC](../lib/src/main/java/myJava/code/challenges/LargestPossibleProduct_Basic.java).
-- [myJava.code.challenge STACK](../lib/src/main/java/myJava/code/challenges/LargestPossibleProduct_Stack.java).
+- [myJava.code.challenge BASIC](../lib/src/main/java/myJava/code/challenges/LargestPossibleProductBasic.java).
+- [myJava.code.challenge STACK](../lib/src/main/java/myJava/code/challenges/LargestPossibleProductStack.java).
 
 ### Tests
 
