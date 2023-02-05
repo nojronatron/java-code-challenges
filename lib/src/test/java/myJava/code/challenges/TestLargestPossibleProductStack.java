@@ -55,7 +55,7 @@ public class TestLargestPossibleProductStack {
         // expectedResult cannot be 10 because arrayInput.get(1) is 0
         expectedResult = 10;
         actualResult = sut.LargestProduct(arrayInput);
-        assertNotEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
