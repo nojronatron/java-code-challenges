@@ -8,7 +8,7 @@ public class LargestPossibleProductStack {
             return 0;
         }
         LPStack<Integer> myStack = new LPStack<>();
-        for(int currentItem: collection) {
+        for (int currentItem : collection) {
             if (currentItem == 0) {
                 continue;
             }
@@ -21,22 +21,32 @@ public class LargestPossibleProductStack {
                     myStack.push(currentItem);
                     myStack.push(tempNumber);
                 }
+            } else {
+                myStack.push(currentItem);
             }
         }
+        if (myStack.isEmpty()) {
+            return 0;
+        }
+        int idxMax = Math.min(collection.size(), 3);
         int accumulator = 1;
-        int idxMax = Math.max(collection.size(), 3);
-        for(int idx=0; idx< idxMax; idx++) {
-            accumulator *= myStack.pop();
+        for (int idx = 0; idx < idxMax; idx++) {
+            if (!myStack.isEmpty()) {
+                accumulator *= myStack.pop();
+            }
         }
         return accumulator;
     }
+
     private static class LPStack<T> {
         private StackNode<T> top;
         private StackNode<T> bottom;
+
         public LPStack() {
-            this.top =null;
+            this.top = null;
             this.bottom = null;
         }
+
         public void push(T data) {
             StackNode<T> newNode = new StackNode<>(data);
             if (this.bottom != this.top) {
@@ -52,6 +62,7 @@ public class LargestPossibleProductStack {
                 this.bottom = newNode;
             }
         }
+
         public T pop() throws NullPointerException {
             StackNode<T> tempNode = this.top;
             if (this.top == this.bottom) {
@@ -65,20 +76,38 @@ public class LargestPossibleProductStack {
             }
             return tempNode.value;
         }
+
         public T peek() throws NullPointerException {
             return this.top.value;
         }
+
         public boolean isEmpty() {
             return this.top == this.bottom && this.top == null;
         }
+
         private static class StackNode<T> {
             private T value;
             private StackNode<T> next;
-            StackNode(T data) { this.value = data; }
-            public T getValue() { return this.value; }
-            public void setValue(T value) { this.value = value; }
-            public StackNode<T> getNext() { return next; }
-            public void setNext(StackNode<T> next) {this.next = next;}
+
+            StackNode(T data) {
+                this.value = data;
+            }
+
+            public T getValue() {
+                return this.value;
+            }
+
+            public void setValue(T value) {
+                this.value = value;
+            }
+
+            public StackNode<T> getNext() {
+                return next;
+            }
+
+            public void setNext(StackNode<T> next) {
+                this.next = next;
+            }
         }
     }
 }
