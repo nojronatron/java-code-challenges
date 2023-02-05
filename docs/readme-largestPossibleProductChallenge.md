@@ -40,7 +40,23 @@ When to return the solution? When done looking at all values in the input collec
 
 This challenge included multiplication which gets complicated when a zero-value is involved, so an added check was necessary to eliminate those from the final 'largest' value set, avoiding an unnecessary zero-value result.
 
-## Pseudocode
+## First Attempt
+
+In this first attempt I approached the problem without using a data structure, relying only on an algorithm. Probably not the best idea I've ever had.
+
+The primary issues with the code:
+
+- The function does not effectively reuse code (no data structure).
+- The function does not effectively test for 0 value(s) in the collection, so will fall-over (see test_TwoItemCollectionsInputsReturnExpectedValues).
+
+To get around these weaknesses:
+
+- Additional code was necessary in the Java implementation.
+- A test was updated to pass when the condition failed (just for automated test runners in GitHub).
+
+This first attempt code and test suite will be named with the suffix _Basic, and referred to as the Basic Solution.
+
+### Basic Solution Pseudocode
 
 Pseudocode was not completed during the timed challenge. Instead, the algorithm was defined, and then a code solution was created. Therefore, the following Pseudocode was created *based on the completed code* rather than the usual other way around.
 
@@ -89,19 +105,34 @@ Non-Integer types will not be accepted by the function because of Java's strongl
 
 ## Algorithm Analysis
 
+### Basic Algorithm Analysis
+
+Time Efficiency: O(n)
+
+Space Efficiency: O(1)
+
+Problem? It fails to meet Edge Case requirements, so efficiency doesn't really matter.
+
 ## Code and Test Cases
 
 ### Code
 
-The Challenge Code can be found in package [myJava.code.challenge](../lib/src/main/java/myJava/code/challenges/LargestPossibleProduct_Basic.java).
+The Challenge Code can be found in these packages:
+
+- [myJava.code.challenge BASIC](../lib/src/main/java/myJava/code/challenges/LargestPossibleProduct_Basic.java).
+- [myJava.code.challenge STACK](../lib/src/main/java/myJava/code/challenges/LargestPossibleProduct_Stack.java).
 
 ### Tests
 
-Test for this Challenge Code can be found in package [the test package myJava.code.challenge](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProduct_Basic.java).
+Test for this Challenge Code can be found in these packages:
+
+- [myJava.code.challenge BASIC](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProduct_Basic.java).
+- [myJava.code.challenge STACK](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProduct_Stack.java).
 
 ## Key Takeaways
 
 - When defaulting a value into variables that might be used in the final calculation, be careful to filter-out those values so only the input values are used.
+- Use a Data Structure and reap the benefits of code-reuse, efficiency, and a complete solution.
 
 ## Footer
 
