@@ -2,7 +2,7 @@ package myJava.code.challenges;
 
 import java.util.ArrayList;
 
-public class LargestPossibleProduct_Basic {
+public class LargestPossibleProductBasic {
     public int LargestProduct(ArrayList<Integer> arrList) {
         if (arrList.size() < 1) {
             return 0;
