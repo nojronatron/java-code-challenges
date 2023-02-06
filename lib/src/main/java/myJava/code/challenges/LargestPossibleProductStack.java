@@ -7,35 +7,54 @@ public class LargestPossibleProductStack {
         if (collection.size() < 1) {
             return 0;
         }
-        LPStack<Integer> myStack = new LPStack<>();
+        if (collection.size() == 1) {
+            return collection.get(0);
+        }
+        LPStack<Integer> myStackOne = new LPStack<>();
+        LPStack<Integer> myStackTwo = new LPStack<>();
+        LPStack<Integer> myStackThree = new LPStack<>();
+
         for (int currentItem : collection) {
             if (currentItem == 0) {
                 continue;
             }
-            if (myStack.isEmpty()) {
-                myStack.push(currentItem);
+            if (myStackOne.isEmpty()) {
+                myStackOne.push(currentItem);
                 continue;
             }
-            int tempNumber = myStack.peek();
-            if (currentItem > tempNumber) {
-                myStack.push(currentItem);
-            } else {
-                myStack.pop();
-                myStack.push(currentItem);
-                myStack.push(tempNumber);
+            if (myStackTwo.isEmpty()) {
+                myStackTwo.push(currentItem);
+                continue;
             }
-        }
-        if (myStack.isEmpty()) {
-            return 0;
-        }
-        int idxMax = Math.min(collection.size(), 3);
-        int accumulator = 1;
-        for (int idx = 0; idx < idxMax; idx++) {
-            if (!myStack.isEmpty()) {
-                accumulator *= myStack.pop();
+            if (myStackThree.isEmpty()) {
+                myStackThree.push(currentItem);
+                continue;
             }
+            int thisItem = stackSorter(myStackOne, currentItem);
+            thisItem = stackSorter(myStackTwo, thisItem);
+            stackSorter(myStackThree, thisItem);
+            }
+
+        int result = 1;
+        if (!myStackOne.isEmpty()) {
+            result *= myStackOne.peek();
         }
-        return accumulator;
+        if (!myStackTwo.isEmpty()) {
+            result *= myStackTwo.peek();
+        }
+        if (!myStackThree.isEmpty()) {
+            result *= myStackThree.peek();
+        }
+        return result;
+    }
+
+    private int stackSorter(LPStack<Integer> stack, int currentValue) {
+        if (currentValue > stack.peek()) {
+            int tempValue = stack.pop();
+            stack.push(currentValue);
+            return tempValue;
+        }
+        return currentValue;
     }
 
     private static class LPStack<T> {

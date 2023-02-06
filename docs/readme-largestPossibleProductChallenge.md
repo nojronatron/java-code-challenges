@@ -103,6 +103,7 @@ This time I implemented a custom generic Stack as a data structure to help solve
 Issues with the designed code:
 
 - I failed to check for an empty Stack in the returning portion of the function.
+- Certain combinations of numbers within the collection will not get processed correctly.
 
 ### Using a Stack: Final Tested Code Comments
 
@@ -110,12 +111,12 @@ Overview:
 
 - Created a static nested generic Stack class with a static nested generic Node class to fully encapsulate the entire solution.
 - Leveraged isEmpty method on Stack class to avoid NullPointerException.
-- Bug: Did not add a non-zero currentValue to the Stack.
-- Bug: Failed to check for an empty Stack after main iterator completed (never assume a data structure will have anything in it).
+- Reworked main logic using three Stacks, filtering out any 0 value, loading empty Stacks so each holds only 1 item using a helper function.
+- Reworked the final output logic (multiplication) to account for: zeroes in any Stack; any empty Stack.
 
 ### Using a Stack: Pseudocode
 
-Using the final, tested code as a guide, the following Pseudocode is here as practice.
+The following Pseudocode is here as practice and shows a partially complete solution, unable to properly sort certain Collection combinations:
 
 ```text
 DECLARE: Class LargestPossibleProductsStack
@@ -148,12 +149,64 @@ ITERATE: IDX from 0 to idxMax
 RETURN: Accumulator
 ```
 
+This next pseudocode is a re-write of the above that solves bugs with empty Stacks, lingering zeroes, and incorrect sorting bugs.
+
+```text
+DECLARE: Class LargestPossibleProductsStack
+DECLARE: Function LargestProduct
+INPUT: "Collection" as a List of integers
+OUTPUT: An integer
+TEST: Collection Size is 0
+    RETURN: 0
+TEST: Collection Size is 1
+    RETURN: Collection value at index 0
+INSTANTIATE: myStackOne <- new Stack of type Integer
+INSTANTIATE: myStackTwo <- new Stack of type Integer
+INSTANTIATE: myStackThree <- new Stack of type Integer
+ITERATE: Each CurrentItem in Collection
+    TEST: CurrentItem is 0
+        CONTINUE: next iteration
+    TEST: myStackOne is empty
+        EXECUTE: myStackOne <- push CurrentItem
+        CONTINUE: next iteration
+    TEST: myStackTWo is empty
+        EXECUTE: myStackTwo <- push CurrentItem
+        CONTINUE: next iteration
+    TEST: myStackThree is empty
+        EXECUTE: myStackThree <- push CurrentItem
+        CONTINUE: next iteration
+    INSTANTIATE: thisItem <- function StackSorter <- arguments myStackOne and CurrentItem
+    ASSIGN: thisItem <- function StackSorter <- arguments myStackTwo and thisItem
+    EXECUTE: function StackSorter <- arguments myStackThree and thisItem
+INSTANTIATE: result <- 1
+TEST: myStackOne is NOT empty
+    EXECUTE: result <- result * myStackOne pop
+TEST: myStackTwo is NOT empty
+    EXECUTE: result <- result * myStackOne pop
+TEST: myStackThree is NOT empty
+    EXECUTE: result <- result * myStackOne pop
+RETURN: result
+
+DECLARE: Function StackSorter
+INPUT: Stack reference and CurrentValue value
+OUTPUT: An integer
+TEST: CurrentValue is greater than Stack Peek:
+    ASSIGN: TempValue <- Stack pop
+    EXECUTE: Stack push <- CurrentValue
+    RETURN: TempValue
+RETURN: CurrentValue
+```
+
+This is a bunch of code, which tells me that the Stack data structure is not the best solution.
+
 ## Edge Cases
 
 - Input is a very short array, perhaps only one or two items.
 - Input has only three items but one or more of them is a zero.
 - Input is a very long array, perhaps thousands of items.
 - All zeroes in the input array or any length.
+- Input example 1 (good variation of higher and lower values).
+- Input example 2 (good variation of negative and positive values including 0).
 
 Non-Integer types will not be accepted by the function because of Java's strongly-typed nature.
 
