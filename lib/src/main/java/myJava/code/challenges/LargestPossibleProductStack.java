@@ -12,17 +12,17 @@ public class LargestPossibleProductStack {
             if (currentItem == 0) {
                 continue;
             }
-            if (!myStack.isEmpty()) {
-                int tempNumber = myStack.peek();
-                if (currentItem > tempNumber) {
-                    myStack.push(currentItem);
-                } else {
-                    myStack.pop();
-                    myStack.push(currentItem);
-                    myStack.push(tempNumber);
-                }
-            } else {
+            if (myStack.isEmpty()) {
                 myStack.push(currentItem);
+                continue;
+            }
+            int tempNumber = myStack.peek();
+            if (currentItem > tempNumber) {
+                myStack.push(currentItem);
+            } else {
+                myStack.pop();
+                myStack.push(currentItem);
+                myStack.push(tempNumber);
             }
         }
         if (myStack.isEmpty()) {
