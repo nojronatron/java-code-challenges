@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestLargestPossibleProductStack {
     @Test
@@ -96,6 +97,37 @@ public class TestLargestPossibleProductStack {
         }
 
         int expectedResult = 970_200;
+        int actualResult = sut.LargestProduct(arrayInput);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void test_ExampleInputOneReturnsExampleOutputOne() {
+        var sut = new LargestPossibleProductStack();
+        ArrayList<Integer> arrayInput = new ArrayList<>();
+        arrayInput.add(18);
+        arrayInput.add(3);
+        arrayInput.add(42);
+        arrayInput.add(17);
+        arrayInput.add(9);
+        arrayInput.add(27);
+        int expectedResult = 20_412;
+        int actualResult = sut.LargestProduct(arrayInput);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void test_ExampleInputWithNegativeNumbersReturnsExampleOutputTwo() {
+        var sut = new LargestPossibleProductStack();
+        ArrayList<Integer> arrayInput = new ArrayList<>();
+        arrayInput.add(4);
+        arrayInput.add(0);
+        arrayInput.add(-5);
+        arrayInput.add(3);
+        arrayInput.add(-1);
+        arrayInput.add(-6);
+        arrayInput.add(2);
+        int expectedResult = 24;
         int actualResult = sut.LargestProduct(arrayInput);
         assertEquals(expectedResult, actualResult);
     }
