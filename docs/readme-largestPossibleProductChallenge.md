@@ -94,6 +94,60 @@ RETURN: firstValue * secondValue * thirdValue
 
 Note: There are bugs with this pseudocode. Given that this was a timed challenge, debugging the code can soak up a lot of time that just is not available.
 
+## Second Attempt: Using a Stack
+
+This time I implemented a custom generic Stack as a data structure to help solve the problem.
+
+### Using a Stack: Code Design Comments
+
+Issues with the designed code:
+
+- I failed to check for an empty Stack in the returning portion of the function.
+
+### Using a Stack: Final Tested Code Comments
+
+Overview:
+
+- Created a static nested generic Stack class with a static nested generic Node class to fully encapsulate the entire solution.
+- Leveraged isEmpty method on Stack class to avoid NullPointerException.
+- Bug: Did not add a non-zero currentValue to the Stack.
+- Bug: Failed to check for an empty Stack after main iterator completed (never assume a data structure will have anything in it).
+
+### Using a Stack: Pseudocode
+
+Using the final, tested code as a guide, the following Pseudocode is here as practice.
+
+```text
+DECLARE: Class LargestPossibleProductsStack
+DECLARE: Function LargestProduct
+INPUT: "Collection" as a List of integers
+OUTPUT: An integer
+TEST: Collection Size is greater less than 1
+    TRUE: Return 0
+INITIALIZE: myStack <- new Stack of type Integer
+ITERATE: Each CurrentItem in Collection
+    TEST: CurrentItem equals 0
+        TRUE: Continue with next iteration
+    TEST: myStack is empty
+        EXECUTE: myStack push <- CurrentItem
+        EXECUTE: Continue with next iteration
+    INITIALIZE: TempNumber <- myStack peek
+    TEST: CurrentItem is larger than TempNumber
+        TRUE: myStack push <- CurrentItem
+        FALSE:
+            EXECUTE: myStack pop
+            EXECUTE: myStack push <- CurrentItem
+            EXECUTE: myStack push <- TempNumber
+TEST: myStack is empty
+    TRUE: Return 0
+INITIALIZE: idxMax <- Math minimum of Collection size and 3
+INITIALIZE: Accumulator <- 1
+ITERATE: IDX from 0 to idxMax
+    TEST: myStack is NOT empty
+        EXECUTE: Accumulator <- Accumulator times myStack pop
+RETURN: Accumulator
+```
+
 ## Edge Cases
 
 - Input is a very short array, perhaps only one or two items.
@@ -112,6 +166,14 @@ Time Efficiency: O(n)
 Space Efficiency: O(1)
 
 Problem? It fails to meet Edge Case requirements, so efficiency doesn't really matter.
+
+### Using a Stack Algorithm Analysis
+
+Time: O(n)
+
+Space: O(n) :arrow_right: I did not add code to limit the number of entries so the Stack *could* reach the same size as the input collection.
+
+Problem? Only that Space O(n) is a little large for some scenarios, and this could be improved.
 
 ## Code and Test Cases
 
@@ -133,6 +195,7 @@ Test for this Challenge Code can be found in these packages:
 
 - When defaulting a value into variables that might be used in the final calculation, be careful to filter-out those values so only the input values are used.
 - Use a Data Structure and reap the benefits of code-reuse, efficiency, and a complete solution.
+- Writing pseudocode can actually help write better code. In this case, my code was harder to read before writing pseudocode, which prompted refactoring multiple nested IF statements into a simpler, single level, logical set of IF statements with a single ELSE.
 
 ## Footer
 
