@@ -84,6 +84,15 @@ public class TestLargestPossibleProductQueue {
         expectedResult = -6;
         actualResult = sut.largestProduct(arrayInput);
         assertEquals(expectedResult, actualResult);
+
+        arrayInput.clear();
+        arrayInput.add(10);
+        arrayInput.add(-2);
+        arrayInput.add(2);
+        arrayInput.add(3);
+        expectedResult = 60;
+        actualResult = sut.largestProduct(arrayInput);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
