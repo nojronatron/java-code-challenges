@@ -4,73 +4,74 @@ import java.util.ArrayList;
 
 public class LargestPossibleProductQueue {
     public int largestProduct(ArrayList<Integer> collection) {
-        if (collection.size() > 2) {
-            LPQueue<Integer> queue = new LPQueue<>();
-            for (int idx=0; idx < collection.size(); idx++) {
-                int currentValue = collection.get(idx);
-                if (currentValue != 0){
-                    if (queue.isEmpty()) {
-                        queue.enqueue(currentValue);
-                    } else {
-                        if (queue.getSize() >= 3) {
-                            for (int jdx=0; jdx < 3; jdx++) {
-                                int dequeuedValue = queue.dequeue();
-                                if (currentValue > dequeuedValue) {
-                                    queue.enqueue(currentValue);
-                                    currentValue = dequeuedValue;
-                                } else {
-                                    queue.enqueue(dequeuedValue);
-                                }
-                            }
-                            } else {
+        LPQueue<Integer> queue = new LPQueue<>();
+        for (int idx = 0; idx < collection.size(); idx++) {
+            int currentValue = collection.get(idx);
+            if (currentValue != 0) {
+                if (queue.isEmpty()) {
+                    queue.enqueue(currentValue);
+                } else {
+                    if (queue.getSize() >= 3) {
+                        for (int jdx = 0; jdx < 3; jdx++) {
+                            int dequeuedValue = queue.dequeue();
+                            if (currentValue > dequeuedValue) {
                                 queue.enqueue(currentValue);
+                                currentValue = dequeuedValue;
+                            } else {
+                                queue.enqueue(dequeuedValue);
                             }
+                        }
+                    } else {
+                        queue.enqueue(currentValue);
                     }
                 }
             }
-            if (queue.isEmpty()) {
-                return 0;
-            } else {
-                int result = queue.dequeue();
-                while (!queue.isEmpty()){
-                    result *= queue.dequeue();
-                }
-                return result;
-            }
         }
-        return 0;
+        if (queue.isEmpty()) {
+            return 0;
+        } else {
+            int result = queue.dequeue();
+            while (!queue.isEmpty()) {
+                result *= queue.dequeue();
+            }
+            return result;
+        }
     }
 
     private static class LPQueue<T> {
         private QueueNode<T> front;
         private QueueNode<T> rear;
         private int count;
+
         LPQueue() {
             this.front = null;
             this.rear = null;
             this.count = 0;
         }
+
         private boolean isEmpty() {
             return this.front == this.rear && this.front == null;
         }
+
         private void enqueue(T value) throws NullPointerException {
             QueueNode<T> newNode = new QueueNode<>(value);
             if (this.isEmpty()) {
                 this.front = newNode;
                 this.rear = this.front;
-                this.count ++;
+                this.count++;
                 return;
             }
             if (this.front == this.rear) {
                 this.front.next = newNode;
                 this.rear = newNode;
-                this.count ++;
+                this.count++;
                 return;
             }
             this.rear.next = newNode;
             this.rear = newNode;
-            this.count ++;
+            this.count++;
         }
+
         // note: could this still throw NullPointerException?
         private T dequeue() {
             T tempValue;
@@ -85,10 +86,11 @@ public class LargestPossibleProductQueue {
                 tempNode.next = null;
                 tempValue = tempNode.value;
                 tempNode.value = null;
-                this.count --;
+                this.count--;
             }
             return tempValue;
         }
+
         private T peek() {
             if (this.count > 0) {
                 return this.front.value;
@@ -96,12 +98,15 @@ public class LargestPossibleProductQueue {
                 return null;
             }
         }
+
         private int getSize() {
             return this.count;
         }
+
         private static class QueueNode<T> {
             private T value;
             private QueueNode<T> next;
+
             QueueNode(T data) {
                 this.value = data;
                 this.next = null;
