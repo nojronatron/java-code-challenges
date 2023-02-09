@@ -53,7 +53,6 @@ public class TestLargestPossibleProductQueue {
         arrayInput.add(10);
         arrayInput.add(0);
 
-        // expectedResult cannot be 10 because arrayInput.get(1) is 0
         expectedResult = 10;
         actualResult = sut.largestProduct(arrayInput);
         assertEquals(expectedResult, actualResult);

@@ -72,7 +72,6 @@ public class LargestPossibleProductQueue {
             this.count++;
         }
 
-        // note: could this still throw NullPointerException?
         private T dequeue() {
             T tempValue;
             if (this.front == this.rear) {
@@ -111,15 +110,6 @@ public class LargestPossibleProductQueue {
                 this.value = data;
                 this.next = null;
             }
-//            private void addNext(QueueNode<T> next) {
-//                this.next = next;
-//            }
-//            private T getData() throws NullPointerException {
-//                return this.value;
-//            }
-//            private void setData(T data) {
-//                this.value = data;
-//            }
         }
     }
 }
