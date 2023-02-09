@@ -5,24 +5,20 @@ import java.util.ArrayList;
 public class LargestPossibleProductQueue {
     public int largestProduct(ArrayList<Integer> collection) {
         LPQueue<Integer> queue = new LPQueue<>();
-        for (int idx = 0; idx < collection.size(); idx++) {
-            int currentValue = collection.get(idx);
-            if (currentValue != 0) {
-                if (queue.isEmpty()) {
-                    queue.enqueue(currentValue);
-                } else {
-                    if (queue.getSize() >= 3) {
-                        for (int jdx = 0; jdx < 3; jdx++) {
-                            int dequeuedValue = queue.dequeue();
-                            if (currentValue > dequeuedValue) {
-                                queue.enqueue(currentValue);
-                                currentValue = dequeuedValue;
-                            } else {
-                                queue.enqueue(dequeuedValue);
-                            }
-                        }
-                    } else {
+        for (int currentValue : collection) {
+            if (currentValue == 0) {
+                continue;
+            }
+            if (queue.getSize() < 3) {
+                queue.enqueue(currentValue);
+            } else {
+                for (int jdx = 0; jdx < 3; jdx++) {
+                    int dequeuedValue = queue.dequeue();
+                    if (currentValue > dequeuedValue) {
                         queue.enqueue(currentValue);
+                        currentValue = dequeuedValue;
+                    } else {
+                        queue.enqueue(dequeuedValue);
                     }
                 }
             }
