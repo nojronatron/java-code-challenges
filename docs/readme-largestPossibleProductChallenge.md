@@ -199,6 +199,71 @@ RETURN: CurrentValue
 
 This is a bunch of code, which tells me that the Stack data structure is not the best solution.
 
+## Third Attempt: Use a Queue
+
+In this attempt, I was not able to start writing Java code before the 45-minute timer expired.
+
+However, the final code, based on the diagramming, had only 1 bug when the existing test cases were run: Function would return 0 when input collections with only 1 or 2 items.
+
+This was easily solved by removing the first IF case to force returning 0 in those cases and the rest of the code handled those situations as expected. 
+
+### Use a Queue: Code Design
+
+The basic approach is as follows:
+
+1. Only allow a maximum of 3 items into a Queue.
+2. Once the Queue has three items, *then* start comparing the current value against dequeued values, and only enqueue the value that is greater, until the queue has 3 items again.
+3. Once all items in the collection have been processed at (or through) the Queue, dequeue the 3 (or all if less than 3) items and return the product of those values.
+
+### Use a Queue: Final Tested Code Comments
+
+I thought it would be necessary to do the following, but it turns out otherwise:
+
+1. Put an item into the Queue before processing anything. Instead, iterate through the input collection and load-up the Queue until it had 3 items and/or all input collection items had been processed.
+2. Peeking the Queue after loading each of the 1st three items. Instead, compare items  *only after* the Queue had 3 items in it already, and then swap-out the smallest of the three if the current collection item was of greater value.
+3. Ensure there would always be 3 items in the Queue prior to performing the multiplication and return. Instead, check 'isEmpty()' and return 0 if true, otherwise dequeue one to a result variable, then while queue has items multiply result by each item dequeued and return result.
+
+### Use a Queue: Pseudocode
+
+The Pseudocode version of the Miro design for this solution.
+
+```text
+DECLARE: Class CodeChallenge
+DECLARE: Function LargestProduct
+INPUT: Collection of type Integer
+OUTPUT: An Integer
+
+TEST: Collection size is greater than 2
+    FALSE: Return 0
+INSTANTIATE: Queue <- new Queue
+ITERATE: From integer IDX <- 0 to less than size of Collection
+    INSTANTIATE: CurrentValue <- value at collection index IDX
+    TEST: CurrentValue equals 0
+        TRUE: Continue next iteration
+    TEST: Queue is empty
+        TRUE: Queue <- enqueue CurrentValue
+        TEST: Queue size is greater than 2
+            TRUE:
+                ITERATE: From integer JDX <- 0 to 2
+                INSTANTIATE: Integer DequeuedValue <- Queue dequeue
+                TEST: CurrentValue is greater than DequeuedValue
+                    TRUE:
+                        EXECUTE: Queue <- enqueue CurrentValue
+                        ASSIGN: CurrentValue <- DequeuedValue
+                    FALSE:
+                        EXECUTE: Queue <- enqueue DequeuedValue
+            FALSE: Queue <- enqueue CurrentValue
+    TEST: Queue is empty
+        TRUE: RETURN 0
+    INSTANTIATE: Integer Result <- queue dequeue
+    ITERATE: While Queue is NOT Empty
+        INSTANTIATE: Integer TempValue <- Queue dequeue
+        ASSIGN: Result <- Result * TempValue
+    RETURN: Result
+```
+
+The final, functioning and test-happy code does not implement the first Collection size test.
+
 ## Edge Cases
 
 - Input is a very short array, perhaps only one or two items.
@@ -228,6 +293,12 @@ Space: O(n) :arrow_right: I did not add code to limit the number of entries so t
 
 Problem? Only that Space O(n) is a little large for some scenarios, and this could be improved.
 
+### Using a Queue Algorithm Analysis
+
+Time: O(n): Although there is a nested iterator structure, only the outer iterator runs 'n' times - the inner iterator is limited to 3, regardless of the input.
+
+Space: O(1) :arrow_right: Regardless of input size, the maximum additional storage created is 1 Queue (max size 3 not 'n'), and 2 local variable integers.
+
 ## Code and Test Cases
 
 ### Code
@@ -236,19 +307,23 @@ The Challenge Code can be found in these packages:
 
 - [myJava.code.challenge BASIC](../lib/src/main/java/myJava/code/challenges/LargestPossibleProductBasic.java).
 - [myJava.code.challenge STACK](../lib/src/main/java/myJava/code/challenges/LargestPossibleProductStack.java).
-
+- [myJava.code.challenge QUEUE](../lib/src/main/java/myJava/code/challenges/LargestPossibleProductQueue.java).
+- 
 ### Tests
 
 Test for this Challenge Code can be found in these packages:
 
 - [myJava.code.challenge BASIC](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProductBasic.java).
 - [myJava.code.challenge STACK](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProductStack.java).
+- [myJava.code.challenge QUEUE](../lib/src/test/java/myJava/code/challenges/TestLargestPossibleProductQueue.java).
 
 ## Key Takeaways
 
 - When defaulting a value into variables that might be used in the final calculation, be careful to filter-out those values so only the input values are used.
 - Use a Data Structure and reap the benefits of code-reuse, efficiency, and a complete solution.
-- Writing pseudocode can actually help write better code. In this case, my code was harder to read before writing pseudocode, which prompted refactoring multiple nested IF statements into a simpler, single level, logical set of IF statements with a single ELSE.
+- Writing pseudocode can actually help write better code. In two cases, my code became easier to read after refactoring it as a result of writing pseudocode.
+- Look at multiple nested IF statements and try to break them down into quick-exit decision trees so the code is easier to follow, and less chance of duplicated code.
+- I wrote the custom, generic, LPQueue child-class from memory and only checked the code against another Queue implementation once prior to using it. This is a big win for me.
 
 ## Footer
 
