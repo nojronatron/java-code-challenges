@@ -11,19 +11,39 @@ public class TestDirectedCompleteGraph {
         assertNotNull(sut);
     }
 
-//    @Test
-//    void test_addVertexWithNullNeighborThrowsNullPointerException() {
-//        var sut = new DirectedCompleteGraph<>(11);
-//        assertThrows(NullPointerException.class, () -> {
-//            sut.addVertex(12, 1, null);
-//        });
-//    }
-
     @Test
-    void test_addVertexUsingIntegerValue() {
-        var sut = new DirectedCompleteGraph<>(11);
-        sut.addVertex(12, 2, 11);
+    void test_addVertexUsingGraphNodeClass() {
+        var sut = new DirectedCompleteGraph<>("A");
+        var bravo = new DirectedCompleteGraph.GraphNode<>("B");
+        var charlie = new DirectedCompleteGraph.GraphNode<>("C");
+        var delta = new DirectedCompleteGraph.GraphNode<>("D");
+
+        assertDoesNotThrow(() -> {
+            sut.addVertex(bravo);
+        });
+
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+        System.out.println(sut.getAdjacencyTable());
+
+        var expectedCount = 4;
+        var actualCount = sut.getCount();
+        assertEquals(expectedCount, actualCount);
     }
+
+//    @Test
+//    void test_addVertexUsingIntegerValue() {
+//        var sut = new DirectedCompleteGraph<>("A");
+//        sut.addVertex("B", 1, "A");
+//        sut.addVertex("C", 1, "A");
+//        sut.addVertex("D", 3, "B");
+//        sut.addVertex("D", 2, "C");
+//        sut.addVertex("C", 3, "D");
+//
+//        var expectedResult = "D";
+//        var actualResult = sut.findVertexValueByValueBF(expectedResult);
+//        assertEquals(expectedResult, actualResult);
+//    }
 
     @Test
     void test_visitedNodesReturnsEmptyWithoutTraversingFirst() {
@@ -42,9 +62,10 @@ public class TestDirectedCompleteGraph {
         var sut = new DirectedCompleteGraph<>(11);
         sut.addVertex(12, 2, 11);
         var expectedValue = 12;
-        var actualValue = sut.findVertexByValueBF(12);
+        var actualValue = sut.findVertexValueByValueBF(12);
         assertEquals(expectedValue, actualValue);
     }
+
     @Test
     void test_findVertexStringValueBreadthFirstSucceeds() {
         var sut = new DirectedCompleteGraph<>("alpha");
@@ -54,7 +75,7 @@ public class TestDirectedCompleteGraph {
         sut.addVertex("delta", 2, "charlie");
 
         var expectedValue = "delta";
-        var actualValue = sut.findVertexByValueBF("delta");
+        var actualValue = sut.findVertexValueByValueBF("delta");
         assertEquals(expectedValue, actualValue);
     }
 }

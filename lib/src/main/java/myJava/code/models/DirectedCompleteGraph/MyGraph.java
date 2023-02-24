@@ -2,63 +2,80 @@ package myJava.code.models;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Set;
 
 public class DirectedCompleteGraph<T> {
-    private Set<GraphNode<T>> adjacencySet;
+    private Hashtable<T, GraphNode<T>> adjacencyTable;
     private Set<GraphNode<T>> visitedNodes;
+    private GraphNode<T> firstNode;
+    private int count;
 
     public DirectedCompleteGraph(T value) {
         var newNode = new GraphNode<T>(value);
-        this.adjacencySet = new HashSet<>();
-        this.adjacencySet.add(newNode);
+        this.adjacencyTable = new Hashtable<>();
+        this.adjacencyTable.put(newNode.getValue(), newNode);
         this.visitedNodes = new HashSet<>();
+        this.firstNode = newNode;
+        this.count = 1;
     }
 
+    public void addVertex(GraphNode<T> vertex) throws NullPointerException {
+        this.adjacencyTable.put(vertex.getValue(), vertex);
+        this.count++;
+    }
     public void addVertex(T data, int weight, GraphNode<T> neighborOfVertex) throws NullPointerException {
         var newNode = new GraphNode<T>(data);
         var newEdge = new GraphEdge<T>(weight, newNode);
         neighborOfVertex.setNeighbor(newEdge);
-        this.adjacencySet.add(neighborOfVertex);
+        this.adjacencyTable.put(newNode.getValue(), newNode);
+        this.count++;
     }
 
+    public void removeVertex(GraphNode<T> vertexToRemove) throws NullPointerException {
+        this.adjacencyTable.remove(vertexToRemove.getValue(), vertexToRemove);
+    }
     public void addVertex(T data, int weight, T neighborOfValue) {
         // todo: test this
-        var nodeToConnectTo = findVertexBreadthFirst(neighborOfValue);
+        GraphNode<T> nodeToConnectTo = findVertexBreadthFirst(neighborOfValue);
         this.addVertex(data, weight, nodeToConnectTo);
     }
 
-    public T findVertexByValueBF(T valueToFind) throws NullPointerException {
+    // todo: function to add Edge between two existing Vertices
+
+    public T findVertexValueByValueBF(T valueToFind) throws NullPointerException {
         GraphNode<T> vertex = findVertexBreadthFirst(valueToFind);
         return vertex.getValue();
     }
 
     public GraphNode<T> findVertexBreadthFirst(T valueToFind) throws NullPointerException {
         // todo: test this
-        if (this.adjacencySet.isEmpty()) {
+        if (this.adjacencyTable.isEmpty()) {
             throw new NullPointerException("No nodes in this Graph");
         }
         var vertexQ = new MyQueue<GraphNode<T>>();
         this.visitedNodes = new HashSet<>();
-        GraphNode<T> starterVertex = adjacencySet.iterator().next();
+        // todo: this will not work in all undirected fully connected graph scenarios
+        GraphNode<T> starterVertex = this.firstNode;
         vertexQ.enqueue(starterVertex);
         while (!vertexQ.isEmpty()) {
-            var tempVertex = vertexQ.dequeue();
+            GraphNode<T> tempVertex = vertexQ.dequeue();
             if (tempVertex.getValue().equals(valueToFind)) {
                 return tempVertex;
             }
-            for (GraphEdge<T> edge : tempVertex.getNeighbors()) {
+            for (GraphEdge<T> edge : tempVertex.getEdges()) {
                 tempVertex = edge.getNeighbor();
                 if (!this.visitedNodes.contains(tempVertex)) {
                     vertexQ.enqueue(tempVertex);
+                    this.visitedNodes.add(tempVertex);
                 }
             }
         }
         return null;
     }
 
-    public Set<GraphNode<T>> getAdjacencySet() {
-        return adjacencySet;
+    public String getAdjacencyTable() {
+        return this.adjacencyTable.toString();
     }
 
     public ArrayList<T> getVisitedNodes() {
@@ -69,22 +86,26 @@ public class DirectedCompleteGraph<T> {
         return resultArr;
     }
 
+    public int getCount() {
+        return this.count;
+    }
 
-    private static class GraphNode<T> {
+
+    public static class GraphNode<T> {
         private T value;
-        private Set<GraphEdge<T>> neighbors;
+        private Set<GraphEdge<T>> edges;
 
         public GraphNode(T value) {
             this.value = value;
-            this.neighbors = new HashSet<>();
+            this.edges = new HashSet<>();
         }
 
         private T getValue() {
             return this.value;
         }
 
-        private Set<GraphEdge<T>> getNeighbors() {
-            return this.neighbors;
+        private Set<GraphEdge<T>> getEdges() {
+            return this.edges;
         }
 
         private void setValue(T value) throws NullPointerException {
@@ -92,7 +113,7 @@ public class DirectedCompleteGraph<T> {
         }
 
         private void setNeighbor(GraphEdge<T> neighbor) throws NullPointerException {
-            this.neighbors.add(neighbor);
+            this.edges.add(neighbor);
         }
     }
 
