@@ -1,22 +1,80 @@
-package myJava.code.models;
+package myJava.code.models.DirectedCompleteGraph;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.Hashtable;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestDirectedCompleteGraph {
     @Test
+    void test_canInstantiateGraphNode() {
+        int expectedEdges = 0;
+        int expectedIntValue = 11;
+        var sutInt = new MyGraphNode<>(expectedIntValue);
+        assertEquals(expectedIntValue, sutInt.getValue());
+        assertEquals(expectedEdges, sutInt.edgeCount());
+
+        var expectedStringValue = "alpha";
+        var sutString = new MyGraphNode<>(expectedStringValue);
+        assertEquals(expectedStringValue, sutString.getValue());
+        assertEquals(expectedEdges, sutString.edgeCount());
+    }
+
+    @Test
+    void test_canAddEdgeBetweenGraphNodes() {
+        var alphaVal = "A";
+        var bravoVal = "B";
+        var abWeight = 1;
+        var alpha = new MyGraphNode<>(alphaVal);
+        var bravo = new MyGraphNode<>(bravoVal);
+
+        alpha.setEdge(bravo, abWeight);
+
+        var expectedEdgeCount = 1;
+        assertEquals(expectedEdgeCount, alpha.edgeCount());
+    }
+
+    @Test
     void test_canInstantiateGraph() {
-        var sut = new DirectedCompleteGraph<>(11);
+        var alphaVal = "A";
+        var bravoVal = "B";
+        var charlieVal = "C";
+
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
         assertNotNull(sut);
+
+        var expectedCount = 3;
+        Map<String, MyGraphNode<String>> vertices = new Hashtable<>();
+        var bravo = new MyGraphNode<>(bravoVal);
+        var charlie = new MyGraphNode<>(charlieVal);
+        vertices.put(alpha.getValue(), alpha);
+        vertices.put(bravo.getValue(), bravo);
+        vertices.put(charlie.getValue(), charlie);
+
+        sut = new MyGraph<>(vertices);
+        assertNotNull(sut);
+        assertEquals(sut.getCount(), expectedCount);
     }
 
     @Test
     void test_addVertexUsingGraphNodeClass() {
-        var sut = new DirectedCompleteGraph<>("A");
-        var bravo = new DirectedCompleteGraph.GraphNode<>("B");
-        var charlie = new DirectedCompleteGraph.GraphNode<>("C");
-        var delta = new DirectedCompleteGraph.GraphNode<>("D");
+        var alphaVal = "A";
+        var bravoVal = "B";
+        var charlieVal = "C";
+        var deltaVal = "D";
+
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
+
+        var expectedCount = 1;
+        assertEquals(sut.getCount(), expectedCount);
+
+        var bravo = new MyGraphNode<>(bravoVal);
+        var charlie = new MyGraphNode<>(charlieVal);
+        var delta = new MyGraphNode<>(deltaVal);
 
         assertDoesNotThrow(() -> {
             sut.addVertex(bravo);
@@ -24,58 +82,73 @@ public class TestDirectedCompleteGraph {
 
         sut.addVertex(charlie);
         sut.addVertex(delta);
-        System.out.println(sut.getAdjacencyTable());
+        System.out.println(sut.toString());
 
-        var expectedCount = 4;
-        var actualCount = sut.getCount();
-        assertEquals(expectedCount, actualCount);
+        expectedCount = 4;
+        assertEquals(expectedCount, sut.getCount());
     }
 
-//    @Test
-//    void test_addVertexUsingIntegerValue() {
-//        var sut = new DirectedCompleteGraph<>("A");
-//        sut.addVertex("B", 1, "A");
-//        sut.addVertex("C", 1, "A");
-//        sut.addVertex("D", 3, "B");
-//        sut.addVertex("D", 2, "C");
-//        sut.addVertex("C", 3, "D");
-//
-//        var expectedResult = "D";
-//        var actualResult = sut.findVertexValueByValueBF(expectedResult);
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void test_addEdgeBetweenTwoGivenVertices() {
+        var alphaVal = "A";
+        var bravoVal = "B";
+        var edgeWeight = 1;
+
+        var alpha = new MyGraphNode<>(alphaVal);
+        var bravo = new MyGraphNode<>(bravoVal);
+        System.out.println(alpha);
+        System.out.println(bravo);
+
+        alpha.setEdge(bravo, edgeWeight);
+        System.out.println(alpha);
+        System.out.println(bravo);
+
+        var expectedEdgeCount = 1;
+        assertEquals(expectedEdgeCount, alpha.edgeCount());
+        assertEquals(0, bravo.edgeCount());
+
+        bravo.setEdge(alpha,  edgeWeight);
+        System.out.println(alpha);
+        System.out.println(bravo);
+        assertEquals(expectedEdgeCount, bravo.edgeCount());
+        assertEquals(expectedEdgeCount, alpha.edgeCount());
+    }
+
+    @Test
+    void test_findVertexByValue() {
+        assertTrue(false);
+    }
+
+    @Test
+    void test_removeGraphNode() {
+        assertTrue(false);
+    }
+
+    @Test
+    void test_findWeightBetweenTwoGraphNodes() {
+        assertTrue(false);
+    }
 
     @Test
     void test_visitedNodesReturnsEmptyWithoutTraversingFirst() {
-        var sut = new DirectedCompleteGraph<>(11);
-        var expectedCount = 0;
+        var alphaVal = "A";
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
+        var expectedCount = 1;
         var expectedResult = 0;
         var visitedNodeValues = sut.getVisitedNodes();
-        var actualCount = visitedNodeValues.size();
-        assertEquals(expectedCount, actualCount);
-        var actualResult = visitedNodeValues.size();
-        assertEquals(expectedResult, actualResult);
+
+        assertEquals(expectedCount, sut.getCount());
+        assertEquals(expectedResult, visitedNodeValues.size());
     }
 
     @Test
     void test_findVertexIntegerValueBreadthFirstSucceeds() {
-        var sut = new DirectedCompleteGraph<>(11);
-        sut.addVertex(12, 2, 11);
-        var expectedValue = 12;
-        var actualValue = sut.findVertexValueByValueBF(12);
-        assertEquals(expectedValue, actualValue);
+        assertTrue(false);
     }
 
     @Test
     void test_findVertexStringValueBreadthFirstSucceeds() {
-        var sut = new DirectedCompleteGraph<>("alpha");
-        sut.addVertex("bravo", 1, "alpha");
-        sut.addVertex("charlie", 1, "alpha");
-        sut.addVertex("delta", 3, "bravo");
-        sut.addVertex("delta", 2, "charlie");
-
-        var expectedValue = "delta";
-        var actualValue = sut.findVertexValueByValueBF("delta");
-        assertEquals(expectedValue, actualValue);
+        assertTrue(false);
     }
 }
