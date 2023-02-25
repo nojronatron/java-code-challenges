@@ -82,7 +82,7 @@ public class TestDirectedCompleteGraph {
 
         sut.addVertex(charlie);
         sut.addVertex(delta);
-        System.out.println(sut.toString());
+        System.out.println(sut);
 
         expectedCount = 4;
         assertEquals(expectedCount, sut.getCount());
@@ -135,7 +135,7 @@ public class TestDirectedCompleteGraph {
         sut.addVertex(charlie);
         sut.addVertex(delta);
 
-        System.out.println(sut.toString());
+        System.out.println(sut);
 
         alpha.setEdge(bravo, 1);
         alpha.setEdge(charlie, 1);
@@ -143,7 +143,7 @@ public class TestDirectedCompleteGraph {
         charlie.setEdge(delta, 2);
         delta.setEdge(charlie, 3);
 
-        System.out.println(sut.toString());
+        System.out.println(sut);
 
         var expectedNodesInGraph = 4;
         assertEquals(expectedNodesInGraph, sut.getCount());
@@ -172,6 +172,8 @@ public class TestDirectedCompleteGraph {
         bravo.setEdge(delta, 3);
         charlie.setEdge(delta, 2);
         delta.setEdge(charlie, 3);
+
+        System.out.println(sut);
 
         var result = sut.findVertexBreadthFirst(alpha, deltaVal);
 
@@ -245,9 +247,12 @@ public class TestDirectedCompleteGraph {
         delta.setEdge(charlie, 3);
 
         expectedCount = 4;
+        System.out.println(sut);
         assertEquals(expectedCount, sut.getCount());
+
         sut.removeVertex(alpha);
         expectedCount--;
+        System.out.println(sut);
         assertEquals(expectedCount, sut.getCount());
     }
 
@@ -276,9 +281,12 @@ public class TestDirectedCompleteGraph {
         delta.setEdge(charlie, 3);
 
         var expectedCount = 4;
+        System.out.println(sut);
         assertEquals(expectedCount, sut.getCount());
+
         sut.removeVertex(delta);
         expectedCount --;
+        System.out.println(sut);
         assertEquals(expectedCount, sut.getCount());
     }
 
