@@ -7,25 +7,21 @@ import java.util.*;
 public class MyGraph<T> {
     private Hashtable<T, MyGraphNode<T>> adjacencyTable;
     private Set<MyGraphNode<T>> visitedNodes;
-    private int count;
 
     public MyGraph(MyGraphNode<T> vertex) {
         this.adjacencyTable = new Hashtable<>();
         this.adjacencyTable.put(vertex.getValue(), vertex);
         this.visitedNodes = new HashSet<>();
-        this.count = 1;
     }
 
     public MyGraph(Map<T, MyGraphNode<T>> verticesCollection) {
         this.adjacencyTable = new Hashtable<>();
         this.adjacencyTable.putAll(verticesCollection);
         this.visitedNodes = new HashSet<>();
-        this.count = verticesCollection.size();
     }
 
     public void addVertex(MyGraphNode<T> vertex) throws NullPointerException {
         this.adjacencyTable.put(vertex.getValue(), vertex);
-        this.count++;
     }
 
     public void addVertex(T data, int weight, MyGraphNode<T> neighborOfVertex) throws NullPointerException {
@@ -37,19 +33,28 @@ public class MyGraph<T> {
     }
 
     public void removeVertex(MyGraphNode<T> vertexToRemove) throws NullPointerException {
+        for(MyGraphNode<T> vertex: this.adjacencyTable.values()) {
+            vertex.removeEdge(vertexToRemove);
+        }
+
+        vertexToRemove.removeEdges();
         this.adjacencyTable.remove(vertexToRemove.getValue(), vertexToRemove);
     }
 
-    // todo: function to add Edge between two existing Vertices
+    public T findVertexValueByValueBF(T startValue, T valueToFind) throws NullPointerException {
+        var startValueExists =  this.adjacencyTable.containsKey(startValue);
+        var valueToFindExists = this.adjacencyTable.containsKey(valueToFind);
 
-    public T findVertexValueByValueBF(T valueToFind) throws NullPointerException {
-//        MyGraphNode<T> vertex = findVertexBreadthFirst(valueToFind);
-//        return vertex.getValue();
-        return null;
+        if (startValueExists && valueToFindExists) {
+            var startVertex = this.adjacencyTable.get(startValue);
+            MyGraphNode<T> vertex = findVertexBreadthFirst(startVertex, valueToFind);
+            return vertex.getValue();
+        } else {
+            return null;
+        }
     }
 
     public MyGraphNode<T> findVertexBreadthFirst(MyGraphNode<T> starterVertex, T valueToFind) throws NullPointerException {
-        // todo: test this
         if (this.adjacencyTable.isEmpty()) {
             throw new NullPointerException("No nodes in this Graph");
         }
@@ -64,11 +69,11 @@ public class MyGraph<T> {
             if (tempVertex.getValue().equals(valueToFind)) {
                 return tempVertex;
             }
+            this.visitedNodes.add(tempVertex);
             for (MyGraphEdge<T> edge : tempVertex.getEdges()) {
                 tempVertex = edge.getNeighbor();
                 if (!this.visitedNodes.contains(tempVertex)) {
                     vertexQ.enqueue(tempVertex);
-                    this.visitedNodes.add(tempVertex);
                 }
             }
         }
@@ -88,7 +93,7 @@ public class MyGraph<T> {
     }
 
     public int getCount() {
-        return this.count;
+        return this.adjacencyTable.size();
     }
 
     @Override
