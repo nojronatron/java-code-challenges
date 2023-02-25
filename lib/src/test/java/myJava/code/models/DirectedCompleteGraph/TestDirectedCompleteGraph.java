@@ -115,13 +115,171 @@ public class TestDirectedCompleteGraph {
     }
 
     @Test
-    void test_findVertexByValue() {
-        assertTrue(false);
+    void test_buildSmallComplexGraph(){
+        var alphaVal = "A";
+        var bravoVal = "B";
+        var charlieVal = "C";
+        var deltaVal = "D";
+
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
+
+        var expectedCount = 1;
+        assertEquals(sut.getCount(), expectedCount);
+
+        var bravo = new MyGraphNode<>(bravoVal);
+        var charlie = new MyGraphNode<>(charlieVal);
+        var delta = new MyGraphNode<>(deltaVal);
+
+        sut.addVertex(bravo);
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+
+        System.out.println(sut.toString());
+
+        alpha.setEdge(bravo, 1);
+        alpha.setEdge(charlie, 1);
+        bravo.setEdge(delta, 3);
+        charlie.setEdge(delta, 2);
+        delta.setEdge(charlie, 3);
+
+        System.out.println(sut.toString());
+
+        var expectedNodesInGraph = 4;
+        assertEquals(expectedNodesInGraph, sut.getCount());
     }
 
     @Test
+    void test_findVertexInstance() {
+        var alphaVal = "A";
+        var bravoVal = "B";
+        var charlieVal = "C";
+        var deltaVal = "D";
+
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
+
+        var bravo = new MyGraphNode<>(bravoVal);
+        var charlie = new MyGraphNode<>(charlieVal);
+        var delta = new MyGraphNode<>(deltaVal);
+
+        sut.addVertex(bravo);
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+
+        alpha.setEdge(bravo, 1);
+        alpha.setEdge(charlie, 1);
+        bravo.setEdge(delta, 3);
+        charlie.setEdge(delta, 2);
+        delta.setEdge(charlie, 3);
+
+        var result = sut.findVertexBreadthFirst(alpha, deltaVal);
+
+        System.out.printf("Search for [ %s ] found Vertex with value [ %s ].%n", deltaVal, result.getValue());
+
+        assertEquals(delta, result);
+    }
+
+    @Test
+    void test_findVertexByValue() {
+        var alphaVal = "A";
+        var bravoVal = "B";
+        var charlieVal = "C";
+        var deltaVal = "D";
+
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
+
+        var bravo = new MyGraphNode<>(bravoVal);
+        var charlie = new MyGraphNode<>(charlieVal);
+        var delta = new MyGraphNode<>(deltaVal);
+
+        sut.addVertex(bravo);
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+
+        alpha.setEdge(bravo, 1);
+        alpha.setEdge(charlie, 1);
+        bravo.setEdge(delta, 3);
+        charlie.setEdge(delta, 2);
+        delta.setEdge(charlie, 3);
+
+        var result = sut.findVertexValueByValueBF(alphaVal, deltaVal);
+
+        System.out.printf("Search for [ %s ] found Vertex with value [ %s ].%n", deltaVal, result);
+
+        assertEquals(deltaVal, result);    }
+
+    @Test
     void test_removeGraphNode() {
-        assertTrue(false);
+        var expectedCount = 1;
+        var alphaVal = "A";
+
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
+
+        assertEquals(expectedCount, sut.getCount());
+
+        expectedCount = 0;
+        sut.removeVertex(alpha);
+
+        assertEquals(expectedCount, sut.getCount());
+
+        sut = new MyGraph<>(alpha);
+        var bravoVal = "B";
+        var charlieVal = "C";
+        var deltaVal = "D";
+
+        var bravo = new MyGraphNode<>(bravoVal);
+        var charlie = new MyGraphNode<>(charlieVal);
+        var delta = new MyGraphNode<>(deltaVal);
+
+        sut.addVertex(bravo);
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+
+        alpha.setEdge(bravo, 1);
+        alpha.setEdge(charlie, 1);
+        bravo.setEdge(delta, 3);
+        charlie.setEdge(delta, 2);
+        delta.setEdge(charlie, 3);
+
+        expectedCount = 4;
+        assertEquals(expectedCount, sut.getCount());
+        sut.removeVertex(alpha);
+        expectedCount--;
+        assertEquals(expectedCount, sut.getCount());
+    }
+
+    @Test
+    public void test_removeMultiEdgeVertexFromGraph() {
+        var alphaVal = "A";
+
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
+        var bravoVal = "B";
+        var charlieVal = "C";
+        var deltaVal = "D";
+
+        var bravo = new MyGraphNode<>(bravoVal);
+        var charlie = new MyGraphNode<>(charlieVal);
+        var delta = new MyGraphNode<>(deltaVal);
+
+        sut.addVertex(bravo);
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+
+        alpha.setEdge(bravo, 1);
+        alpha.setEdge(charlie, 1);
+        bravo.setEdge(delta, 3);
+        charlie.setEdge(delta, 2);
+        delta.setEdge(charlie, 3);
+
+        var expectedCount = 4;
+        assertEquals(expectedCount, sut.getCount());
+        sut.removeVertex(delta);
+        expectedCount --;
+        assertEquals(expectedCount, sut.getCount());
     }
 
     @Test
