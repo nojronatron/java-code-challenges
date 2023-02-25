@@ -5,7 +5,7 @@ import myJava.code.models.MyQueue;
 import java.util.*;
 
 public class MyGraph<T> {
-    private Hashtable<T, MyGraphNode<T>> adjacencyTable;
+    private final Hashtable<T, MyGraphNode<T>> adjacencyTable;
     private Set<MyGraphNode<T>> visitedNodes;
 
     public MyGraph(MyGraphNode<T> vertex) {
@@ -25,11 +25,7 @@ public class MyGraph<T> {
     }
 
     public void addVertex(T data, int weight, MyGraphNode<T> neighborOfVertex) throws NullPointerException {
-//        var newNode = new MyGraphNode<T>(data);
-//        var newEdge = new MyGraphEdge<T>(newNode, weight);
-//        neighborOfVertex.setEdge(newNode, weight);
-//        this.adjacencyTable.put(newNode.getValue(), newNode);
-//        this.count++;
+        throw new NullPointerException("TDD this implementation.");
     }
 
     public void removeVertex(MyGraphNode<T> vertexToRemove) throws NullPointerException {
@@ -78,10 +74,6 @@ public class MyGraph<T> {
             }
         }
         return null;
-    }
-
-    public String getAdjacencyTable() {
-        return this.adjacencyTable.toString();
     }
 
     public ArrayList<T> getVisitedNodes() {
