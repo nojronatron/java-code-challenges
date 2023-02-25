@@ -1,6 +1,8 @@
 package myJava.code.models.DirectedCompleteGraph;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class MyGraphNode<T> {
@@ -31,6 +33,28 @@ public class MyGraphNode<T> {
     public void setEdge(MyGraphNode<T> neighbor, int weight) throws NullPointerException {
         var newEdge = new MyGraphEdge<>(neighbor, weight);
         this.edges.add(newEdge);
+    }
+
+    /***
+     * Remove Edge(s) containging edgeNeigbor from this Vertex that point to a specific Vertex.
+     * @param edgeNeighbor The Neighbor Vertex to disconnect from.
+     */
+    public void removeEdge(MyGraphNode<T> edgeNeighbor) {
+        Iterator<MyGraphEdge<T>> itEdges = this.edges.iterator();
+
+        while (itEdges.hasNext()) {
+            var nextEdge = itEdges.next();
+            if (nextEdge.getNeighbor().equals(edgeNeighbor)) {
+                 itEdges.remove();
+            }
+        }
+    }
+
+    /***
+     * Remove all Edges from this Vertex. Vertex will no longer points to any other Vertex.
+     */
+    public void removeEdges() {
+        this.edges.clear();;
     }
 
     public int edgeCount() {
