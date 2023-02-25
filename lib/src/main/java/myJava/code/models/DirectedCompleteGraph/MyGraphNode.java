@@ -1,13 +1,12 @@
 package myJava.code.models.DirectedCompleteGraph;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 public class MyGraphNode<T> {
     private T value;
-    private Set<MyGraphEdge<T>> edges;
+    private final Set<MyGraphEdge<T>> edges;
 
     public MyGraphNode(T value) {
         this.value = value;
@@ -36,7 +35,7 @@ public class MyGraphNode<T> {
     }
 
     /***
-     * Remove Edge(s) containging edgeNeigbor from this Vertex that point to a specific Vertex.
+     * Remove Edge(s) containing edge Neighbor from this Vertex that point to a specific Vertex.
      * @param edgeNeighbor The Neighbor Vertex to disconnect from.
      */
     public void removeEdge(MyGraphNode<T> edgeNeighbor) {
@@ -54,7 +53,7 @@ public class MyGraphNode<T> {
      * Remove all Edges from this Vertex. Vertex will no longer points to any other Vertex.
      */
     public void removeEdges() {
-        this.edges.clear();;
+        this.edges.clear();
     }
 
     public int edgeCount() {
