@@ -292,7 +292,41 @@ public class TestDirectedCompleteGraph {
 
     @Test
     void test_findWeightBetweenTwoGraphNodes() {
+        var alpha = new MyGraphNode<>("A");
+        var bravo = new MyGraphNode<>("B");
+        var charlie = new MyGraphNode<>("C");
+        var delta = new MyGraphNode<>("D");
+        var echo = new MyGraphNode<>("E");
+        var foxtrot = new MyGraphNode<>("F");
+        var golf = new MyGraphNode<>("G");
+        var hotel = new MyGraphNode<>("H");
+        var juliet = new MyGraphNode<>("J");
+        var sut = new MyGraph<>(alpha);
 
+        sut.addVertex(bravo);
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+        sut.addVertex(echo);
+        sut.addVertex(foxtrot);
+        sut.addVertex(golf);
+        sut.addVertex(hotel);
+        sut.addVertex(juliet);
+
+        alpha.setEdge(bravo, 1);
+        alpha.setEdge(charlie, 2);
+        alpha.setEdge(delta, 1);
+
+        bravo.setEdge(echo, 1);
+        bravo.setEdge(foxtrot, 3);
+        charlie.setEdge(golf, 3);
+        delta.setEdge(hotel, 1);
+        delta.setEdge(juliet, 1);
+
+        System.out.println(sut);
+
+        var expectedResult = 5;
+        var actualResult = sut.getWeightBetweenVertices(alpha, golf);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
