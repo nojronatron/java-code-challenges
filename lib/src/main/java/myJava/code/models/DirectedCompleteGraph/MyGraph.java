@@ -1,7 +1,6 @@
 package myJava.code.models.DirectedCompleteGraph;
 
 import myJava.code.models.MyQueue;
-import myJava.code.models.MyStack;
 
 import java.util.*;
 
@@ -83,12 +82,54 @@ public class MyGraph<T> {
         if (root.equals(target)) {
             return 0;
         }
+
         this.trackerStack = new Stack<>();
         this.visitedNodes = new HashSet<>();
         this.visitedNodes.add(root);
-        var pathCompleted = false;
 
-        trackPathToTargetDF(root, target, pathCompleted);
+        Stack<Integer> weightValuesBreadcrumbs = new Stack<>();
+        weightValuesBreadcrumbs.push(0);
+        HashSet<MyGraphEdge<T>> visitedEdgesSet = new HashSet<>();
+        Stack<MyGraphNode<T>> currentNodeStack = new Stack<>();
+        currentNodeStack.push(root);
+        var sumWeight = 0;
+        MyGraphNode<T> currentNode = currentNodeStack.peek();
+
+        while (!currentNodeStack.isEmpty()) {
+//            if (currentNode.edgeCount() > 0) {
+            if (currentNode.edgeCount() == 0) {
+                this.visitedNodes.add(currentNode);
+                currentNodeStack.pop();
+                weightValuesBreadcrumbs.pop();
+                currentNode = currentNodeStack.peek();
+            }
+
+                for (var edge : currentNode.getEdges()) {
+                    if (!visitedEdgesSet.contains(edge)) {
+                        visitedEdgesSet.add(edge);
+                        weightValuesBreadcrumbs.push(edge.getWeight());
+                        // there is no Edge without a neighbor!
+                        var currentNeighbor = edge.getNeighbor();
+                        if (currentNeighbor.equals(target)) {
+                            // Target found sum the edges from VisitedEdges for the number of Nodes in currentNodeStack
+                            var stop = currentNodeStack.size();
+                            for (int idx=0; idx < stop; idx++) {
+                                sumWeight += weightValuesBreadcrumbs.pop();
+                            }
+                            return sumWeight;
+                        }
+                        if (!visitedNodes.contains(currentNeighbor)) {
+                            currentNodeStack.push(currentNeighbor);
+                            currentNode = currentNodeStack.peek();
+                        }
+                    }
+                }
+
+                this.visitedNodes.add(currentNode);
+                currentNodeStack.pop();
+                weightValuesBreadcrumbs.pop();
+//            } else {
+        }
 
         var weightSum = 0;
         while (!this.trackerStack.isEmpty()) {
@@ -96,23 +137,6 @@ public class MyGraph<T> {
         }
 
         return weightSum;
-    }
-
-    private void trackPathToTargetDF(MyGraphNode<T> currentVertex, MyGraphNode<T> targetVertex, boolean pathCompleted) {
-        if (!pathCompleted) {
-            for(MyGraphEdge<T> edge: currentVertex.getEdges()) {
-                this.trackerStack.push(edge);
-                if (edge.getNeighbor().equals(targetVertex)) {
-                    pathCompleted = true;
-                    return;
-                }
-                if (!this.visitedNodes.contains(edge.getNeighbor())) {
-                    this.visitedNodes.add(edge.getNeighbor());
-                    trackPathToTargetDF(edge.getNeighbor(), targetVertex, pathCompleted);
-                }
-                this.trackerStack.pop();
-            }
-        }
     }
 
     public ArrayList<T> getVisitedNodes() {
