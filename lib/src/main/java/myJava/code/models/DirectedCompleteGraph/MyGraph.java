@@ -114,6 +114,9 @@ public class MyGraph<T> {
             var keys = this.adjacencyTable.keySet();
             for(T item: keys) {
                 MyGraphNode<T> currentNode = this.adjacencyTable.get(item);
+                if (currentNode.equals(targetNode)) {
+                    continue;
+                }
                 var breadcrumb = findBreadcrumbPortion(currentNode, targetNode);
                 if (breadcrumb != null) {
                     trackingStack.push(breadcrumb);
