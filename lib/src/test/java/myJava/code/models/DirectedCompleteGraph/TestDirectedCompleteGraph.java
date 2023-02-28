@@ -330,6 +330,56 @@ public class TestDirectedCompleteGraph {
     }
 
     @Test
+    void test_findWeightBetweenTwoGraphNodesLarger() {
+        var alpha = new MyGraphNode<>("A");
+        var bravo = new MyGraphNode<>("B");
+        var charlie = new MyGraphNode<>("C");
+        var delta = new MyGraphNode<>("D");
+        var echo = new MyGraphNode<>("E");
+        var foxtrot = new MyGraphNode<>("F");
+        var golf = new MyGraphNode<>("G");
+        var hotel = new MyGraphNode<>("H");
+        var juliet = new MyGraphNode<>("J");
+        var kilo = new MyGraphNode<>("K");
+        var lima = new MyGraphNode<>("L");
+        var mike = new MyGraphNode<>("M");
+        var november = new MyGraphNode<>("N");
+        var sut = new MyGraph<>(alpha);
+
+        sut.addVertex(bravo);
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+        sut.addVertex(echo);
+        sut.addVertex(foxtrot);
+        sut.addVertex(golf);
+        sut.addVertex(hotel);
+        sut.addVertex(juliet);
+        sut.addVertex(kilo);
+        sut.addVertex(lima);
+        sut.addVertex(mike);
+        sut.addVertex(november);
+
+        alpha.setEdge(bravo, 1);
+        alpha.setEdge(charlie, 2);
+        alpha.setEdge(delta, 3);
+        bravo.setEdge(echo, 2);
+        bravo.setEdge(foxtrot, 2);
+        charlie.setEdge(golf, 4);
+        delta.setEdge(hotel, 6);
+        delta.setEdge(juliet, 6);
+        foxtrot.setEdge(kilo, 3);
+        foxtrot.setEdge(lima, 3);
+        hotel.setEdge(mike, 9);
+        juliet.setEdge(november, 9);
+
+        System.out.println(sut);
+
+        var expectedResult = 9;
+        var actualResult = sut.getWeightBetweenVertices(alpha, juliet);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void test_visitedNodesReturnsEmptyWithoutTraversingFirst() {
         var alphaVal = "A";
         var alpha = new MyGraphNode<>(alphaVal);
