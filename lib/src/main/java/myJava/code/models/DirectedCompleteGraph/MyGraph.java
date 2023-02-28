@@ -2,6 +2,7 @@ package myJava.code.models.DirectedCompleteGraph;
 
 import myJava.code.models.MyQueue;
 
+import java.sql.Ref;
 import java.util.*;
 
 public class MyGraph<T> {
@@ -83,60 +84,70 @@ public class MyGraph<T> {
             return 0;
         }
 
-        this.trackerStack = new Stack<>();
-        this.visitedNodes = new HashSet<>();
-        this.visitedNodes.add(root);
+        Stack<MyGraphEdge<T>> edgeCrumbs = new Stack<>();
+        MyGraphNode<T> destination = target;
+        int sumWeight = 0;
 
-        Stack<Integer> weightValuesBreadcrumbs = new Stack<>();
-        weightValuesBreadcrumbs.push(0);
-        HashSet<MyGraphEdge<T>> visitedEdgesSet = new HashSet<>();
-        Stack<MyGraphNode<T>> currentNodeStack = new Stack<>();
-        currentNodeStack.push(root);
-        var sumWeight = 0;
-        MyGraphNode<T> currentNode = currentNodeStack.peek();
+        while (!destination.equals(root)) {
+            // find vertex that has target vertex as a neighbor
+            var vertexWithTargetNeighbor = findVertexWithTargetNeighbor(destination, edgeCrumbs);
 
-        while (!currentNodeStack.isEmpty()) {
-//            if (currentNode.edgeCount() > 0) {
-            if (currentNode.edgeCount() == 0) {
-                this.visitedNodes.add(currentNode);
-                currentNodeStack.pop();
-                weightValuesBreadcrumbs.pop();
-                currentNode = currentNodeStack.peek();
+            // change destination Vertex to be the one just found
+            if (vertexWithTargetNeighbor == null) {
+                return 0;
+            } else {
+                destination = vertexWithTargetNeighbor;
             }
+        }
 
-                for (var edge : currentNode.getEdges()) {
-                    if (!visitedEdgesSet.contains(edge)) {
-                        visitedEdgesSet.add(edge);
-                        weightValuesBreadcrumbs.push(edge.getWeight());
-                        // there is no Edge without a neighbor!
-                        var currentNeighbor = edge.getNeighbor();
-                        if (currentNeighbor.equals(target)) {
-                            // Target found sum the edges from VisitedEdges for the number of Nodes in currentNodeStack
-                            var stop = currentNodeStack.size();
-                            for (int idx=0; idx < stop; idx++) {
-                                sumWeight += weightValuesBreadcrumbs.pop();
-                            }
-                            return sumWeight;
-                        }
-                        if (!visitedNodes.contains(currentNeighbor)) {
-                            currentNodeStack.push(currentNeighbor);
-                            currentNode = currentNodeStack.peek();
-                        }
-                    }
+        while (!edgeCrumbs.isEmpty()) {
+            sumWeight += edgeCrumbs.pop().getWeight();
+        }
+
+        return sumWeight;
+    }
+
+
+    private MyGraphNode<T> findVertexWithTargetNeighbor(MyGraphNode<T> targetNode, Stack<MyGraphEdge<T>> trackingStack) {
+        // find vertex with target vertex as a neighbor and return the edge between them else null
+        if (this.adjacencyTable.containsKey(targetNode.getValue())){
+            var keys = this.adjacencyTable.keySet();
+            for(T item: keys) {
+                MyGraphNode<T> currentNode = this.adjacencyTable.get(item);
+                var breadcrumb = findBreadcrumbPortion(currentNode, targetNode);
+                if (breadcrumb != null) {
+                    trackingStack.push(breadcrumb);
+                    return currentNode;
                 }
-
-                this.visitedNodes.add(currentNode);
-                currentNodeStack.pop();
-                weightValuesBreadcrumbs.pop();
-//            } else {
+            }
         }
+        return null;
+    }
 
-        var weightSum = 0;
-        while (!this.trackerStack.isEmpty()) {
-            weightSum += this.trackerStack.pop().getWeight();
+    private MyGraphEdge<T> findBreadcrumbPortion(MyGraphNode<T> starterVertex, MyGraphNode<T> targetVertex) {
+        for(MyGraphEdge<T> edge: starterVertex.getEdges()) {
+            if (edge != null && edge.getNeighbor().equals(targetVertex)) {
+                return edge;
+            }
         }
+        return null;
+    }
 
-        return weightSum;
+    private MyGraphEdge<T> getWeightToTargetVertex(MyGraphNode<T> sourceVertex, MyGraphNode<T> destinationVertex) {
+        for (var edge: sourceVertex.getEdges()) {
+            if (edge.getNeighbor().equals(destinationVertex)) {
+                return edge;
+            }
+        }
+        return null;
+    }
+
+    private Stack<MyGraphEdge<T>> getListOfEdges (MyGraphNode<T> vertex) {
+        Stack<MyGraphEdge<T>> result = new Stack<>();
+        for (MyGraphEdge<T> edge: vertex.getEdges()) {
+            result.push(edge);
+        }
+        return result;
     }
 
     public ArrayList<T> getVisitedNodes() {
