@@ -151,7 +151,7 @@ public class TestDirectedCompleteGraph {
     }
 
     @Test
-    void test_findVertexInstance() {
+    void test_findVertexStringValueBreadthFirstSucceeds() {
         var alphaVal = "A";
         var bravoVal = "B";
         var charlieVal = "C";
@@ -508,11 +508,35 @@ public class TestDirectedCompleteGraph {
 
     @Test
     void test_findVertexIntegerValueBreadthFirstSucceeds() {
+        var alphaVal = 11;
+        var bravoVal = 22;
+        var charlieVal = 33;
+        var deltaVal = 44;
 
+        var alpha = new MyGraphNode<>(alphaVal);
+        var sut = new MyGraph<>(alpha);
+
+        var bravo = new MyGraphNode<>(bravoVal);
+        var charlie = new MyGraphNode<>(charlieVal);
+        var delta = new MyGraphNode<>(deltaVal);
+
+        sut.addVertex(bravo);
+        sut.addVertex(charlie);
+        sut.addVertex(delta);
+
+        alpha.setEdge(bravo, 1);
+        alpha.setEdge(charlie, 1);
+        bravo.setEdge(delta, 3);
+        charlie.setEdge(delta, 2);
+        delta.setEdge(charlie, 3);
+
+        System.out.println(sut);
+
+        var result = sut.findVertexBreadthFirst(alpha, deltaVal);
+
+        System.out.printf("Search for [ %s ] found Vertex with value [ %s ].%n", deltaVal, result.getValue());
+
+        assertEquals(delta, result);
     }
 
-    @Test
-    void test_findVertexStringValueBreadthFirstSucceeds() {
-
-    }
 }
