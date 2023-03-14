@@ -31,19 +31,19 @@ Two categories:
 - Depth First
 - Breadth First
 
-### Depth First Traversal
-
 Three types of traversals:
 
 - Pre-order: Root => Left => Right
 - In-order: Left => Root => Right
 - Post-order: Left => Right => Root
 
+### Depth First Traversal
+
 Use recursion to execute Depth First traversals.
 
 When using recursion, the code will rely on the call stack to navigate back up the tree when reaching the end of a path of branches.
 
-#### Pre-order Traversal
+#### Depth-First Pre-order Traversal
 
 Pseudocode:
 
@@ -72,7 +72,7 @@ When both root.left and root.right are null, the code exits and the function pop
 
 When the last function pops-off the call stack, all work is completed.
 
-#### In-Order Traversal
+#### Depth-First In-Order Traversal
 
 Pseudocode:
 
@@ -87,7 +87,7 @@ if root.right is not NULL:
 
 Like preOrder, inOrder works the same except the "processing" portion of the code is in-between calls to root.left and root.right.
 
-#### Post-Order Traversal
+#### Depth-First Post-Order Traversal
 
 Pseudocode:
 
@@ -107,6 +107,8 @@ Like preOrder and inOrder, postOrder works the same except the "processing" port
 This is a non-recursive method to traverse a Tree.
 
 It walks through each *level* of the tree, node-by-node.
+
+Pre-, In-, and Post-Order Traversal processing can be applied to Breadth-First Traversals.
 
 Implement a Queue to assist with breadth-first traversal.
 
@@ -243,8 +245,8 @@ Space:
 
 ## Unit Tests
 
+- March 2023: [Generic Binary Tree Tests](../lib/src/test/java/myJava/code/models/GenericBinaryTree/TestGenericBinaryTree.java)
 - [Test Queue](../lib/src/test/java/myJava/code/models/TestQueueLibrary.java) (for breadth-first traversal)
-- [Test Binary Tree Library](../lib/src/test/java/myJava/code/models/TestBinaryTreeLibrary.java)
 - [Test Leaf Counter challenge](../lib/src/test/java/myJava/code/challenges/TestLeafCounter.java)
 - [Test K ary Tree](../lib/src/test/java/myJava/code/models/TestKaryTreeLibrary.java)
 - [Test Binary Search Tree Node](../lib/src/test/java/myJava/code/models/TestMyBstNode.java)
@@ -253,22 +255,24 @@ Space:
 
 Code can be found in java-code-challenges library files:
 
+- March 2023: [Generic Binary Tree](../lib/src/main/java/myJava/code/models/GenericBinaryTree/MyBinaryTree.java)
 - [My Queue](../lib/src/main/java/myJava/code/models/MyQueue.java) (for breadth-first traversal)
 - [My Node (for My Queue)](../lib/src/main/java/myJava/code/models/MyNode.java) (for breadth-first traversal)
 - [My Binary Node](../lib/src/main/java/myJava/code/models/MyBinaryNode.java)
-- [My Binary Tree (deprecated, will be removed)](../lib/src/main/java/myJava/code/models/MyBinaryTree.java)
 - [Leaf Counter Challenge Class](../lib/src/main/java/myJava/code/challenges/LeafCounter.java)
 - [My K-ary Tree Node](../lib/src/main/java/myJava/code/models/MyKaryNode.java)
 - [Binary Search Tree Node](../lib/src/main/java/myJava/code/models/MyBstNode.java)
 
 ### Interfaces
 
-I experimented with using interfaces to constrain generic classes.
+Previously, I experimented with using interfaces to constrain generic classes.
 
-While I was able to utilize the interfaces, in the end they did not help much with making the classes as I needed 'generic'.
+While I was able to utilize the custom interfaces, in the end they did not help much.
 
 - [Interface My Binary Node](../lib/src/main/java/myJava/code/models/IMyBinaryNode.java)
 - [Interface My K-ary Node](../lib/src/main/java/myJava/code/models/IMyKaryNode.java)
+
+In the future these will be modified and implemented, or removed from the project.
 
 ## Additional Comments
 
