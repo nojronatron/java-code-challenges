@@ -99,7 +99,6 @@ public class TestGenericBinaryTree {
 
     @Test
     void testBinaryTree_removeRootNodeDoesNotThrow() {
-        // will throw exception until method is implemented
         int nodeValue = 4;
         MyBinaryTree<Integer> sut = new MyBinaryTree<>(nodeValue);
         int expectedCount = 1;
@@ -122,7 +121,7 @@ public class TestGenericBinaryTree {
 
         int startOfRange = 2;
         int endOfRange = 20;
-        for(int idx = startOfRange; idx <= endOfRange; idx++) {
+        for (int idx = startOfRange; idx <= endOfRange; idx++) {
             sut.addNode(idx);
         }
 
@@ -147,7 +146,7 @@ public class TestGenericBinaryTree {
 
         int startOfRange = 2;
         int endOfRange = 3;
-        for(int idx = startOfRange; idx <= endOfRange; idx++) {
+        for (int idx = startOfRange; idx <= endOfRange; idx++) {
             sut.addNode(idx);
         }
 
@@ -163,6 +162,7 @@ public class TestGenericBinaryTree {
         actualCount = sut.getCount();
         assertEquals(expectedCount, actualCount);
     }
+
     @Test
     void testBinaryTree_removeRootWithChildrenDoesNotThrow() {
         // will throw exception until method is implemented
@@ -171,7 +171,7 @@ public class TestGenericBinaryTree {
 
         int startOfRange = 2;
         int endOfRange = 20;
-        for(int idx = startOfRange; idx <= endOfRange; idx++) {
+        for (int idx = startOfRange; idx <= endOfRange; idx++) {
             sut.addNode(idx);
         }
 
@@ -191,6 +191,46 @@ public class TestGenericBinaryTree {
     @Test
     void testBinaryTree_IsEmpty() {
         // cannot test until tree.RemoveNode is implemented
+        int rootValue = 11;
+        MyBinaryTree<Integer> sut = new MyBinaryTree<>(rootValue);
+        int expectedCount = 1;
+        int initialCount = sut.getCount();
+        assertEquals(expectedCount, initialCount);
+        assertDoesNotThrow(() -> sut.removeNode(11));
+        expectedCount = 0;
+        int actualCount = sut.getCount();
+        assertEquals(expectedCount, actualCount);
+        assertTrue(sut.isEmpty());
     }
 
+    @Test
+    void testBinaryTree_canFindParentSuccessfully() {
+        String alpha = "alpha";
+        String bravo = "bravo";
+        String charlie = "charlie";
+        String delta = "delta";
+        String echo = "echo";
+        String foxtrot = "foxtrot";
+        String golf = "golf";
+
+        MyBinaryTree<String> sut = new MyBinaryTree<>(alpha);
+        sut.addNode(bravo);
+        sut.addNode(charlie);
+        sut.addNode(delta);
+        sut.addNode(echo);
+        sut.addNode(foxtrot);
+        sut.addNode(golf);
+
+        String actualResult = sut.findParentNode(bravo, alpha);
+        assertEquals(alpha, actualResult);
+
+        actualResult = sut.findParentNode(delta, alpha);
+        assertEquals(bravo, actualResult);
+
+        actualResult = sut.findParentNode(echo, alpha);
+        assertEquals(charlie, actualResult);
+
+        assertNotNull(sut.findParentNode(foxtrot, alpha));
+        assertThrows(NullPointerException.class, () -> sut.findParentNode(alpha, alpha));
+    }
 }
