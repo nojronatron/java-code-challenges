@@ -98,22 +98,94 @@ public class TestGenericBinaryTree {
     }
 
     @Test
+    void testBinaryTree_removeRootNodeDoesNotThrow() {
+        // will throw exception until method is implemented
+        int nodeValue = 4;
+        MyBinaryTree<Integer> sut = new MyBinaryTree<>(nodeValue);
+        int expectedCount = 1;
+        int actualCount = sut.getCount();
+        assertEquals(expectedCount, actualCount);
+
+        int actualResult = assertDoesNotThrow(() -> sut.removeNode(nodeValue));
+        assertEquals(nodeValue, actualResult);
+
+        expectedCount = 0;
+        actualCount = assertDoesNotThrow(sut::getCount);
+        assertEquals(expectedCount, actualCount);
+    }
+
+    @Test
     void testBinaryTree_removeNode() {
         // will throw exception until method is implemented
-        int rootValue = 1;
-        int bravo = 2;
-        int charlie = 3;
-        int delta = 4;
-        int echo = 5;
-        int foxtrot = 6;
-        int golf = 7;
+        int nodeValue = 1;
+        MyBinaryTree<Integer> sut = new MyBinaryTree<>(nodeValue);
 
-        MyBinaryTree<Integer> sut = new MyBinaryTree<Integer>(rootValue);
-        boolean expectedAddResult = true;
-        boolean addResult = sut.addNode(bravo);
+        int startOfRange = 2;
+        int endOfRange = 20;
+        for(int idx = startOfRange; idx <= endOfRange; idx++) {
+            sut.addNode(idx);
+        }
 
-        int expectedResult = bravo;
-//        int actualResult = sut.removeNode(bravo);
+        int actualCount = sut.getCount();
+        assertEquals(endOfRange, actualCount);
+
+        int expectedResult = 4;
+
+        int actualResult = assertDoesNotThrow(() -> sut.removeNode(expectedResult));
+        assertEquals(expectedResult, actualResult);
+
+        int expectedCount = endOfRange - 1;
+        actualCount = sut.getCount();
+        assertEquals(expectedCount, actualCount);
+    }
+
+    @Test
+    void testBinaryTree_removeRootRightChildDoesNotThrow() {
+        // will throw exception until method is implemented
+        int nodeValue = 1;
+        MyBinaryTree<Integer> sut = new MyBinaryTree<>(nodeValue);
+
+        int startOfRange = 2;
+        int endOfRange = 3;
+        for(int idx = startOfRange; idx <= endOfRange; idx++) {
+            sut.addNode(idx);
+        }
+
+        int actualCount = sut.getCount();
+        assertEquals(endOfRange, actualCount);
+
+        int expectedResult = 3;
+
+        int actualResult = assertDoesNotThrow(() -> sut.removeNode(expectedResult));
+        assertEquals(expectedResult, actualResult);
+
+        int expectedCount = endOfRange - 1;
+        actualCount = sut.getCount();
+        assertEquals(expectedCount, actualCount);
+    }
+    @Test
+    void testBinaryTree_removeRootWithChildrenDoesNotThrow() {
+        // will throw exception until method is implemented
+        int nodeValue = 1;
+        MyBinaryTree<Integer> sut = new MyBinaryTree<>(nodeValue);
+
+        int startOfRange = 2;
+        int endOfRange = 20;
+        for(int idx = startOfRange; idx <= endOfRange; idx++) {
+            sut.addNode(idx);
+        }
+
+        int actualCount = sut.getCount();
+        assertEquals(endOfRange, actualCount);
+
+        int expectedResult = 1;
+
+        int actualResult = assertDoesNotThrow(() -> sut.removeNode(expectedResult));
+        assertEquals(expectedResult, actualResult);
+
+        int expectedCount = endOfRange - 1;
+        actualCount = sut.getCount();
+        assertEquals(expectedCount, actualCount);
     }
 
     @Test
