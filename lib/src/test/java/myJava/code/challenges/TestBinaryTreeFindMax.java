@@ -74,7 +74,6 @@ public class TestBinaryTreeFindMax {
 
         for (int idx = 0; idx < 1_000; idx++) {
             int randNum = rand.nextInt();
-
             randNumbers.add(randNum);
 //            System.out.printf("Generated randNumber: %s.%n", randNum);
         }
