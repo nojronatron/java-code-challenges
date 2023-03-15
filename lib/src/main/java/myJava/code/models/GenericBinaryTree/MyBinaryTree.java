@@ -4,19 +4,19 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class MyBinaryTree<T> {
-    private BinaryNode<T> root;
+    private MyBinaryNode<T> root;
     private int count;
 
     public MyBinaryTree(T value) {
-        this.root = new BinaryNode<>(value);
+        this.root = new MyBinaryNode<>(value);
         this.count = 1;
     }
 
-    private BinaryNode<T> getRoot() {
+    public MyBinaryNode<T> getRoot() {
         return this.root;
     }
 
-    private void setRoot(BinaryNode<T> root) {
+    private void setRoot(MyBinaryNode<T> root) {
         this.root = root;
     }
 
@@ -33,19 +33,19 @@ public class MyBinaryTree<T> {
         // LinkedBlockingQueue implements FIFO and has head, tail, count, and peek
         // time complexity O(n), although the pseudo-sorting allows for O(height)
         // space complexity O(width) due to use of a Queue
-        BinaryNode<T> newNode = new BinaryNode<>(nodeValue);
+        MyBinaryNode<T> newNode = new MyBinaryNode<>(nodeValue);
         return addNode(newNode);
     }
 
-    public boolean addNode(BinaryNode<T> parentNode) {
-        if (this.contains(parentNode.value)) {
+    public boolean addNode(MyBinaryNode<T> parentNode) {
+        if (this.contains(parentNode.getValue())) {
             return true;
         }
 
-        LinkedBlockingQueue<BinaryNode<T>> treeQueue = new LinkedBlockingQueue<>();
+        LinkedBlockingQueue<MyBinaryNode<T>> treeQueue = new LinkedBlockingQueue<>();
         treeQueue.add(getRoot());
         while (!treeQueue.isEmpty()) {
-            BinaryNode<T> tempNode = treeQueue.poll();
+            MyBinaryNode<T> tempNode = treeQueue.poll();
             // try to set a child and exit
             if (tempNode.isLeaf()) {
                 tempNode.setLeftChild(parentNode);
@@ -90,9 +90,9 @@ public class MyBinaryTree<T> {
 
     public T removeNode(T targetNodeValue) throws NullPointerException {
         // 1. Node value is same as this.root
-        if (getRoot().value == targetNodeValue) {
+        if (getRoot().getValue() == targetNodeValue) {
             int startCount = this.count;
-            BinaryNode<T> rightChild = getRoot().getRightChild();
+            MyBinaryNode<T> rightChild = getRoot().getRightChild();
             getRoot().setRightChild(null);
             this.count--;
             setRoot(getRoot().getLeftChild());
@@ -107,11 +107,11 @@ public class MyBinaryTree<T> {
         }
 
         // 2. Find targetNodeParent
-        BinaryNode<T> targetNode = getFromNodeValue(targetNodeValue, getRoot());
+        MyBinaryNode<T> targetNode = getFromNodeValue(targetNodeValue, getRoot());
         if (targetNode == null) {
             throw new NullPointerException("Much to my surprise, Target Node is null!");
         }
-        BinaryNode<T> parentNode = findParentNode(targetNode, getRoot());
+        MyBinaryNode<T> parentNode = findParentNode(targetNode, getRoot());
         if (parentNode == null) {
             throw new NullPointerException("Much to my surprise, Target Node's Parent returned null!");
         }
@@ -125,8 +125,8 @@ public class MyBinaryTree<T> {
         }
 
         // 4. Target has BOTH Children
-        BinaryNode<T> targetLeftChild = targetNode.getLeftChild();
-        BinaryNode<T> targetRightChild = targetNode.getRightChild();
+        MyBinaryNode<T> targetLeftChild = targetNode.getLeftChild();
+        MyBinaryNode<T> targetRightChild = targetNode.getRightChild();
         if (clearChildRef(parentNode, targetNode)) {
             targetNode.setLeftChild(null);
             targetNode.setRightChild(null);
@@ -145,7 +145,7 @@ public class MyBinaryTree<T> {
         return targetNodeValue;
     }
 
-    private boolean setChildRef(BinaryNode<T> parentNode, BinaryNode<T> targetNode) {
+    private boolean setChildRef(MyBinaryNode<T> parentNode, MyBinaryNode<T> targetNode) {
         if (targetNode.isLeaf() || (targetNode.hasLeftChild() && targetNode.hasRightChild())) {
             return false;
         }
@@ -181,7 +181,7 @@ public class MyBinaryTree<T> {
         return false;
     }
 
-    private boolean clearChildRef(BinaryNode<T> parentNode, BinaryNode<T> targetNode) {
+    private boolean clearChildRef(MyBinaryNode<T> parentNode, MyBinaryNode<T> targetNode) {
         // dereference from parent node whichever child that exists and has same value as targetNode
         if (parentNode.hasLeftChild() && parentNode.getLeftChild().equals(targetNode)) {
             parentNode.setLeftChild(null);
@@ -195,26 +195,26 @@ public class MyBinaryTree<T> {
     }
 
     public T findParentNode(T targetNodeValue, T startingNodeValue) {
-        // BinaryNode<T> class compares based only on VALUE
+        // MyBinaryNode<T> class compares based only on VALUE
         // not by REF nor by child node(s) nor count
-        BinaryNode<T> targetNode = get(targetNodeValue);
-        BinaryNode<T> startingNode = get(startingNodeValue);
-        BinaryNode<T> result = findParentNode(targetNode, startingNode);
+        MyBinaryNode<T> targetNode = get(targetNodeValue);
+        MyBinaryNode<T> startingNode = get(startingNodeValue);
+        MyBinaryNode<T> result = findParentNode(targetNode, startingNode);
         if (result == null) {
             throw new NullPointerException("Unable to find parent node.");
         }
-        return result.value;
+        return result.getValue();
     }
 
-    private BinaryNode<T> findParentNode(BinaryNode<T> targetNode, BinaryNode<T> startingNode) {
+    private MyBinaryNode<T> findParentNode(MyBinaryNode<T> targetNode, MyBinaryNode<T> startingNode) {
         if (targetNode.equals(startingNode)) {
             return null;
         }
-        Set<BinaryNode<T>> visitedSet = new HashSet<>();
-        Stack<BinaryNode<T>> treeStack = new Stack<>();
+        Set<MyBinaryNode<T>> visitedSet = new HashSet<>();
+        Stack<MyBinaryNode<T>> treeStack = new Stack<>();
         treeStack.push(startingNode);
         while (!treeStack.isEmpty()) {
-            BinaryNode<T> currentNode = treeStack.peek();
+            MyBinaryNode<T> currentNode = treeStack.peek();
             if (currentNode.hasLeftChild() && currentNode.getLeftChild().equals(targetNode)) { // might throw
                 return currentNode;
             }
@@ -237,23 +237,23 @@ public class MyBinaryTree<T> {
         return null;
     }
 
-    private BinaryNode<T> get(T nodeValue) {
+    private MyBinaryNode<T> get(T nodeValue) {
         return getFromNodeValue(nodeValue, getRoot());
     }
 
-    private BinaryNode<T> getFromNodeValue(T nodeValue, BinaryNode<T> startingNode) {
+    private MyBinaryNode<T> getFromNodeValue(T nodeValue, MyBinaryNode<T> startingNode) {
         // find node with data nodeValue and return a reference to that node
         // does a depth-first search for value in binary tree startingNode
         // time complexity is O(n) aka O(this.count)
         // space complexity is N for each Set and Stack or O(2n) -> O(n)
-        Set<BinaryNode<T>> visitedSet = new HashSet<>();
-        Stack<BinaryNode<T>> treeStack = new Stack<>();
+        Set<MyBinaryNode<T>> visitedSet = new HashSet<>();
+        Stack<MyBinaryNode<T>> treeStack = new Stack<>();
         treeStack.push(startingNode);
         while (!treeStack.isEmpty()) {
-            if (treeStack.peek().value == nodeValue) {
+            if (treeStack.peek().getValue() == nodeValue) {
                 return treeStack.pop();
             }
-            BinaryNode<T> tempNode = treeStack.peek();
+            MyBinaryNode<T> tempNode = treeStack.peek();
             if (tempNode.hasLeftChild() && !visitedSet.contains(tempNode.getLeftChild())) {
                 visitedSet.add(tempNode.getLeftChild());
                 treeStack.push(tempNode.getLeftChild());
@@ -274,17 +274,18 @@ public class MyBinaryTree<T> {
         // use pseudorandom generator to select left or right child node
         var rand = new Random(binaryNodeHashCode);
         var randInt = rand.nextInt();
+        System.out.printf("chooseLeft generated randInt %s.%n", randInt);
         return randInt < 0;
     }
 
     private void resetCount() throws IllegalStateException {
         // call this method to update the count of nodes in the tree
         // for example after removing a node that had children.
-        Set<BinaryNode<T>> visited = new HashSet<>();
-        LinkedBlockingQueue<BinaryNode<T>> treeQueue = new LinkedBlockingQueue<>();
+        Set<MyBinaryNode<T>> visited = new HashSet<>();
+        LinkedBlockingQueue<MyBinaryNode<T>> treeQueue = new LinkedBlockingQueue<>();
         treeQueue.add(getRoot());
         while (!treeQueue.isEmpty()) {
-            BinaryNode<T> currentNode = treeQueue.poll();
+            MyBinaryNode<T> currentNode = treeQueue.poll();
             visited.add(currentNode);
             if (currentNode.hasLeftChild() && !visited.contains(currentNode.getLeftChild())) {
                 treeQueue.add(currentNode.getLeftChild());
@@ -300,74 +301,5 @@ public class MyBinaryTree<T> {
 
     public int getCount() {
         return this.count;
-    }
-
-    static class BinaryNode<T> {
-        // implement comparable<T>
-        private final T value;
-        private BinaryNode<T> leftChild;
-        private BinaryNode<T> rightChild;
-
-        private BinaryNode(T value) {
-            this.value = value;
-        }
-
-        private boolean hasLeftChild() {
-            return this.leftChild != null;
-        }
-
-        private boolean hasRightChild() {
-            return this.rightChild != null;
-        }
-
-        private BinaryNode<T> getLeftChild() {
-            return leftChild;
-        }
-
-        private void setLeftChild(BinaryNode<T> leftChild) {
-            this.leftChild = leftChild;
-        }
-
-        private BinaryNode<T> getRightChild() {
-            return rightChild;
-        }
-
-        private void setRightChild(BinaryNode<T> rightChild) {
-            this.rightChild = rightChild;
-        }
-
-        private boolean isLeaf() {
-            return this.leftChild == null && this.rightChild == null;
-        }
-
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("[").append(this.value.toString()).append(":");
-            if (this.leftChild != null) {
-                sb.append(this.leftChild.value.toString());
-            } else {
-                sb.append(" ");
-            }
-            sb.append(",");
-            if (this.rightChild != null) {
-                sb.append(this.rightChild.value.toString());
-            } else {
-                sb.append(" ");
-            }
-            sb.append("]");
-            return sb.toString();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof BinaryNode<?> that)) return false;
-            return Objects.equals(value, that.value);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(value);
-        }
     }
 }
