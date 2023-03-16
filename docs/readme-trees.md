@@ -62,13 +62,13 @@ Processing usually entails reading the value of the node, and perhaps performing
 
 Each time 'preOrder()' is called, it adds the Node to the call stack.
 
-In the pseudocode example above, root's left property is checked and if it is *not* null preOrder() is called with root.left child node as the argument.
+In the pseudocode example above, root's left property is checked and if it is *not* null preOrder() is called with `root.left` child node as the argument.
 
 When a function call on the call stack is completed, it is "popped off" the stack, and the function call will continue its execution from where it left off.
 
-In the pseudocode example above, root's right property is checked and if it is *not* null, preOrder() is called again with root.right child node as the argument.
+In the pseudocode example above, root's right property is checked and if it is *not* null, preOrder() is called again with `root.right` child node as the argument.
 
-When both root.left and root.right are null, the code exits and the function pops-off the call stack.
+When both `root.left` and `root.right` are null, the code exits and the function pops-off the call stack.
 
 When the last function pops-off the call stack, all work is completed.
 
@@ -85,7 +85,7 @@ if root.right is not NULL:
     inOrder(root.right)
 ```
 
-Like preOrder, inOrder works the same except the "processing" portion of the code is in-between calls to root.left and root.right.
+Like preOrder, inOrder works the same except the "processing" portion of the code is in-between calls to `root.left` and `root.right`.
 
 #### Depth-First Post-Order Traversal
 
@@ -100,7 +100,7 @@ if root.right is not NULL
 Process: root.value
 ```
 
-Like preOrder and inOrder, postOrder works the same except the "processing" portion of the code is *after* the calls to root.left and root.right are completed.
+Like preOrder and inOrder, postOrder works the same except the "processing" portion of the code is *after* the calls to `root.left` and `root.right` are completed.
 
 ### Breadth First Traversal
 
@@ -274,7 +274,7 @@ While I was able to utilize the custom interfaces, in the end they did not help 
 - [Interface My Binary Node](../lib/src/main/java/myJava/code/models/IMyBinaryNode.java)
 - [Interface My K-ary Node](../lib/src/main/java/myJava/code/models/IMyKaryNode.java)
 
-Later on I did some more research on Java Generics, thanks to this experience.
+I did some more research on Java Generics, thanks to this experience.
 
 ## Additional Comments
 
