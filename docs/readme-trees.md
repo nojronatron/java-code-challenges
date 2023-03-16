@@ -31,19 +31,19 @@ Two categories:
 - Depth First
 - Breadth First
 
-### Depth First Traversal
-
 Three types of traversals:
 
 - Pre-order: Root => Left => Right
 - In-order: Left => Root => Right
 - Post-order: Left => Right => Root
 
+### Depth First Traversal
+
 Use recursion to execute Depth First traversals.
 
 When using recursion, the code will rely on the call stack to navigate back up the tree when reaching the end of a path of branches.
 
-#### Pre-order Traversal
+#### Depth-First Pre-order Traversal
 
 Pseudocode:
 
@@ -62,17 +62,17 @@ Processing usually entails reading the value of the node, and perhaps performing
 
 Each time 'preOrder()' is called, it adds the Node to the call stack.
 
-In the pseudocode example above, root's left property is checked and if it is *not* null preOrder() is called with root.left child node as the argument.
+In the pseudocode example above, root's left property is checked and if it is *not* null preOrder() is called with `root.left` child node as the argument.
 
 When a function call on the call stack is completed, it is "popped off" the stack, and the function call will continue its execution from where it left off.
 
-In the pseudocode example above, root's right property is checked and if it is *not* null, preOrder() is called again with root.right child node as the argument.
+In the pseudocode example above, root's right property is checked and if it is *not* null, preOrder() is called again with `root.right` child node as the argument.
 
-When both root.left and root.right are null, the code exits and the function pops-off the call stack.
+When both `root.left` and `root.right` are null, the code exits and the function pops-off the call stack.
 
 When the last function pops-off the call stack, all work is completed.
 
-#### In-Order Traversal
+#### Depth-First In-Order Traversal
 
 Pseudocode:
 
@@ -85,9 +85,9 @@ if root.right is not NULL:
     inOrder(root.right)
 ```
 
-Like preOrder, inOrder works the same except the "processing" portion of the code is in-between calls to root.left and root.right.
+Like preOrder, inOrder works the same except the "processing" portion of the code is in-between calls to `root.left` and `root.right`.
 
-#### Post-Order Traversal
+#### Depth-First Post-Order Traversal
 
 Pseudocode:
 
@@ -100,13 +100,15 @@ if root.right is not NULL
 Process: root.value
 ```
 
-Like preOrder and inOrder, postOrder works the same except the "processing" portion of the code is *after* the calls to root.left and root.right are completed.
+Like preOrder and inOrder, postOrder works the same except the "processing" portion of the code is *after* the calls to `root.left` and `root.right` are completed.
 
 ### Breadth First Traversal
 
 This is a non-recursive method to traverse a Tree.
 
 It walks through each *level* of the tree, node-by-node.
+
+Pre-, In-, and Post-Order Traversal processing can be applied to Breadth-First Traversals.
 
 Implement a Queue to assist with breadth-first traversal.
 
@@ -243,8 +245,9 @@ Space:
 
 ## Unit Tests
 
+- March 2023: [Binary Tree Find Max Tests](../lib/src/test/java/myJava/code/challenges/TestBinaryTreeFindMax.java)
+- March 2023: [Generic Binary Tree Tests](../lib/src/test/java/myJava/code/models/GenericBinaryTree/TestGenericBinaryTree.java)
 - [Test Queue](../lib/src/test/java/myJava/code/models/TestQueueLibrary.java) (for breadth-first traversal)
-- [Test Binary Tree Library](../lib/src/test/java/myJava/code/models/TestBinaryTreeLibrary.java)
 - [Test Leaf Counter challenge](../lib/src/test/java/myJava/code/challenges/TestLeafCounter.java)
 - [Test K ary Tree](../lib/src/test/java/myJava/code/models/TestKaryTreeLibrary.java)
 - [Test Binary Search Tree Node](../lib/src/test/java/myJava/code/models/TestMyBstNode.java)
@@ -253,24 +256,33 @@ Space:
 
 Code can be found in java-code-challenges library files:
 
+- March 2023: [Binary Tree Find Max](../lib/src/main/java/myJava/code/challenges/BinaryTreeFindMax.java)
+- March 2023: [Generic Binary Tree](../lib/src/main/java/myJava/code/models/GenericBinaryTree/MyBinaryTree.java)
 - [My Queue](../lib/src/main/java/myJava/code/models/MyQueue.java) (for breadth-first traversal)
 - [My Node (for My Queue)](../lib/src/main/java/myJava/code/models/MyNode.java) (for breadth-first traversal)
 - [My Binary Node](../lib/src/main/java/myJava/code/models/MyBinaryNode.java)
-- [My Binary Tree (deprecated, will be removed)](../lib/src/main/java/myJava/code/models/MyBinaryTree.java)
 - [Leaf Counter Challenge Class](../lib/src/main/java/myJava/code/challenges/LeafCounter.java)
 - [My K-ary Tree Node](../lib/src/main/java/myJava/code/models/MyKaryNode.java)
 - [Binary Search Tree Node](../lib/src/main/java/myJava/code/models/MyBstNode.java)
 
 ### Interfaces
 
-I experimented with using interfaces to constrain generic classes.
+Previously, I experimented with using interfaces to constrain generic classes.
 
-While I was able to utilize the interfaces, in the end they did not help much with making the classes as I needed 'generic'.
+While I was able to utilize the custom interfaces, in the end they did not help much.
 
 - [Interface My Binary Node](../lib/src/main/java/myJava/code/models/IMyBinaryNode.java)
 - [Interface My K-ary Node](../lib/src/main/java/myJava/code/models/IMyKaryNode.java)
 
+I did some more research on Java Generics, thanks to this experience.
+
 ## Additional Comments
+
+Utilize `TreeSet<T>`, a [Java Collections class](https://docs.oracle.com/javase/8/docs/api/?java/util/Collections.html) as a handy sorting tool. 
+
+When designing a dependency like BinaryNode, add plenty of getter-setters to do simple logic tricks like True if Node is a Leaf, and so-on. This will help make code more readable, and avoids some complexity in setting up if-then statements.
+
+While it is interesting to embed a required class like Node into a structured class like Binary Tree, it enforces specialization rather than modularity. Also, testing the underlying child Class is also a bit more difficult. Avoid doing this unless there is a compelling reason or a requirement to do so specifically.
 
 When processing data within a recursive function, it is okay to leverage a Class-level property such as a storage ArrayList of some type.
 
