@@ -1,5 +1,7 @@
 package myJava.code.challenges;
 
+import java.util.concurrent.LinkedTransferQueue;
+
 public class ConnectBinaryTrees<T> {
     private T value;
     private ConnectBinaryTrees<T> leftChild;
@@ -44,10 +46,35 @@ public class ConnectBinaryTrees<T> {
     }
     public String displayTree(){
         // this is for ease of debugging to display list of nodes in this tree instance
-        return "";
+        LinkedTransferQueue<ConnectBinaryTrees<T>> breadthQueue = new LinkedTransferQueue<>();
+        StringBuilder visited = new StringBuilder();
+        visited.append("<");
+        breadthQueue.add(this); // enqueue
+        while (!breadthQueue.isEmpty()){
+            ConnectBinaryTrees<T> temp = breadthQueue.remove(); // dequeue
+            visited.append(temp.toString()).append(",");
+            if (temp.getLeftChild() != null){
+                breadthQueue.add(temp.getLeftChild());
+            }
+            if (temp.getRightChild() != null){
+                breadthQueue.add(temp.getRightChild());
+            }
+        }
+        visited.delete(visited.length() - 2, visited.length());
+        visited.append("]>");
+        return visited.toString();
     }
     public static <T> ConnectBinaryTrees<T> addTree(ConnectBinaryTrees<T> left, ConnectBinaryTrees<T> right){
-        
+        if (left == null && right == null) {
+            return null;
+        }
+        if (left == null) {
+            return right;
+        }
+        if (right == null) {
+            return left;
+        }
+
         return right;
     }
 }
