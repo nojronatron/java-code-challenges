@@ -3,38 +3,56 @@ package myJava.code.challenges;
 import java.util.concurrent.LinkedTransferQueue;
 
 public class ConnectBinaryTrees<T> {
-    private T value;
+    private final T value;
     private ConnectBinaryTrees<T> leftChild;
     private ConnectBinaryTrees<T> rightChild;
-    public ConnectBinaryTrees(T data){
+
+    public ConnectBinaryTrees(T data) {
         this.value = data;
     }
-    public T getValue(){
+
+    public T getValue() {
         return this.value;
     }
-    public ConnectBinaryTrees<T> getLeftChild(){
+
+    public ConnectBinaryTrees<T> getLeftChild() {
         return this.leftChild;
     }
-    public ConnectBinaryTrees<T> getRightChild(){
+
+    public ConnectBinaryTrees<T> getRightChild() {
         return this.rightChild;
     }
-    public void setLeftChild(ConnectBinaryTrees<T> node){
+
+    public void setLeftChild(ConnectBinaryTrees<T> node) {
         this.leftChild = node;
     }
-    public void setRightChild(ConnectBinaryTrees<T> node){
+
+    public void setRightChild(ConnectBinaryTrees<T> node) {
         this.rightChild = node;
     }
-    public boolean isLeaf(){
+
+    public boolean isLeaf() {
         return this.leftChild == null && this.rightChild == null;
     }
-    public boolean hasOnlyLeft(){
+
+    public boolean hasLeftChild() {
+        return this.leftChild != null;
+    }
+
+    public boolean hasRightChild() {
+        return this.rightChild != null;
+    }
+
+    public boolean hasOnlyLeft() {
         return this.leftChild != null && this.rightChild == null;
     }
-    public boolean hasOnlyRight(){
+
+    public boolean hasOnlyRight() {
         return this.leftChild == null && this.rightChild != null;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         // this is for ease of debugging this Node instance
         StringBuilder sb = new StringBuilder("[");
         sb.append(this.value.toString()).append(":");
@@ -44,19 +62,20 @@ public class ConnectBinaryTrees<T> {
         sb.append("]");
         return sb.toString();
     }
-    public String displayTree(){
+
+    public String displayTree() {
         // this is for ease of debugging to display list of nodes in this tree instance
         LinkedTransferQueue<ConnectBinaryTrees<T>> breadthQueue = new LinkedTransferQueue<>();
         StringBuilder visited = new StringBuilder();
         visited.append("<");
         breadthQueue.add(this); // enqueue
-        while (!breadthQueue.isEmpty()){
+        while (!breadthQueue.isEmpty()) {
             ConnectBinaryTrees<T> temp = breadthQueue.remove(); // dequeue
             visited.append(temp.toString()).append(",");
-            if (temp.getLeftChild() != null){
+            if (temp.getLeftChild() != null) {
                 breadthQueue.add(temp.getLeftChild());
             }
-            if (temp.getRightChild() != null){
+            if (temp.getRightChild() != null) {
                 breadthQueue.add(temp.getRightChild());
             }
         }
@@ -64,17 +83,40 @@ public class ConnectBinaryTrees<T> {
         visited.append("]>");
         return visited.toString();
     }
-    public static <T> ConnectBinaryTrees<T> addTree(ConnectBinaryTrees<T> left, ConnectBinaryTrees<T> right){
-        if (left == null && right == null) {
+
+    public static <T> ConnectBinaryTrees<T> addTree(ConnectBinaryTrees<T> leftTree, ConnectBinaryTrees<T> rightTree) {
+        if (leftTree == null && rightTree == null) {
             return null;
         }
-        if (left == null) {
-            return right;
+        if (leftTree == null) {
+            return rightTree;
         }
-        if (right == null) {
-            return left;
+        if (rightTree == null) {
+            return leftTree;
         }
-
-        return right;
+        LinkedTransferQueue<ConnectBinaryTrees<T>> breadthQueue = new LinkedTransferQueue<>();
+        breadthQueue.add(rightTree); // enqueue
+        while (!breadthQueue.isEmpty()) {
+            ConnectBinaryTrees<T> currentNode = breadthQueue.remove(); // dequeue
+            if (currentNode.isLeaf()) {
+                currentNode.setLeftChild(leftTree);
+                return rightTree;
+            }
+            if (currentNode.hasOnlyLeft()) {
+                currentNode.setRightChild(leftTree);
+                return rightTree;
+            }
+            if (currentNode.hasOnlyRight()) {
+                currentNode.setLeftChild(leftTree);
+                return rightTree;
+            }
+            if (currentNode.hasLeftChild()) {
+                breadthQueue.add(currentNode.getLeftChild());
+            }
+            if (currentNode.hasRightChild()) {
+                breadthQueue.add(currentNode.getRightChild());
+            }
+        }
+        return rightTree;
     }
 }
