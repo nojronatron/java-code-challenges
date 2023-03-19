@@ -43,11 +43,11 @@ public class ConnectBinaryTrees<T> {
         return this.rightChild != null;
     }
 
-    public boolean hasOnlyLeft() {
+    public boolean hasOnlyLeftChild() {
         return this.leftChild != null && this.rightChild == null;
     }
 
-    public boolean hasOnlyRight() {
+    public boolean hasOnlyRightChild() {
         return this.leftChild == null && this.rightChild != null;
     }
 
@@ -102,11 +102,11 @@ public class ConnectBinaryTrees<T> {
                 currentNode.setLeftChild(leftTree);
                 return rightTree;
             }
-            if (currentNode.hasOnlyLeft()) {
+            if (currentNode.hasOnlyLeftChild()) {
                 currentNode.setRightChild(leftTree);
                 return rightTree;
             }
-            if (currentNode.hasOnlyRight()) {
+            if (currentNode.hasOnlyRightChild()) {
                 currentNode.setLeftChild(leftTree);
                 return rightTree;
             }
