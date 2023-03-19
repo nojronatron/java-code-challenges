@@ -2,8 +2,7 @@ package myJava.code.challenges;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestConnectBinaryTrees {
     @Test
@@ -27,6 +26,7 @@ public class TestConnectBinaryTrees {
     }
     @Test
     public void test_LeftAndRightHaveSixRightMissingRightChild(){
+        System.out.println("Left and Right Have Six Nodes. Right has open Right Child.");
         var sutLeft = new ConnectBinaryTrees<>(1);
         var three = new ConnectBinaryTrees<>(3);
         var five = new ConnectBinaryTrees<>(5);
@@ -38,7 +38,7 @@ public class TestConnectBinaryTrees {
         three.setLeftChild(seven);
         three.setRightChild(nine);
         five.setLeftChild(eleven);
-        System.out.printf("sutLeft: %s%n", sutLeft.displayTree());
+        System.out.printf("sutLeft START: %s%n", sutLeft.displayTree());
 
         var sutRight = new ConnectBinaryTrees<>(2);
         var four = new ConnectBinaryTrees<>(4);
@@ -51,16 +51,19 @@ public class TestConnectBinaryTrees {
         four.setLeftChild(eight);
         four.setRightChild(ten);
         six.setLeftChild(twelve);
-        System.out.printf("sutRight: %s%n", sutRight.displayTree());
+        System.out.printf("sutRight START: %s%n", sutRight.displayTree());
 
         ConnectBinaryTrees.addTree(sutLeft, sutRight);
-        System.out.printf("sutLeft: %s%n", sutLeft.displayTree());
-        System.out.printf("sutRight: %s%n", sutRight.displayTree());
+        System.out.printf("sutLeft END: %s%n", sutLeft.displayTree());
+        String rightTreeString = sutRight.displayTree();
+        System.out.printf("sutRight END: %s%n%n", rightTreeString);
 
-
+        String expectedResult = "<[2:4,6],[4:8,10],[6:12,1],[8: , ],[10: , ],[12: , ],[1:3,5],[3:7,9],[5:11, ],[7: , ],[9: , ],[11: , ]>";
+        assertEquals(expectedResult, rightTreeString);
     }
     @Test
     public void test_LeftAndRightHaveSixRightMissingLeftChild(){
+        System.out.println("Left and Right Have Six Nodes. Right has open Left Child.");
         var sutLeft = new ConnectBinaryTrees<>("sutLeft");
         var three = new ConnectBinaryTrees<>("three");
         var five = new ConnectBinaryTrees<>("five");
@@ -72,7 +75,7 @@ public class TestConnectBinaryTrees {
         three.setLeftChild(seven);
         three.setRightChild(nine);
         five.setRightChild(eleven);
-        System.out.printf("sutLeft: %s%n", sutLeft.displayTree());
+        System.out.printf("sutLeft START: %s%n", sutLeft.displayTree());
 
         var sutRight = new ConnectBinaryTrees<>("sutRight");
         var four = new ConnectBinaryTrees<>("four");
@@ -85,15 +88,19 @@ public class TestConnectBinaryTrees {
         four.setLeftChild(eight);
         four.setRightChild(ten);
         six.setRightChild(twelve);
-        System.out.printf("sutRight: %s%n", sutRight.displayTree());
+        System.out.printf("sutRight START: %s%n", sutRight.displayTree());
 
         ConnectBinaryTrees.addTree(sutLeft, sutRight);
-        System.out.printf("sutLeft: %s%n", sutLeft.displayTree());
-        System.out.printf("sutRight: %s%n", sutRight.displayTree());
+        System.out.printf("sutLeft END: %s%n", sutLeft.displayTree());
+        String rightTreeString = sutRight.displayTree();
+        System.out.printf("sutRight END: %s%n%n", rightTreeString);
 
+        String expectedResult = "<[sutRight:four,six],[four:eight,ten],[six:sutLeft,twelve],[eight: , ],[ten: , ],[sutLeft:three,five],[twelve: , ],[three:seven,nine],[five: ,eleven],[seven: , ],[nine: , ],[eleven: , ]>";
+        assertEquals(expectedResult, rightTreeString);
     }
     @Test
     public void test_LeftTreeAddedToLeafInRightTreeWithSeven(){
+        System.out.println("Left and Right Have Seven Nodes, all Leaf Nodes at bottom.");
         var sutLeft = new ConnectBinaryTrees<>(1);
         var three = new ConnectBinaryTrees<>(3);
         var five = new ConnectBinaryTrees<>(5);
@@ -107,7 +114,7 @@ public class TestConnectBinaryTrees {
         three.setRightChild(nine);
         five.setLeftChild(eleven);
         five.setRightChild(thirteen);
-        System.out.printf("sutLeft: %s%n", sutLeft.displayTree());
+        System.out.printf("sutLeft START: %s%n", sutLeft.displayTree());
 
         var sutRight = new ConnectBinaryTrees<>(2);
         var four = new ConnectBinaryTrees<>(4);
@@ -122,12 +129,14 @@ public class TestConnectBinaryTrees {
         four.setRightChild(ten);
         six.setLeftChild(twelve);
         six.setRightChild(fourteen);
-        System.out.printf("sutRight: %s%n", sutRight.displayTree());
+        System.out.printf("sutRight START: %s%n", sutRight.displayTree());
 
         ConnectBinaryTrees.addTree(sutLeft, sutRight);
-        System.out.printf("sutLeft: %s%n", sutLeft.displayTree());
-        System.out.printf("sutRight: %s%n", sutRight.displayTree());
+        System.out.printf("sutLeft END: %s%n", sutLeft.displayTree());
+        String rightTreeString = sutRight.displayTree();
+        System.out.printf("sutRight END: %s%n%n", rightTreeString);
 
-
+        String expectedResult = "<[2:4,6],[4:8,10],[6:12,14],[8:1, ],[10: , ],[12: , ],[14: , ],[1:3,5],[3:7,9],[5:11,13],[7: , ],[9: , ],[11: , ],[13: , ]>";
+        assertEquals(expectedResult, rightTreeString);
     }
 }
