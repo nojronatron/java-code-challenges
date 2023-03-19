@@ -34,11 +34,14 @@ Tree Properties:
 - TreeNode has getter-setters for Value, LeftChild, and RightChild.
 - TreeNode has boolean IsLeaf helper method.
 - TreeNode has boolean HasLeftChild and HasRightChild helper methods.
+- TreeNode has boolean HasOnlyLeftChild and HasOnlyRightChild helper methods.
 
 Notes:
 
-- Tree design is not the focus.
-- Tree Node will be written in actual Java code, and then testing using JUnit Jupiter.
+- Tree design is not the focus, rather the Add function design and execution.
+- Tree Node will be written in actual Java code, and then tested using JUnit Jupiter.
+- Many of the Tree properties were implemented to make code easier to read.
+- Another helper method DisplayTree was developed for simplified "tree viewing", assisting with test and debug.
 
 ## Pseudocode
 
@@ -113,7 +116,19 @@ There are an infinite number of Binary Tree arrangements, but these 6 tests cove
 
 ## Actual Code
 
+[ConnectBinaryTrees class](../lib/src/main/java/myJava/code/challenges/ConnectBinaryTrees.java).
+
 ## Actual Tests
+
+[TestConnectBinaryTrees class](../lib/src/test/java/myJava/code/challenges/TestConnectBinaryTrees.java).
+
+## Retrospective Notes
+
+- There were no major coding errors.
+- Pseudocode functions as-is.
+- An improvement to the code could be to empty the Queue and call Continue, allowing the final Return statement to execute.
+- The only Tree input that should not be null is RightTree, because the Queue Class will throw a NullPointerException if RightTree is null. And even then, marking the function with a checked NullPointerException would be enough to make it safe.
+- If LeftTree input is null, the code executes as expected, even without the Null Check IF statements at the start of the function.
 
 ## Footer
 
