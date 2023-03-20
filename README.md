@@ -32,6 +32,8 @@ The following index links to readme files specific for each data structure and c
 - [X] [Trees](docs/readme-trees.md)
 - [X] [Hash Tables](docs/readme-hashtable.md)
 - [X] [Graphs](docs/readme-graphs.md)
+- [ ] [Sorting Algorithms](docs/readme-sortingAlgorithms.md)
+- [X] Challenge: [Connect Two Binary Trees](docs/readme-connectBinaryTrees.md)
 - [X] Binary Tree Challenge: [Count Leaf Nodes](docs/readme-leafCounterChallenge.md)
 - [X] Hashtable Challenge: [Find Most Common Word](docs/readme-mostCommonWordChallenge.md)
 - [X] Hashtable Challenge: [String Has Unique Characters](docs/readme-uniqueCharsInString.md)
