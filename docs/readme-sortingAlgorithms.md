@@ -141,6 +141,12 @@ Overall, the algorithm is short, clear, and does the job. Some improvements in t
 
 - Return should be void if this is an in-place operating function.
 - Using an inner while iteration instead of nested for loops to control the indexing is very inefficient.
+- Eliminating the test for sorted or not and allowing the iterators to run their course in a staggered fashion should fully sort the array and save a few lines of code.
+
+Since completing this challenge I have updated the Java Code to implement the retrospective improvements with these results:
+
+- Big-O in Time significantly reduced. For a 6-element array, O(2.5n) is achieved, and the time to complete an array of 100,000 elements is cut in half compared to the original algorithm design.
+- Code is even simpler and easier to read.
 
 ## Footer
 
