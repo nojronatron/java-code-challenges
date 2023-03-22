@@ -72,6 +72,6 @@ public class TestFirstSort {
         int[] inputArr = new int[0];
         int expectedArrayLength = 0;
         FirstSort.firstSort(inputArr);
-        assertEquals(expectedArrayLength, inputArr.length);
+        assertEquals(expectedArrayLength, inputArr.length); // in-place sort
     }
 }
