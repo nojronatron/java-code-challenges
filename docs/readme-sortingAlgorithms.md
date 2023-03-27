@@ -8,7 +8,89 @@ Java code (and tests of course) are stored in this project after all design step
 
 Not all sort algorithms will be explored and, in some cases, alternate algorithms might be employed and in these cases documentation will discuss the decision making process and the implementation.
 
-## Design Steps
+## Some Overview Notes About Sorting Algorithms
+
+Historically challenging and engaging topic in computer science.
+
+Research in the 1950's discovered many variations of algorithms to get the job done, with various computational requirements in time or processing power, and memory utilization.
+
+It has been proven that:
+
+- Comparison sort algorithms have a fundamental performance requirement of O(n log n).
+- Non-comparison sorting algorithms have better performance, all else being equal.
+- Small array sorting tends to be fast and space-efficient (arrays less than 20 elements in size).
+- Larger array sorting optimization is an open reserach topic.
+
+### Sorting Algorithm Classifications
+
+Computational Complexity:
+
+- Best, Worst, and Average case behavior, in Big-O notation, tends to plateau at O(n log n), with parallel sort approaching O(log^2 n) and non-optimized near or at O(n^2).
+
+Memory Usage:
+
+- "In Place" algorithms test to need O(1) in space.
+- Some sorting algorithms will need O(log n) in space.
+
+Recursion:
+
+- Some are purely recursive.
+- Others do not utilize recursion.
+- Others still do both.
+
+Stability:
+
+- "Maintain the relative order of records with equal keys".
+- Same-value elements, when moved, stay in the same relative order, while being moved to new indexes.
+- Non-stable sorts can cause undesirable re-ordering of elements upon a secondary sort, e.g. Sort by Last Name, then by First Name.
+- Stability is not a concern when equal elements are indistinguishable e.g. Integers vs Tuples (or KVPs).
+
+Comparison Sort:
+
+- Examine values between only 2 elements.
+
+General Method of Sorting:
+
+- Removing and inserting elements.
+- Swapping/Exchanging elements.
+- Merging elements.
+- Partitioning elements.
+- Selecting elements.
+
+Serial vs. Parallel Sorting:
+
+- Single-threaded or otherwise only operating on one focus of elements at a time.
+- Multithreaded or otherwise performing sort operations in parallel on the same input.
+
+Adaptive:
+
+- If the input is pre-sorted, does that affect the runtime?
+- Non-adaptive will attempt to sort an already sorted input.
+
+Online:
+
+- Can sort a constant stream of input values/elements.
+
+### Leveraging Constraints in Sorting Algorithms
+
+Not all sorting algorithms can sort all input data.
+
+- Some are limited to Integers or other Number-types.
+- Some are better with smaller inputs, but much worse with larger inputs and applying a constraint to use them only for smaller inputs is a good optimization step.
+- Some are better suited for larger inputs, but much worse with smaller inputs. Again, applying constraints to keep these algorithms executing on an appropriate input size is a good optimization step.
+- Some can accepts a streamed input and sort the data 'on the fly', others must work on a known-quantity input.
+- Some require knowing the bounds of the input data, e.g. Bucket Sort. If the start and end Keys cannot be identified, Bucket Sort will not be able to adapt to optimize processing for that input.
+
+### Commonly Used Sort Algorithms
+
+- Insertion Sort: Small data sets.
+- Heapsort, Mergesort, and Quicksort: Efficient algorithms for larger data sets.
+- Hybrid Sorting Algorithms: Leverage Insertion Sort at the top and recursive methods at the bottom.
+- Timsort: Android, Java, and Python implement this. Is a "hybrid of Mergesort, Insertion Sort, and some additional logic". _[Wikipedia Sorting_Algorithms]_
+- Introsort: Hybrid Quicksort and Heapsort. Utilized in some C++ and DotNET implementations. _[Wikipedia Sorting_Algorithms]_
+- Counting Sort and Radix Sort: Used with restricted input data or certain constraints on the input.
+- 
+## Design Steps to Solving Sort Algorithm Challenges
 
 1. Understand the problem, and break it down into its most simple parts.
 2. Write an algorithm that will solve the problem, in plain english.
@@ -24,14 +106,106 @@ Steps 4 through 7 will be recorded in this project directly.
 
 ## Table of Sort Algorithms
 
+Here is a table of sort algorithms that (over time) will be explored:
+
 - [X] First Shot Sorting (solving without preparatory studying)
-- [X] Insertion Sort
-- [ ] Bubble Sort
-- [ ] Heap Sort
-- [ ] Quick Sort
-- [ ] Merge Sort
-- [ ] Counting Sort
-- [ ] Bucket Sort
+- [X] Insertion Sort (simple sorter)
+- [X] Selection Sort (simple sorter)
+- [ ] Bubble Sort (educational, variants are Comb and Exchange)
+- [ ] Heap Sort (efficient)
+- [ ] Quick Sort (efficient)
+- [ ] Merge Sort (efficient)
+- [ ] Shell Sort (efficient)
+- [ ] Counting Sort (distribution sort)
+- [ ] Bucket Sort (distribution sort; Integers only)
+- [ ] Tree Sort (Used to balance BSTs)
+
+-- -
+
+## Selection Sort
+
+### Selection Sort Approach and Algorithm
+
+Selection sort attempts to sort by finding the location of the smallest value in a segment of an array and moving it to the beginning index.
+
+Whenever the algorithm moves the current smallest value to the start of the array, it increments the starting index, and does another search, this time ignoring the previous 'smallest value'.
+
+Selection sort repeats these steps until the last 2 indices of the input array have been examined (and perhaps swapped), and then returns the array.
+
+Selection sort works on the input array, sorting it _in place_, so it does not need to return anything.
+
+### Selection Sort Step Through
+
+1. Find minimum value from 1st index through to the last, storing the lowest value index.
+2. Swap the value at minimum value index with the first element in the array.
+3. Increment the starting element index.
+4. Repeat steps 1-3 using the new starting element index.
+
+### Selection Sort Analysis
+
+Selection sort will use nested iterators to 'walk' through the elements:
+
+- The outer loop will be the minimum index, starting at index 0 and ending at 1 less than input array length.
+- The inner loop will increment the 'current index', starting at index 1 and ending at the last element in the array (length - 1).
+- This arrangement causes the nested loop to operate on less than n^2 elements. For a eight element array, total time would be O(7 + 6 + 5 + 4 + 3 + 2 +1), or about 28 cycles.
+
+In Time: O(n^2) because the nested loops do not reduce the execution time enough to be factored down to O(n log n).
+
+In Space: O(1) because the algorithm performs an in-place sort, creating a constant additional space regardless of the size of the input.
+
+### Selection Sort Test Approach and Tests
+
+Test Framework: JUnit Jupiter
+
+Golden Path: Input `10, 20, 5, 15, -5, 0` results in output `-5, 0, 5, 10, 15, 20`.
+
+Additional Tests:
+
+- Array is sorted except for the 1st and last elements are swapped `[ 60, 20, 30, 40, 50, 10 ]` returns `[10, 20, 30, 40, 50, 60]`
+- A two element array in reverse order is returned in correct order: `[ 2, 1 ]` returns `[ 1, 2 ]`
+- A two element array is in sorted order and returned unchanged: `[ 1, 2 ]` returns `[ 2, 1 ]`
+- Very large array of unsorted inputs is returned sorted.
+- Arrays with duplicate integers is properly sorted: `[ 30, 20, 30, 20, 10, 10 ]` returns `[ 10, 10, 20, 20, 30, 30 ]`
+- A zero-length array input is returned unchanged.
+- A single-length array input is returned unchanged.
+- An array with all negative integers is properly sorted: `[ -60, -20, -30, -40, -50, -10 ]` returns `[ -60, -50, -40, -30, -20, -10 ]`
+
+[SelectionSort Test Library](../lib/src/test/java/myJava/code/challenges/TestSelectionSort.java)
+
+### Selection Sort Pseudocode
+
+```text
+DECLARE: Static Function SelectionSorter
+INPUT: An Array of Numbers
+OUTPUT: Nothing
+THROWS: n/a
+
+TEST: InputArr size is less than 2 elements
+    RETURN: void
+INITIALIZE: MinValIndex <- 0
+INITIALIZE: MinVal <- Value of InputArr at MinValIndex
+ITERATE: From IterationIndex = 0 to InputArr size - 2, increment 1
+    REASSIGN: MinValIndex <- IterationIndex
+    ITERATE: From CurrentIndex = 1 to InputArr size - 1, increment 1
+        TEST: Value of InputArr at CurrentIndex is less than Value of InputArr at IterationIndex
+            REASSIGN: MinValIndex <- CurrentIndex
+    REASSIGN: MinVal <- InputArr at MinValIndex
+    REASSIGN: InputArr at CurrentIndex <- InputArr at IterationIndex
+    REASSIGN: InputArr at IterationIndex <- MinVal
+RETURN: Void
+```
+
+### Selection Sort Java Code
+
+[SelectionSorter Java Code](../lib/src/main/java/myJava/code/challenges/SelectionSorter.java)
+
+### Selection Sort Retrospective
+
+- Selection Sort tends to be a bit quicker sorting arrays than Insertion Sort.
+- Selection Sort requires less code overall than Insertion Sort (which required a LinkedList with the ability to convert LL to an array).
+- No value replacement is necessary until the inner iterator has completed finding the index of the lowest value element.
+- Value replacement is only necessary if the index of the minimum value has been changed.
+- Swapping two values in-place requires creation of a temp variable to store value A, then value A can be replaced with value B, then value B can be replaced with the temp value (A).
 
 -- -
 
@@ -353,6 +527,12 @@ Since completing this challenge I have updated the Java Code to implement the re
 
 - Big-O in Time significantly reduced. For a 6-element array, O(2.5n) is achieved, and the time to complete an array of 100,000 elements is cut in half compared to the original algorithm design.
 - Code is even simpler and easier to read.
+
+## References
+
+[Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm) article Sorting Algorithms
+
+CodeFellows Sorting Algorithms Curriculum.
 
 ## Footer
 
