@@ -42,6 +42,7 @@ The following index links to readme files specific for each data structure and c
 - [X] Hashtable Challenge: [Palindrome Expert](docs/readme-palindromeNonChallenge.md)
 - [X] Tree Challenge: [Sprinkler Water Usage](docs/readme-sprinklerWaterUsageChallenge.md)
 - [ ] Graph Challenge: [Sprinkler Water Usage](docs/readme-sprinklerWaterUsageChallenge.md)
+- [X] Challenge: Count instances of a character in a text file.
 - [X] Challenge: [Convert Integer to Roman Numeral](docs/readme-intToRomanNumeralChallenge.md)
 - [X] Challenge: [Rotate 3x3 Matrix Of Integers](docs/readme-rotateIntegerMatrixChallenge.md)
 - [X] Challenge: [Largest Possible Product](docs/readme-largestPossibleProductChallenge.md)
