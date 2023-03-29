@@ -98,6 +98,12 @@ Other tests:
 - Count of capital 'L' in Lorem Ipsum: 1
 - Count of lowercase 'l' in Lorem Ipsum: 5
 
+[CountCharsInFile unit tests](../lib/src/test/java/myJava/code/challenges/TestCountCharsInFile.java)
+
+## Java Code
+
+[CountCharsInFile class code file](../lib/src/main/java/myJava/code/challenges/CountCharsInFile.java)
+
 ## Retrospective Comments
 
 - A console app has a main entrypoint, and by default many IDE templates select `public static void main(String[] args)` when in some instances a return other than void might be necessary, or inputs other than an array of String is required.
