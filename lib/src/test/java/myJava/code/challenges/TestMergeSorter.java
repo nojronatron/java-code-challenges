@@ -16,7 +16,7 @@ public class TestMergeSorter {
         assertArrayEquals(expectedResult, sut);
     }
     @Test public void test_largeRandomInput(){
-        int expectedLength = 47_000;
+        int expectedLength = 64_000;
         int[] duplicateArr = new int[expectedLength];
         int[] inputArr = new int[expectedLength];
         Random rand = new Random();
@@ -60,7 +60,7 @@ public class TestMergeSorter {
         sorter.mergeSort(sut);
         assertArrayEquals(expectedResult, sut);
     }
-    @Test public void test_firstAndLastElementSwappedResturnsSorted(){
+    @Test public void test_firstAndLastElementSwappedReturnsSorted(){
         int[] sut = new int[]{60, 20, 30, 40, 50, 10};
         int[] expectedResult = new int[]{10, 20, 30, 40, 50, 60};
         var sorter = new MergeSorter();
