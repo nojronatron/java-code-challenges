@@ -43,7 +43,7 @@ public class TestFirstSort {
 
     @Test
     public void test_largeUnsortedArrayIsReturnedInSortedOrder() {
-        int expectedLength = 10_000;
+        int expectedLength = 34_000;
         int[] duplicateArr = new int[expectedLength];
         int[] inputArr = new int[expectedLength];
         Random rand = new Random();
