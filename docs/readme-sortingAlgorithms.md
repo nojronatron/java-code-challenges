@@ -114,7 +114,7 @@ Here is a table of sort algorithms that (over time) will be explored:
 - [ ] Bubble Sort (educational, variants are Comb and Exchange)
 - [ ] Heap Sort (efficient)
 - [ ] Quick Sort (efficient)
-- [ ] Merge Sort (efficient)
+- [X] Merge Sort (efficient) [mergesort challenge](./readme-mergesortChallenge.html)
 - [ ] Shell Sort (efficient)
 - [ ] Counting Sort (distribution sort)
 - [ ] Bucket Sort (distribution sort; Integers only)
