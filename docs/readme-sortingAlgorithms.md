@@ -19,7 +19,7 @@ It has been proven that:
 - Comparison sort algorithms have a fundamental performance requirement of O(n log n).
 - Non-comparison sorting algorithms have better performance, all else being equal.
 - Small array sorting tends to be fast and space-efficient (arrays less than 20 elements in size).
-- Larger array sorting optimization is an open reserach topic.
+- Larger array sorting optimization is an open research topic.
 
 ### Sorting Algorithm Classifications
 
@@ -35,8 +35,8 @@ Memory Usage:
 Recursion:
 
 - Some are purely recursive.
-- Others do not utilize recursion.
-- Others still do both.
+- Others do not utilize recursion at all.
+- Some will have recursive methods.
 
 Stability:
 
@@ -108,13 +108,13 @@ Steps 4 through 7 will be recorded in this project directly.
 
 Here is a table of sort algorithms that (over time) will be explored:
 
-- [X] First Shot Sorting (solving without preparatory studying)
-- [X] Insertion Sort (simple sorter)
-- [X] Selection Sort (simple sorter)
-- [ ] Bubble Sort (educational, variants are Comb and Exchange)
+- [X] First Shot Sorting (solving without preparatory studying) [first shot sort and bubble sort](#first-shot-java-code)
+- [X] Insertion Sort (simple sorter) [insertion sort](#insertion-sort-java-code)
+- [X] Selection Sort (simple sorter) [selection sort](#selection-sort-java-code)
+- [X] Bubble Sort (educational, variants are Comb and Exchange) [first shot sort and bubble sort](#first-shot-java-code)
 - [ ] Heap Sort (efficient)
 - [ ] Quick Sort (efficient)
-- [X] Merge Sort (efficient) [mergesort challenge](./readme-mergesortChallenge.html)
+- [X] Merge Sort (efficient) [mergesort challenge](./readme-mergesortChallenge.md)
 - [ ] Shell Sort (efficient)
 - [ ] Counting Sort (distribution sort)
 - [ ] Bucket Sort (distribution sort; Integers only)
@@ -388,7 +388,7 @@ ITERATE: While Current is not Null
 RETURN: ResultArr
 ```
 
-### Insertion Sort JavaCode
+### Insertion Sort Java Code
 
 [InsertionSorter](../lib/src/main/java/myJava/code/challenges/InsertionSorter.java)
 
@@ -487,6 +487,8 @@ Note: I could have added a test containing only negative numbers to address a qu
 
 FirstSort Method [Tests](../lib/src/test/java/myJava/code/challenges/TestFirstSort.java)
 
+BubbleSort Method [Tests](../lib/src/test/java/myJava/code/challenges/TestBubbleSorter.java)
+
 ### First Shot Pseudocode
 
 ```text
@@ -515,18 +517,52 @@ RETURN: IntArr
 
 [FirstSort Java Code](../lib/src/main/java/myJava/code/challenges/FirstSort.java)
 
+[BubbleSorter Java Code](../lib/src/main/java/myJava/code/challenges/BubbleSorter.java)
+
 ### First Shot Retrospective
 
 Overall, the algorithm is short, clear, and does the job. Some improvements in the design would be:
 
 - Return should be void if this is an in-place operating function.
-- Using an inner while iteration instead of nested for loops to control the indexing is very inefficient.
+- Using an inner iteration instead of calculating a secondary value to control the indexing is very inefficient.
 - Eliminating the test for sorted or not and allowing the iterators to run their course in a staggered fashion should fully sort the array and save a few lines of code.
 
 Since completing this challenge I have updated the Java Code to implement the retrospective improvements with these results:
 
 - Big-O in Time significantly reduced. For a 6-element array, O(2.5n) is achieved, and the time to complete an array of 100,000 elements is cut in half compared to the original algorithm design.
 - Code is even simpler and easier to read.
+
+After further code challenge studying, it is clear that I wrote a Bubble Sort algorithm.
+
+[Bubble Sort - Wikipedia](https://en.wikipedia.org/wiki/Bubble_sort)
+
+#### Bubble Sort Pseudocode
+
+```test
+FUNCTION: BubbleSort
+INPUT: Integer Array InputArr
+OUTPUT: void
+THROWS: n/a
+IF: InputArr Length is Greater Than 1
+    INITIALIZE: SortedCount <- 0
+    ITERATE: While SortedCount Less Than InputArr Length - 1
+        INITIALIZE: Idx <- 0
+        ITERATE: While Idx Less Than InputArr Length - 1
+            IF: InputArr at Idx value is Greater Than InputArr at Idx + 1
+                REASSIGN: SortedCount <- 0
+                INITIALIZE: TempValue <- InputArr at Idx value
+                REASSIGN: InputArr at Idx <- InputArr at Idx + 1 value 
+                REASSIGN: InputArr at Idx + 1 <- TempValue
+            ELSE:
+                REASSIGN: SortedCount <- Increment 1
+            REASSIGN: Idx <- Increment 1
+```
+
+#### Bubble Sort Analysis
+
+Time: Due to nested iterating structures, worst-case is O(n^2)
+
+Space: This algorithm sorts arrays in-place. Worst-case is O(1) for any number of elements.
 
 ## References
 
