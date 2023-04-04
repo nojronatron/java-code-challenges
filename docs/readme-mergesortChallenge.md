@@ -148,4 +148,4 @@ See the [Merge Sorter class java file](../lib/src/main/java/myJava/code/challeng
 
 ## Footer
 
-Return to [Root README](../README.html)
+Return to [Root README](../README.md)
