@@ -1,15 +1,13 @@
 package myJava.code.models;
 
-import myJava.code.models.MyBinaryNode;
-
 public interface IMyBinaryNode {
-    MyBinaryNode getLeft();
+  MyBinaryNode getLeft();
 
-    void setLeft(MyBinaryNode left);
+  void setLeft(MyBinaryNode left);
 
-    MyBinaryNode getRight();
+  MyBinaryNode getRight();
 
-    void setRight(MyBinaryNode right);
+  void setRight(MyBinaryNode right);
 
-    int getValue();
+  int getValue();
 }
