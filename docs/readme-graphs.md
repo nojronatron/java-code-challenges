@@ -23,22 +23,22 @@ Directed or "Digraph"
 
 - Every edge is directed.
 - Each traversal can only happen in one direction from a given Vertex.
-- Directs which Vertex/Vertices *can* be traversed next from the current Vertex.
+- Directs which Vertex/Vertices _can_ be traversed next from the current Vertex.
 
 Complete
 
-- All nodes are connected to *all other nodes* i.e. a matrix.
+- All nodes are connected to _all other nodes_ i.e. a matrix.
 
 Connected
 
-- All Vertices/Nodes have *at least* one edge.
-- One or more Vertices/Nodes *could* have more than one edge.
+- All Vertices/Nodes have _at least_ one edge.
+- One or more Vertices/Nodes _could_ have more than one edge.
 
 Disconnected
 
 - One or more Vertices/Nodes do not have any edges.
 - Disconnected Graphs may have Vertices/Nodes with edges, however there will be at least one Vertex/Node with no Edges.
-- Graphs that are disconnected from each other *do not share any Edge*.
+- Graphs that are disconnected from each other _do not share any Edge_.
 - A standalone Vertex or Edge is known as an Island within a graph data structure.
 
 Cycles In A Graph
@@ -78,8 +78,8 @@ Adjacency Matrix
 - A 2-dimensional array.
 - Dimensions are determined by the number of Vertices, squared.
 - A 4-vertices Graph will have a 4x4 Adjacency Matrix.
-- At each intersection (cell or record) in the matrix, a truthy value is placed if there *is* an Edge between the X-Vertex and the Y-Vertex.
-- Any intersection where an Edge does *not* exist between X-Vertex and Y-Vertex, a falsey (or no value) is placed.
+- At each intersection (cell or record) in the matrix, a truthy value is placed if there _is_ an Edge between the X-Vertex and the Y-Vertex.
+- Any intersection where an Edge does _not_ exist between X-Vertex and Y-Vertex, a falsey (or no value) is placed.
 
 Adjacency List
 
@@ -141,7 +141,7 @@ A key difference is dealing with Cyclic vs. Acyclic graphs.
 
 Trees are Acyclic, so the traversal methods do not have to be concerned with visiting the same node twice.
 
-Graphs *can be* Cyclic, so additional consideration must be made to avoid traversing the same Vertices again and again.
+Graphs _can be_ Cyclic, so additional consideration must be made to avoid traversing the same Vertices again and again.
 
 ### Breadth First Traversal
 
@@ -150,7 +150,7 @@ Overview:
 1. Enqueue the declared 'start' Node (Vertex).
 2. Iterate through the next steps while the Queue is not empty.
 3. Dequeue the first Node.
-4. If the Node is not in the 'Visited' array, add it. 
+4. If the Node is not in the 'Visited' array, add it.
 5. If the Node has Edges, Enqueue the Neighbor Vertices into the Queue.
 
 Notes:
@@ -261,7 +261,7 @@ ITERATE: While DepthStack is not empty
         IF: Neighbor not in VisitedNodes
             ASSIGN: VisitedNodes <- Add Neighbor
             ASSIGN: DepthStack <- Push Neighbor
-RETURN: VisitedNodes 
+RETURN: VisitedNodes
 ```
 
 Notes:
@@ -281,7 +281,7 @@ Reminders:
 - Checking if Set HAS Node in it: O(1).
 - ~~Adding a Node to a Set: O(1).~~
 - Iterating through collection of Edges (i.e. Adjacency List or Visited Array): O(Edges).
-- Iterating through all Vertices one single time each in a connected Graph: O(Nodes + Edges) -> roughly O(n^2), arguably O(n+m). *[University of Washington, see Resources section of this document]*
+- Iterating through all Vertices one single time each in a connected Graph: O(Nodes + Edges) -> roughly O(n^2), arguably O(n+m). _[University of Washington, see Resources section of this document]_
 - Additional space is needed for storing each Neighbor Node.
 - Additional space is needed for storing each Visited node.
 - Additional space is needed for Stack and Queue data structures itself.
@@ -347,12 +347,12 @@ public class GraphTraverser {
 }
 ```
 
-There were many issues with this original code, mostly in using a Set and using an Array of Integers.
+There were many issues with my original Java code, mostly in that a Set is an interface, and using an Array of Integers as an Adjacency Matrix did not affort any benefit.
 
 - Using a Set as a raw Interface is not possible.
-- Leveraging a data structure that *implements* Set is a good idea.
+- Leveraging a data structure that _implements_ Set is a good idea.
 - Data structures that implement Set include: AbstractSet, HashSet, TreeSet, and more.
-- Data structures that implement Set *do not guarantee* a sorted order, so comparing results might require additional processing such as a Sort Method or an iterator for comparison and selection of items.
+- Data structures that implement Set _do not guarantee_ a sorted order, so comparing results might require additional processing such as a Sort Method or an iterator for comparison and selection of items.
 
 See the [graph class implementation](../lib/src/main/java/myJava/code/models/MyGraph.java) in Java code.
 
@@ -372,13 +372,13 @@ class GraphNode {
 class NodeEdge {
     private GraphNode neighbor;
     private int weight;
-    
+
     // If an Edge is needed, then a neighbor and weight are required (weight could be defaulted to 0)
     public NodeEdge(GraphNode neighbor, int weight) {
         this.neighbor = neighbor;
         this.weight = weight;
     }
-    
+
     // public getters for neighbor and weight
 }
 ```
@@ -388,20 +388,22 @@ In the end the GraphNode and GraphEdge classes are largely the same as in the ab
 - Collections must be initialized, and the Constructor is a good place to do that.
 - For an Edge, a second Constructor could be added to set a default weight to 0 or 1, for cases where weight is ignored.
 
+See the actual implemented and tested [Graph Class](../lib/src/main/java/myJava/code/models/MyGraph.java) java code.
+
 ### Questions to Explore
 
 Could the Adjacency List be used as the Set of visited nodes that the pseudocode is referring to? Why or why not?
 
-- The Adjacency List as a Collection of Keys.
-- Examples show the Adjacency List Key as the *value* held in the Graph node.
-- Buckets would store the NodeEdge objects, containing the Neighbor and Weight information.
+- The Adjacency List as a Collection of Keys and Values (a Dictionary).
+- Examples show the Adjacency List Key as the _value_ held in the Graph node.
+- Buckets would store the NodeEdge objects, containing the Neighbor and Weight information in addition to the value/payload of the Vertex.
 - Uniqueness would be guaranteed.
 
 What if the Adjacency List was stored within each Vertex rather than the Graph Class?
 
 - The Edge object is used as a sort of adjacency collection within each Vertex already.
-- Removing a Vertex from a Graph could then be promoted to a capability of the Graph Class where it can find all Edges that point to a Vertex, and then tell the owning Vertex to remove that Edge itself.
-- I think this boils down to: A) Each Vertex *has* this information in its list of Edges (and Neighbors), and the Graph simply keeps a traversable list of Vertices that can then be queried for their Edges (unique Adjacency Lists).
+- Removing a Vertex from a Graph could then be a capability of the Graph Class where it can find all Edges that point to a Vertex, and then tell the owning Vertex to remove that Edge itself.
+- I think this boils down to: A) Each Vertex _has_ this information in its list of Edges (and Neighbors), and the Graph simply keeps a traversable list of Vertices that can be found within the Graph - using both the Graph-level adjacency list and the Vertices' Edge collections enables removal of Nodes and deletions of Edges within the Graph.
 
 ## Tests and Approach
 
@@ -433,19 +435,17 @@ Graph [Tests File](../lib/src/test/java/myJava/code/models/TestMyGraph.java)
 
 ## Key Takeaways
 
-- When removing Vertices from a connected *directed* graph, a single Vertex removal can cause the Graph to become *disconnected*.
+- When removing Vertices from a connected _directed_ graph, a single Vertex removal can cause the Graph to become _disconnected_.
 - When removing Vertices from a connected directed graph, the Edge and Neighbor relationship must be handled properly.
-- It is *critical* to add the front/first/input Node to the Visited List *prior* to entering the while iterator.
-- Try to remember how the Class and the Method will actually be used. Yes, the ability to test all methods is important, but the actual utilization of those methods might not include *returning a GraphNode* or a *HashSet* for oexample.
-
-## Remaining TODOs
+- It is _critical_ to add the front/first/input Node to the Visited List _prior_ to entering the while iterator.
+- Try to remember how the Class and the Method will actually be used. While the ability to test all methods is important, the actual utilization of those methods might not include _returning a GraphNode_ or a _HashSet_ for oexample.
 
 ### Efficiently Remove a Directed Graph Vertex
 
 In a directed Graph:
 
-- How to notify incoming neighbors and their edge connections that a Vertex has been removed from the Graph?
-- How the Class-level Adjacency List be utilized to efficiently implement this behavior?
+- [x] Notify neighbors and their edge connections that a Vertex has been removed from the Graph?
+- [x] The Class-level Adjacency List is utilized to find parent Vertices that can then be told to remove a Neighbor.
 
 ## Resources and Acknowledgements
 

@@ -3,7 +3,6 @@ package myJava.code.models;
 import java.util.ArrayList;
 
 public class MyBinaryTree {
-  // TODO: refactor methods into MyBinaryNode
   private MyBinaryNode root = null;
   private ArrayList<Integer> storageArray = new ArrayList<>();
 
