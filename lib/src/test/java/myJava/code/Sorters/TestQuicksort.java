@@ -9,6 +9,68 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class TestQuicksort {
   @Test
+  public void test_SwapFunction() {
+    int[] inputArr = { 5, 2, 3, 4, 1 };
+    int leftItem = 0;
+    int rightItem = 4;
+    int[] expectedResult = { 1, 2, 3, 4, 5 };
+    myJava.code.Sorters.Quicksort.swap(leftItem, rightItem, inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+  }
+
+  @Test
+  public void test_IterateRightFunction() {
+    int[] inputArr = { 5, 4, 3, 2, 1 };
+    int leftItem = 0;
+    int midItem = 2;
+    int rightItem = 4;
+    int[] expectedResult = { 1, 4, 3, 2, 5 };
+    myJava.code.Sorters.Quicksort.iterateRight(leftItem, midItem, rightItem, inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+  }
+
+  @Test
+  public void test_IterateLeftFunction() {
+    int[] inputArr = { 5, 4, 3, 2, 1 };
+    int leftItem = 0;
+    int midItem = 2;
+    int rightItem = 4;
+    int[] expectedResult = { 1, 2, 3, 4, 5 };
+    myJava.code.Sorters.Quicksort.iterateLeft(leftItem, midItem, rightItem, inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+  }
+
+  @Test
+  public void test_PartitionFunctionExitsWithOnlyTwoElements() {
+    int[] inputArr = { 2, 1 };
+    int leftItem = 0;
+    int rightItem = 1;
+    int[] expectedResult = { 1, 2 };
+    myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+  }
+
+  @Test
+  public void test_PartitionFunctionProcessesWithThreeElements() {
+    int[] inputArr = { 3, 2, 1 };
+    int leftItem = 0;
+    int rightItem = 2;
+    int[] expectedResult = { 1, 2, 3 };
+    myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+  }
+
+  @Test
+  public void test_PartitionFunctionProcessesWithFourElements() {
+    int[] inputArr = { 4, 3, 2, 1 };
+    int leftItem = 0;
+    int rightItem = 3;
+    int[] expectedResult = { 1, 2, 3, 4 };
+    myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+  }
+
+  @Test
   public void test_goldenPath() {
     var sut = new int[] { 15, 5, -5, 0, 20, -10, 10 };
     var expectedResult = new int[] { -10, -5, 0, 5, 10, 15, 20 };
