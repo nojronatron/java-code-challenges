@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestQuicksort {
   @Test
@@ -14,29 +15,68 @@ public class TestQuicksort {
     int leftItem = 0;
     int rightItem = 4;
     int[] expectedResult = { 1, 2, 3, 4, 5 };
+    printArray(inputArr);
     myJava.code.Sorters.Quicksort.swap(leftItem, rightItem, inputArr);
+    printArray(inputArr);
     assertArrayEquals(expectedResult, inputArr);
   }
 
   @Test
-  public void test_IterateRightFunction() {
-    int[] inputArr = { 5, 4, 3, 2, 1 };
-    int leftItem = 0;
-    int midItem = 2;
-    int rightItem = 4;
-    int[] expectedResult = { 1, 4, 3, 2, 5 };
-    myJava.code.Sorters.Quicksort.iterateRight(leftItem, midItem, rightItem, inputArr);
+  public void test_GetMiddleFunction() {
+    int first = 1;
+    int last = 3;
+    int expectedResult = 2;
+    assertEquals(expectedResult, myJava.code.Sorters.Quicksort.getMiddle(first, last));
+
+    first = 0;
+    last = 2;
+    expectedResult = 1;
+    assertEquals(expectedResult, myJava.code.Sorters.Quicksort.getMiddle(first, last));
+
+    first = 0;
+    last = 1;
+    expectedResult = 1;
+    assertEquals(expectedResult, myJava.code.Sorters.Quicksort.getMiddle(first, last));
+
+    first = 0;
+    last = 10;
+    expectedResult = 5;
+    assertEquals(expectedResult, myJava.code.Sorters.Quicksort.getMiddle(first, last));
+
+    first = 10;
+    last = 20;
+    expectedResult = 15;
+    assertEquals(expectedResult, myJava.code.Sorters.Quicksort.getMiddle(first, last));
+  }
+
+  @Test
+  public void test_MoveFunction() {
+    int[] inputArr = { 4, 2, 3, 4, 1 };
+    int newValIdx = 4;
+    int holeIdx = 0;
+    int[] expectedResult = { 1, 2, 3, 4, 1 };
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.move(newValIdx, holeIdx, inputArr);
+    printArray(inputArr);
     assertArrayEquals(expectedResult, inputArr);
   }
 
   @Test
-  public void test_IterateLeftFunction() {
+  public void test_Pivoter() {
+    int leftIdx = 0;
     int[] inputArr = { 5, 4, 3, 2, 1 };
-    int leftItem = 0;
-    int midItem = 2;
-    int rightItem = 4;
     int[] expectedResult = { 1, 2, 3, 4, 5 };
-    myJava.code.Sorters.Quicksort.iterateLeft(leftItem, midItem, rightItem, inputArr);
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.pivoter(leftIdx, inputArr.length - 1, inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+
+    leftIdx = 0;
+    inputArr = new int[] { 2, 1 };
+    expectedResult = new int[] { 1, 2 };
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.pivoter(leftIdx, inputArr.length - 1, inputArr);
+    printArray(inputArr);
     assertArrayEquals(expectedResult, inputArr);
   }
 
@@ -45,8 +85,10 @@ public class TestQuicksort {
     int[] inputArr = { 2, 1 };
     int leftItem = 0;
     int rightItem = 1;
-    int[] expectedResult = { 1, 2 };
+    int[] expectedResult = { 2, 1 };
+    printArray(inputArr);
     myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
+    printArray(inputArr);
     assertArrayEquals(expectedResult, inputArr);
   }
 
@@ -55,8 +97,10 @@ public class TestQuicksort {
     int[] inputArr = { 3, 2, 1 };
     int leftItem = 0;
     int rightItem = 2;
-    int[] expectedResult = { 1, 2, 3 };
+    int[] expectedResult = { 3, 1, 2 };
+    printArray(inputArr);
     myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
+    printArray(inputArr);
     assertArrayEquals(expectedResult, inputArr);
   }
 
@@ -65,17 +109,21 @@ public class TestQuicksort {
     int[] inputArr = { 4, 3, 2, 1 };
     int leftItem = 0;
     int rightItem = 3;
-    int[] expectedResult = { 1, 2, 3, 4 };
+    int[] expectedResult = { 3, 4, 1, 2 };
+    printArray(inputArr);
     myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
+    printArray(inputArr);
     assertArrayEquals(expectedResult, inputArr);
   }
 
   @Test
   public void test_goldenPath() {
-    var sut = new int[] { 15, 5, -5, 0, 20, -10, 10 };
+    var inputArr = new int[] { 15, 5, -5, 0, 20, -10, 10 };
     var expectedResult = new int[] { -10, -5, 0, 5, 10, 15, 20 };
-    myJava.code.Sorters.Quicksort.quickSort(sut);
-    assertArrayEquals(expectedResult, sut);
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.quickSort(inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
   }
 
   @Test
@@ -99,44 +147,52 @@ public class TestQuicksort {
 
   @Test
   public void test_singleElementReturnsSorted() {
-    var sut = new int[] { 11 };
+    var inputArr = new int[] { 11 };
     var expectedResult = new int[] { 11 };
-    myJava.code.Sorters.Quicksort.quickSort(sut);
-    assertArrayEquals(expectedResult, sut);
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.quickSort(inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
   }
 
   @Test
   public void test_twoElementSortedReturnsSorted() {
-    var sut = new int[] { 0, 10 };
+    var inputArr = new int[] { 0, 10 };
     var expectedResult = new int[] { 0, 10 };
-    myJava.code.Sorters.Quicksort.quickSort(sut);
-    assertArrayEquals(expectedResult, sut);
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.quickSort(inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
   }
 
   @Test
   public void test_twoElementUnsortedReturnsSorted() {
-    var sut = new int[] { 10, 0 };
+    var inputArr = new int[] { 10, 0 };
     var expectedResult = new int[] { 0, 10 };
-    printArray(sut);
-    myJava.code.Sorters.Quicksort.quickSort(sut);
-    printArray(sut);
-    assertArrayEquals(expectedResult, sut);
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.quickSort(inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
   }
 
   @Test
   public void test_duplicateElementsInArrayUnsortedReturnsSorted() {
-    var sut = new int[] { -10, 5, 10, 5, 0 };
+    var inputArr = new int[] { -10, 5, 10, 5, 0 };
     var expectedResult = new int[] { -10, 0, 5, 5, 10 };
-    myJava.code.Sorters.Quicksort.quickSort(sut);
-    assertArrayEquals(expectedResult, sut);
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.quickSort(inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
   }
 
   @Test
   public void test_firstAndLastElementSwappedReturnsSorted() {
-    int[] sut = new int[] { 60, 20, 30, 40, 50, 10 };
+    int[] inputArr = new int[] { 60, 20, 30, 40, 50, 10 };
     int[] expectedResult = new int[] { 10, 20, 30, 40, 50, 60 };
-    myJava.code.Sorters.Quicksort.quickSort(sut);
-    assertArrayEquals(expectedResult, sut);
+    printArray(inputArr);
+    myJava.code.Sorters.Quicksort.quickSort(inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
   }
 
   private static void printArray(int[] arr) {
