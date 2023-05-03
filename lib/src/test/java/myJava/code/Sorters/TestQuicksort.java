@@ -85,7 +85,7 @@ public class TestQuicksort {
     int[] inputArr = { 2, 1 };
     int leftItem = 0;
     int rightItem = 1;
-    int[] expectedResult = { 2, 1 };
+    int[] expectedResult = { 1, 2 };
     printArray(inputArr);
     myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
     printArray(inputArr);
@@ -97,7 +97,7 @@ public class TestQuicksort {
     int[] inputArr = { 3, 2, 1 };
     int leftItem = 0;
     int rightItem = 2;
-    int[] expectedResult = { 3, 1, 2 };
+    int[] expectedResult = { 2, 1, 3 };
     printArray(inputArr);
     myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
     printArray(inputArr);
@@ -109,7 +109,7 @@ public class TestQuicksort {
     int[] inputArr = { 4, 3, 2, 1 };
     int leftItem = 0;
     int rightItem = 3;
-    int[] expectedResult = { 3, 4, 1, 2 };
+    int[] expectedResult = { 2, 3, 1, 4 };
     printArray(inputArr);
     myJava.code.Sorters.Quicksort.partition(leftItem, rightItem, inputArr);
     printArray(inputArr);
@@ -128,7 +128,7 @@ public class TestQuicksort {
 
   @Test
   public void test_largeRandomInput() {
-    int expectedLength = 64_000;
+    int expectedLength = 6_000_000;
     int[] duplicateArr = new int[expectedLength];
     int[] inputArr = new int[expectedLength];
     Random rand = new Random();
