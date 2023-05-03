@@ -15,7 +15,7 @@ Minimal research into Quick Sort reveals these properties of the algorithm:
 
 Quicksort uses divide-and-conquer approach, so a _pivot_ index needs to be determined for sorting values at each pass, and a partitioning function splits the input array (and subsequent array and sub-arrays) into smaller sub-arrays. How exactly to determine the pivot index is worth considering in terms of overall efficiency, size of the input, or range of values in the input array. For my solution, I simply picked the _last index of the array_.
 
-Since quicksort is an unstable sort, my solution does not consider the starting relative order of the elements. For example, a KV Array like `[ {3, 'charlie'}, {11 'king'}, {1, 'alpha'}, {2, 'bravo'}, {11, 'kilo'}, {4, 'delta'}, {0, 'null'} ]` contains duplicate key 11. While the algorithms sorts the array it will not consider any difference between `{11, 'king'}` and `{11, 'kilo'}`. Object with value 'king' could indeed end up at following 'kilo'. If the algorithms was stable, '11, king' would always appear earlier in the sorted array than '11, kilo' with this provided input array. There are other ways to make the sorting algorithm stable but I will not address it here given the expectation that Quicksort is _not_ a stable sorting algorithm generally.
+Since quicksort is an unstable sort, my solution does not consider the starting relative order of the elements. For example, a KV Array like `[ {3, 'charlie'}, {11 'king'}, {1, 'alpha'}, {2, 'bravo'}, {11, 'kilo'}, {4, 'delta'}, {0, 'null'} ]` contains duplicate key 11. While the algorithms sorts the array it will not consider any difference between `{11, 'king'}` and `{11, 'kilo'}`. Object with value 'king' could indeed end up at following 'kilo'. If the algorithms was stable, '11, king' would always appear earlier in the sorted array than '11, kilo' with this provided input array. There are other ways to make the sorting algorithm stable but I will not address it here given the expectation that Quicksort is _not_ a stable sorting algorithm.
 
 Recursion is used to call functions repeatedly until an exit condition is met. In this case, there is no need to break a sub-array of size less than 3 into smaller components, so that will be the exit condition.
 
@@ -31,88 +31,7 @@ DECLARE: Function Quicksort
 INPUT: Array NumberArray
 OUTPUT: void
 THROWS: NullPointerException
-IF: NumberArray Size Less Than 2
-  RETURN: void
-INITIALIZE: LeftIdx <- 0
-INITIALIZE: RightIdx <- NumberArray Size - 1
-CALL: Function Pivoter <- LeftIdx, RightIdx, NumberArray
-RETURN: void
-```
 
-```text
-DECLARE: Function Pivoter
-INPUT: Number FirstIdx, Number LastIdx, Array NumberArray
-OUTPUT: void
-IF: LastIdx - FirstIdx Less Than 1
-  RETURN: void
-IF: LastIdx - FirstIdx Equals 1
-  IF: NumberArray at FirstIdx GT NumberArray at LastIdx
-    CALL: Swap <- FirstIdx, LastIdx, NumberArray
-  RETURN: void
-INITIALIZE: Number LowerIdx <- LastIdx
-INITIALIZE: Number GreaterIdx <- FirstIdx
-INITIALIZE: Number HoleIdx <- Call: GetMiddle <- FirstIdx, LastIdx
-INITIALIZE: Number TempValue <- NumberArray at HoleIdx
-INITIALIZE: Number FlipFlop <- 1
-ITERATE: While LowerIdx Greater Than HoleIdx
-  IF: FlipFlop GT 0
-    If: NumberArray at GreaterIdx Greater Than Or Equal to TempVal
-      CALL: Function Move <- GreaterIdx, HoleIdx, NumberArray
-      REASSIGN: HoleIdx <- GreaterIdx
-      REASSIGN: FlipFlop <- -1
-    INCREMENT: GreaterIdx <- 1
-    NEXT: Iteration
-  IF: FlipFlop LT 0
-    IF: NumberArray at LowerIdx Less Than Or Equal to TempVal
-      CALL: Function Move <- LowerIdx, HoleIdx, NumberArray
-      REASSIGN: HoleIdx <- LowerIdx
-      REASSIGN: FlipFlop <- 1
-    DECREMENT: LowerIdx <- 1
-    NEXT: Iteration
-REASSIGN: NumberArray at HoleIdx <- TempVal
-CALL: Function Partition <- FirstIdx, LastIdx, NumerArray
-RETURN: void
-```
-
-```text
-DECLARE: Function GetMiddle
-INPUT: Number FirstIdx, Number LastIdx
-OUTPUT: Number
-INITIALIZE: TempLen <- RightIdx - LeftIdx
-IF: TempLen Less Than 2
-  RETURN: 0
-INITIALIZE: MidIdx <- TempLen Divided By 2
-IF: TempLen Modulo 2 Not Equals 0
-  REASSIGN: MidIdx <- (MidIdx - 1) Divided By 2
-REASSIGN: MidIdx <- MidIdx + LeftIdx
-RETURN: MidIdx
-```
-
-```text
-DECLARE: Function Partition
-INPUT: Number LeftIdx, Number RightIdx, NumberArray
-THROWS: nothing
-INITIALIZE: MidIdx <- Call Function GetMiddle <- LeftIdx, RightIdx
-CALL: Pivoter <- LeftIdx, MidIdx-1, NumberArray
-CALL: Pivoter <- MidIdx, RightIdx, NumberArray
-RETURN: void
-```
-
-```text
-DECLARE: Function Swap
-INPUT: LeftIdx, RightIdx, NumberArray
-OUTPUT: void
-INITIALIZE: TempValue <- NumberArray at LeftIdx
-REASSIGN: NumberArray at LeftIdx <- NumberArray at RightIdx
-REASSIGN: NumberARray at RightIdx <- TempValue
-RETURN: void
-```
-
-```text
-DECLARE: Function Move
-INPUT: HoleIdx, NewIdx, NumberArray
-OUTPUT: void
-REASSIGN: NumberArray at HoleIdx <- NumberArray at NewIdx
 RETURN: void
 ```
 
@@ -141,28 +60,29 @@ The second-shot implementation used a modified approach based in-part on the rea
 - Once the lower- and higher- value index iterations have completed, call a recursive Partition function that again performs the pivoting function.
 - Once all sub-arrays of the input array have been sorted using the pivoting function, it should exit and the input array should then be sorted.
 
+A third attempt at solving this challenge will appear here.
+
 ## Algorithm Analysis
 
 Pseudocode Time:
 
-- Using a partitioning technique means iterations through the array are distributed in smaller preportions.
-- Using recursion instead of end-to-end iterating saves on processing (or re-processing) array values that are already set in place.
-- Stepping through the pseudocode using a 9-element array with at least 1 duplicated value can be sorted in less than 30 steps (approx 3N).
-- Initial estimate of worst-case performance in time is O(n log n).
+- A new analysis will be written once Pseudocode has been written.
 
 Pseudocode Space:
 
-- The Algorithm functions pass index numbers and Array references rather than storing values in separate structures.
-- Very few additional local values are generated, although a very small array will cause the Space to jump to an apparent O(n^2).
-- Overall, storage is linear, and very quickly becomes insignificant as the input element count increases.
-- Index pointers are stored in the execution stack during recursive calls.
-- Initial estimate of worst-case performance in space is O(log(n)).
+- A new analysis will be written once Pseudocode has been written.
 
 ## Retrospectives
 
 The first try code would not pass all tests. Seems like input arrays with duplicate values are not fully sorted before an exit condition is encountered.
 
 After reading a little bit more about Quicksort, it appears that my swap mechanism should really be an enhanced _shift_ that moves the midpoint by 'rotating' the left-most higher-than-mid value and the right-most lower-than-mid value. The trouble with this technique (after exploring it will step-throughs) is the rotation does not always keep lower-value items nearest the start of the array, and can in some cases change a well-placed element into a very wrong index position, never to be returned to a proper index.
+
+My second attempt was able to pass more tests, but not all of them. After some additional reading I decided to implement Stephen's pseudocode as Java and run my tests against it (they all passed). Analyzing his algorithm it turns out:
+
+- Partitioning doesn't have to result in two equal (mostly) sides of an existing array.
+- Tracking when an element value is in the correct position helps when determining the size of the next partition to recursively sort.
+- There are several situations where the algorithm actually calls itself with invalid values like `lo=6, hi=4` which is surprising but the index values check at the beginning causes an immediate return, saving processing cycles and additional conditional statements elsewhere.
 
 ## Footer
 
