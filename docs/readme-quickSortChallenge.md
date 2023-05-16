@@ -30,9 +30,55 @@ Recursion is used to call functions repeatedly until an exit condition is met. I
 DECLARE: Function Quicksort
 INPUT: Array NumberArray
 OUTPUT: void
-THROWS: NullPointerException
+THROWS: n/a
 
+IF: NumberArray Length EQ 0
+  RETURN: void
+INITIALIZE: FirstIdx <- 0
+INITIALIZE: LastIdx <- NumberArray Length - 1
+INITIALIZE: TempIdx <- LastIdx = FirstIdx + 1
+IF: TempIdx Less Than 2
+  RETURN: void
+INITIALIZE: MiddleIdx <- 0
+IF: TempIdx Modulo 2 EQ 0
+  THEN REASSIGN: MiddleIdx <- TempIdx / 2
+  ELSE REASSIGN: MiddleIdx <- (TempIdx - 1) / 2
+INITIALIZE: LeftIdx <- CALL LeftLoop <- FirstIdx, MiddleIdx, NumberArray
+INITIALIZE: RightIdx <- CALL RightLoop <- MiddleIdx, NumberArray
+CALL: Swap <- LeftIdx, RightIdx
+CALL: Function Quicksort <- FirstIdx, MiddleIdx, LastIdx, NumberArray
 RETURN: void
+```
+
+```text
+DECLARE: Function LeftLoop
+INPUT: LeftIDX, MiddleIDX, NumberArray
+OUTPUT: Number
+THROWS: n/a
+
+IF: LeftIDX Equals MiddleIDX
+  RETURN: MiddleIDX
+INITIALIZE: StoredIDX <- LeftIDX
+ITERATE: IDX from LeftIDX to MiddleIDX Increment 1
+  IF: NumberArray at IDX Greater Or Equal NumberArray at MiddleIDX
+    REASSIGN: StoredIDX <- IDX
+    BREAK
+RETURN: StoredIDX
+```
+
+```text
+DECLARE: Function RightLoop
+INPUT: MiddleIDX, RightIDX, NumberArray
+OUTPUT: Number
+THROWS: n/a
+
+IF: MiddleIDX Equals RightIDX
+  RETURN: MiddleIDX
+INITIALIZE: StoredIDX <- MiddleIDX
+ITERATE: IDX from RightIDX to MiddleIDX Decrement 1
+  IF: NumberArray at RightIDX Less Than NumberARray at MIddleIDX
+    REASSIGN: StoredIDX <- IDX
+RETURN: StoredIDX
 ```
 
 ## Test Approach and Cases
