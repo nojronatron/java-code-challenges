@@ -60,20 +60,22 @@ INITIALIZE: High <- LastIDX
 ITERATE: Do While True
   ITERATE: Do While NumberArray at High Greater Or Equal DividerValue
     REASSIGN: High <- High - 1
-    IF: High Greater Or Equal Low
-      EXECUTE: Break out of this Iterating struct
+    IF: High Less Or Equal Low
+      EXECUTE: Break out of this Iterating structure
   IF: High Less Or Equal Low
     REASSIGN: NumberArray at Low <- DividerValue
-    EXECUTE: Break out of this Iterating struct
+    EXECUTE: Break out of the OUTER Iterating structure
   REASSIGN: NumberArray at Low <- NumberArray at High
   REASSIGN: Low <- Low + 1
   ITERATE: Do While NumberArray at Low Less Than DividerValue
     REASSIGN: Low <- Low + 1
     IF: Low Greater Or Equal To High
-      REASSIGN: Low <- High
-      REASSIGN: NumberArray at High <- DividerValue
-      EXECUTE: Break out of this Iterating struct
-    REASSIGN: NumberArray at High <- NumberArray at Low
+      EXECUTE: Break out of this Iterating structure
+  IF: Low Greater Or Equal To High
+    REASSIGN: Low <- High
+    REASSIGN: NumberArray at High <- DividerValue
+    EXECUTE: Break out of the OUTER Iterating structure
+  REASSIGN: NumberArray at High <- NumberArray at Low
 CALL: Sorter <- FirstIDX, Low - 1, NumbersArray
 CALL: Sorter <- Low + 1, LastIDX, NumbersArray
 RETURN: void
