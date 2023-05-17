@@ -32,21 +32,32 @@ INPUT: Array NumberArray
 OUTPUT: void
 THROWS: n/a
 
-IF: NumberArray Length EQ 0
+IF: NumberArray Length Less Than 2
   RETURN: void
 INITIALIZE: FirstIdx <- 0
 INITIALIZE: LastIdx <- NumberArray Length - 1
-INITIALIZE: TempIdx <- LastIdx = FirstIdx + 1
+CALL: Pivoter <-FirstIdx, LastIdx, NumberArray
+RETURN: void
+```
+
+```text
+DECLARE: Funtion Pivoter
+INPUT: Number FirstIDX, Number LastIDX, Array NumberArray
+OUTPUT: void
+THROWS: n/a
+
+INITIALIZE: MiddleIdx <- 0
+INITIALIZE: TempIdx <- LastIdx - FirstIdx + 1
 IF: TempIdx Less Than 2
   RETURN: void
-INITIALIZE: MiddleIdx <- 0
 IF: TempIdx Modulo 2 EQ 0
   THEN REASSIGN: MiddleIdx <- TempIdx / 2
   ELSE REASSIGN: MiddleIdx <- (TempIdx - 1) / 2
 INITIALIZE: LeftIdx <- CALL LeftLoop <- FirstIdx, MiddleIdx, NumberArray
 INITIALIZE: RightIdx <- CALL RightLoop <- MiddleIdx, NumberArray
-CALL: Swap <- LeftIdx, RightIdx
-CALL: Function Quicksort <- FirstIdx, MiddleIdx, LastIdx, NumberArray
+CALL: Swap <- LeftIdx, RightIdx // this is probably a problem
+CALL: Function Pivoter <- FirstIdx, MiddleIdx, NumberArray
+CALL: Function Pivoter <- MiddleIdx, LastIdx, NumberArray
 RETURN: void
 ```
 
@@ -56,7 +67,7 @@ INPUT: LeftIDX, MiddleIDX, NumberArray
 OUTPUT: Number
 THROWS: n/a
 
-IF: LeftIDX Equals MiddleIDX
+IF: LeftIDX Equals MiddleIDX // should be GTE
   RETURN: MiddleIDX
 INITIALIZE: StoredIDX <- LeftIDX
 ITERATE: IDX from LeftIDX to MiddleIDX Increment 1
@@ -72,11 +83,11 @@ INPUT: MiddleIDX, RightIDX, NumberArray
 OUTPUT: Number
 THROWS: n/a
 
-IF: MiddleIDX Equals RightIDX
+IF: MiddleIDX Equals RightIDX // should be GTE
   RETURN: MiddleIDX
 INITIALIZE: StoredIDX <- MiddleIDX
 ITERATE: IDX from RightIDX to MiddleIDX Decrement 1
-  IF: NumberArray at RightIDX Less Than NumberARray at MIddleIDX
+  IF: NumberArray at IDX Less Than NumberArray at MiddleIDX
     REASSIGN: StoredIDX <- IDX
 RETURN: StoredIDX
 ```
