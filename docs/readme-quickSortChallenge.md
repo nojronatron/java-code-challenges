@@ -158,6 +158,12 @@ In my third attempt I was close however there were edge cases that would:
 
 I took this as a hint to just study a working Quicksort algorithm and get a better understanding of what it is doing (and how), implement it, add a feature (picking a Dividing value), testing the solution, and moving on.
 
+- Avoid tracking values an instead track indices and do comparisons.
+- Make decisions based on index counters within the array, and whether the current index value is greater, lesser, or equal to the target value.
+- Avoid breaking out code into separate methods while developing an algorithm, instead write as few as possible.
+- Once an algorithm is working and as unit testing is added, refactor the code for simpler testing, readability, and modularity.
+- Timebox code challenges. After performing the seven steps, analyze the solution, research a better solution, and prepare to try the challenge again some other time.
+
 ## Footer
 
 Return to [Sorting Algorithms readme](./readme-sortingAlgorithms.md)
