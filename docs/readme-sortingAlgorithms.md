@@ -89,7 +89,7 @@ Not all sorting algorithms can sort all input data.
 - Timsort: Android, Java, and Python implement this. Is a "hybrid of Mergesort, Insertion Sort, and some additional logic". _[Wikipedia Sorting_Algorithms]_
 - Introsort: Hybrid Quicksort and Heapsort. Utilized in some C++ and DotNET implementations. _[Wikipedia Sorting_Algorithms]_
 - Counting Sort and Radix Sort: Used with restricted input data or certain constraints on the input.
-- 
+
 ## Design Steps to Solving Sort Algorithm Challenges
 
 1. Understand the problem, and break it down into its most simple parts.
@@ -108,19 +108,19 @@ Steps 4 through 7 will be recorded in this project directly.
 
 Here is a table of sort algorithms that (over time) will be explored:
 
-- [X] First Shot Sorting (solving without preparatory studying) [first shot sort and bubble sort](#first-shot-java-code)
-- [X] Insertion Sort (simple sorter) [insertion sort](#insertion-sort-java-code)
-- [X] Selection Sort (simple sorter) [selection sort](#selection-sort-java-code)
-- [X] Bubble Sort (educational, variants are Comb and Exchange) [first shot sort and bubble sort](#first-shot-java-code)
+- [x] First Shot Sorting (solving without preparatory studying) [first shot sort and bubble sort](#first-shot-java-code)
+- [x] Insertion Sort (simple sorter) [insertion sort](#insertion-sort-java-code)
+- [x] Selection Sort (simple sorter) [selection sort](#selection-sort-java-code)
+- [x] Bubble Sort (educational, variants are Comb and Exchange) [first shot sort and bubble sort](#first-shot-java-code)
 - [ ] Heap Sort (efficient)
-- [ ] Quick Sort (efficient)
-- [X] Merge Sort (efficient) [mergesort challenge](./readme-mergesortChallenge.md)
+- [ ] Quick Sort (efficient) [quick sort](./readme-quickSortChallenge.md)
+- [x] Merge Sort (efficient) [mergesort challenge](./readme-mergesortChallenge.md)
 - [ ] Shell Sort (efficient)
 - [ ] Counting Sort (distribution sort)
 - [ ] Bucket Sort (distribution sort; Integers only)
 - [ ] Tree Sort (Used to balance BSTs)
 
--- -
+---
 
 ## Selection Sort
 
@@ -207,7 +207,7 @@ RETURN: Void
 - Value replacement is only necessary if the index of the minimum value has been changed.
 - Swapping two values in-place requires creation of a temp variable to store value A, then value A can be replaced with value B, then value B can be replaced with the temp value (A).
 
--- -
+---
 
 ## Insertion Sort
 
@@ -270,7 +270,7 @@ Stepping through the algorithm revealed a few bugs in my initial design:
 
 ### Insertion Sort Analysis
 
-There are three items to consider in analysing space and time: 
+There are three items to consider in analysing space and time:
 
 1. Parent function Insertion sort
 2. LinkedList custom function AddSort
@@ -322,7 +322,7 @@ Edge Cases:
 
 The parent class:
 
-``` text
+```text
 DECLARE: Class InsertionSorter
 DECLARE: Field LinkedList <- null
 ```
@@ -411,7 +411,7 @@ The ToArray function could easily be rewritten as a LinkedList built-in function
 
 A tribute to LL Cool J: `LLNode<J>`
 
--- -
+---
 
 ## First Shot Sorting Algorithm
 
@@ -432,7 +432,7 @@ Expected output: `-5, 0, 5, 10, 15, 20`
 Function will sort the values within the input array in-place.
 
 - Don't bother processing an array that does not have at least 2 elements.
-- Create a tracking mechanism that will allow detection of a sorted array. 
+- Create a tracking mechanism that will allow detection of a sorted array.
 - Use index pointer variables to track locations within the input array.
 - Compare values as pointer 'left' and pointer 'right' and swap index values of the array in-place.
 - Iterate through the array by incrementing both pointers.
@@ -551,7 +551,7 @@ IF: InputArr Length is Greater Than 1
             IF: InputArr at Idx value is Greater Than InputArr at Idx + 1
                 REASSIGN: SortedCount <- 0
                 INITIALIZE: TempValue <- InputArr at Idx value
-                REASSIGN: InputArr at Idx <- InputArr at Idx + 1 value 
+                REASSIGN: InputArr at Idx <- InputArr at Idx + 1 value
                 REASSIGN: InputArr at Idx + 1 <- TempValue
             ELSE:
                 REASSIGN: SortedCount <- Increment 1
