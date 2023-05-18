@@ -38,6 +38,68 @@ public class TestQuicksort {
   }
 
   @Test
+  public void test_GeMiddleIndexFunction() {
+    int first = 0;
+    int length = 3;
+    int expectedResult = 1;
+    assertEquals(expectedResult, Quicksort.getMiddleIndex(first, length));
+
+    first = 0;
+    length = 2;
+    expectedResult = 1;
+    assertEquals(expectedResult, Quicksort.getMiddleIndex(first, length));
+
+    first = 10;
+    length = 3;
+    expectedResult = 11;
+    assertEquals(expectedResult, Quicksort.getMiddleIndex(first, length));
+
+    first = 2;
+    length = 3;
+    expectedResult = 3;
+    assertEquals(expectedResult, Quicksort.getMiddleIndex(first, length));
+
+    first = 10;
+    length = 100;
+    expectedResult = 60;
+    assertEquals(expectedResult, Quicksort.getMiddleIndex(first, length));
+
+    first = 10;
+    length = 99;
+    expectedResult = 59;
+    assertEquals(expectedResult, Quicksort.getMiddleIndex(first, length));
+  }
+
+  @Test
+  public void test_GetDigidingIdxFunction() {
+    int[] inputArr = { 5, 4, 3, 2, 1 };
+    int first = 0;
+    int length = inputArr.length;
+    int expectedResult = 2;
+    assertEquals(expectedResult, Quicksort.getDividingIdx(first, length, inputArr));
+
+    first = 0;
+    length = 2;
+    expectedResult = 1;
+    assertEquals(expectedResult, Quicksort.getDividingIdx(first, length, inputArr));
+
+    first = 0;
+    length = 1;
+    expectedResult = 0;
+    assertEquals(expectedResult, Quicksort.getDividingIdx(first, length, inputArr));
+
+    first = 2;
+    length = 3;
+    expectedResult = 3;
+    assertEquals(expectedResult, Quicksort.getDividingIdx(first, length, inputArr));
+
+    first = 1;
+    length = 3;
+    expectedResult = 2;
+    assertEquals(expectedResult, Quicksort.getDividingIdx(first, length, inputArr));
+  }
+
+  @Test
   public void test_quicksorterTwoTests() {
     int leftIdx = 0;
     int[] inputArr = { 5, 4, 3, 2, 1 };
@@ -212,5 +274,4 @@ public class TestQuicksort {
     result.append(rightBracket);
     System.out.printf("Current array contents: %s%n", result);
   }
-
 }
