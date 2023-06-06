@@ -185,6 +185,26 @@ public class TestQuicksort {
   }
 
   @Test
+  public void test_goldenPathStrings() {
+    var inputArr = new String[] { "foxtrot", "delta", "bravo", "charlie", "golf", "alpha", "echo" };
+    var expectedResult = new String[] { "alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf" };
+    printArray(inputArr);
+    Quicksort.quickSort(inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+  }
+
+  @Test
+  public void test_goldenPathCharacters() {
+    var inputArr = new Character[] { 'f', 'd', 'b', 'c', 'g', 'a', 'e' };
+    var expectedResult = new Character[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' };
+    printArray(inputArr);
+    Quicksort.quickSort(inputArr);
+    printArray(inputArr);
+    assertArrayEquals(expectedResult, inputArr);
+  }
+
+  @Test
   public void test_largeRandomInput() {
     int expectedLength = 5_000_000;
     Integer[] duplicateArr = new Integer[expectedLength];
