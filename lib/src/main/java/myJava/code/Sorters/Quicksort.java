@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Quicksort {
   /**
-   * Entrypoint for Quicksort algorithm.
+   * Entrypoint for Quicksort algorithm for integer array.
    * 
    * @param numberArray
    * @throws NullPointerException
    */
-  public static void quickSort(int[] numberArray) throws NullPointerException {
+  public static <T extends Comparable<T>> void quickSort(T[] numberArray) throws NullPointerException {
     if (numberArray.length < 2) {
       return;
     }
@@ -19,6 +19,17 @@ public class Quicksort {
     Quicksort.quicksorter(firstIdx, lastIdx, numberArray);
     return;
   }
+
+  // public static void quickSort(int[] numberArray) throws NullPointerException {
+  // if (numberArray.length < 2) {
+  // return;
+  // }
+
+  // int firstIdx = 0;
+  // int lastIdx = numberArray.length - 1;
+  // Quicksort.quicksorter(firstIdx, lastIdx, numberArray);
+  // return;
+  // }
 
   /**
    * Recursively searches a subarray and sorts it in-place using Quicksort
@@ -30,7 +41,7 @@ public class Quicksort {
    * @param lastIdx
    * @param numberArray
    */
-  public static void quicksorter(int firstIdx, int lastIdx, int[] numberArray) {
+  public static <T extends Comparable<T>> void quicksorter(int firstIdx, int lastIdx, T[] numberArray) {
     int arrayLength = lastIdx - firstIdx + 1;
 
     // return if the array has fewer than 2 elements.
@@ -40,7 +51,7 @@ public class Quicksort {
 
     // find a useful dividing value and store it
     int dividingIdx = getDividingIdx(firstIdx, arrayLength, numberArray);
-    int dividerValue = numberArray[dividingIdx];
+    T dividerValue = numberArray[dividingIdx];
 
     // swap the 1st array item with the dividing value
     swap(firstIdx, dividingIdx, numberArray);
@@ -51,7 +62,7 @@ public class Quicksort {
 
     while (keepGoing) {
       // find value on the right side of array that is smaller than dividing value
-      while (numberArray[high] >= dividerValue) {
+      while (numberArray[high].compareTo(dividerValue) > 0) {
         high--;
         if (high <= low) {
           // high now holds index of element with value smaller than dividing value
@@ -74,7 +85,7 @@ public class Quicksort {
       low++;
 
       // find value on left side of array that is greater than dividing value
-      while (numberArray[low] < dividerValue) {
+      while (numberArray[low].compareTo(dividerValue) < 0) {
         low++;
         if (low >= high) {
           // low now holds index of element with value greater than dividing value
@@ -111,15 +122,23 @@ public class Quicksort {
    * @param numberArray
    * @return int value
    */
-  public static int getDividingIdx(int firstIdx, int arrayLength, int[] numberArray) {
+  public static <T extends Comparable<T>> int getDividingIdx(int firstIdx, int arrayLength, T[] numberArray) {
     int midIdx = getMiddleIndex(firstIdx, arrayLength);
     int lastIdx = arrayLength - 1 + firstIdx;
-    ArrayList<Integer> subArr = new ArrayList<>();
+    ArrayList<T> subArr = new ArrayList<>();
     // 1, 2, 3
-    int higher = Math.max(numberArray[firstIdx], numberArray[midIdx]); // 2
-    subArr.add(Math.max(higher, numberArray[lastIdx])); // 3
-    int lower = Math.min(numberArray[firstIdx], numberArray[midIdx]); // 1
-    subArr.add(Math.min(lower, numberArray[lastIdx])); // 1
+    // int higher = Math.max(numberArray[firstIdx], numberArray[midIdx]); // 2
+    // subArr.add(Math.max(higher, numberArray[lastIdx])); // 3
+    // int lower = Math.min(numberArray[firstIdx], numberArray[midIdx]); // 1
+    // subArr.add(Math.min(lower, numberArray[lastIdx])); // 1
+    T largerValue = numberArray[firstIdx].compareTo(numberArray[midIdx]) > 0 ? numberArray[firstIdx]
+        : numberArray[midIdx];
+    T largestValue = largerValue.compareTo(numberArray[lastIdx]) > 0 ? largerValue : numberArray[lastIdx];
+    subArr.add(largestValue);
+    T smallerValue = numberArray[firstIdx].compareTo(numberArray[midIdx]) < 0 ? numberArray[firstIdx]
+        : numberArray[midIdx];
+    T smallestValue = smallerValue.compareTo(numberArray[lastIdx]) < 0 ? smallerValue : numberArray[lastIdx];
+    subArr.add(smallestValue);
 
     if (!subArr.contains(numberArray[firstIdx])) {
       return firstIdx;
@@ -155,8 +174,8 @@ public class Quicksort {
    * @param rightIdx
    * @param numberArray
    */
-  public static void swap(int leftIdx, int rightIdx, int[] numberArray) {
-    int temp = numberArray[leftIdx];
+  public static <T extends Comparable<T>> void swap(int leftIdx, int rightIdx, T[] numberArray) {
+    T temp = numberArray[leftIdx];
     numberArray[leftIdx] = numberArray[rightIdx];
     numberArray[rightIdx] = temp;
     return;
