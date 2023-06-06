@@ -25,8 +25,8 @@ Recursion is used to call functions repeatedly until an exit condition is met. I
 
 ### Additional Design Considerations
 
-- [ ] I want to be able to sort any Number types, to applying an appropriate Generic Interface will be necessary.
-- [ ] In the future it would be great to allow sorting other types beyond Numbers.
+- [x] Sort any Number types, to applying an appropriate Generic Interface will be necessary.
+- [x] Allow sorting other types beyond Numbers.
 
 ## Pseudocode
 
