@@ -113,7 +113,7 @@ Here is a table of sort algorithms that (over time) will be explored:
 - [x] Selection Sort (simple sorter) [selection sort](#selection-sort-java-code)
 - [x] Bubble Sort (educational, variants are Comb and Exchange) [first shot sort and bubble sort](#first-shot-java-code)
 - [ ] Heap Sort (efficient)
-- [ ] Quick Sort (efficient) [quick sort](./readme-quickSortChallenge.md)
+- [x] Quicksort (efficient) [quicksort](./readme-quickSortChallenge.md)
 - [x] Merge Sort (efficient) [mergesort challenge](./readme-mergesortChallenge.md)
 - [ ] Shell Sort (efficient)
 - [ ] Counting Sort (distribution sort)
