@@ -91,9 +91,39 @@ Space:
 
 ## Pseudocode
 
+```text
+DECLARE: Function RowSums()
+INPUT: int 2darray InputArr
+OUTPUT: int array ResultArr
+THROWS: n/a
+
+IF: InputArr is null or empty
+  RETURN: empty array
+INITIALIZE: int ResultArr <- new int array size InputArr.length
+ITERATE: int OuterIdx 0, OuterIdx Less Than InputArr Length, OuterIdx increment 1
+  INITIALIZE: int RowSum <- 0
+  INITIALIZE: int Row <- inputArr at index OuterIdx
+  ITERATE: int InnerIdx 0, InnerIdx Less Than Row Length, InnerIdx increment 1
+    INITIALIZE: int ItemValue <- Row at index InnerIdx
+    IF: ItemValue is null
+      ASSIGN: Value <- 0
+    ENDIF
+    ASSIGN: RowSum <- RowSum + Value
+  ASSIGN: ResultArr at index OuterIdx <- RowSum
+RETURN: ResultArr
+```
+
 ## Java Code and Unit Tests
 
+- [SumRowsIn2DArray Java Code](..\lib\src\main\java\myJava\code\challenges\SumRowsIn2DArray.java)
+- [Unit Test SumRowsIn2DArray](..\lib\src\test\java\myJava\code\challenges\SumRowsIn2DArrayTest.java)
+
 ## Retrospective
+
+- While an int[] array can be null, the values in each index _must_ be initialized as a primitive int value, so nulls are not possible.
+- A multi-dimentional array can contain an int[] array that is null, and the code must recognize that and treat it as an array full of zeros.
+- The pseudocode will fail because of the previous two points.
+- The pseudocode _does_ fix a bug in my original design where I attempted to reference a variable 'row' outside of the inner loop. See code comments in the Java Code link.
 
 ## Footer
 
