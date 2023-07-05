@@ -46,4 +46,4 @@ The following index links to readme files specific for each data structure and c
 - [x] Challenge: [Convert Integer to Roman Numeral](docs/readme-intToRomanNumeralChallenge.md)
 - [x] Challenge: [Rotate 3x3 Matrix Of Integers](docs/readme-rotateIntegerMatrixChallenge.md)
 - [x] Challenge: [Largest Possible Product](docs/readme-largestPossibleProductChallenge.md)
-- [ ] Challenge: [Sum Rows in 2D Array](docs/readme-sumRowsIn2DArrayChallenge.md)
+- [x] Challenge: [Sum Rows in 2D Array](docs/readme-sumRowsIn2DArrayChallenge.md)
